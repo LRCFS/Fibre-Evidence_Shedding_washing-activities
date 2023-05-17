@@ -8,9 +8,9 @@
 W000_Dataset$Coder <- "W000"
 W001_Dataset$Coder <- "W001"
 W002_Dataset$Coder <- "W002"
-# W003_Dataset$Coder <- "W003"
-# W004_Dataset$Coder <- "W004"
-# W005_Dataset$Coder <- "W005"
+W003_Dataset$Coder <- "W003"
+W004_Dataset$Coder <- "W004"
+W005_Dataset$Coder <- "W005"
 # W006_Dataset$Coder <- "W006"
 # W007_Dataset$Coder <- "W007"
 # W008_Dataset$Coder <- "W008"
@@ -26,9 +26,9 @@ W002_Dataset$Coder <- "W002"
 W000negative <- W000_Dataset %>% filter(grepl('negative', Sample))
 W001negative <- W001_Dataset %>% filter(grepl('negative', Sample))
 W002negative <- W002_Dataset %>% filter(grepl('negative', Sample))
-# W003negative <- W003_Dataset %>% filter(grepl('negative', Sample))
-# W004negative <- W004_Dataset %>% filter(grepl('negative', Sample))
-# W005negative <- W005_Dataset %>% filter(grepl('negative', Sample))
+W003negative <- W003_Dataset %>% filter(grepl('negative', Sample))
+W004negative <- W004_Dataset %>% filter(grepl('negative', Sample))
+W005negative <- W005_Dataset %>% filter(grepl('negative', Sample))
 # W006negative <- W006_Dataset %>% filter(grepl('negative', Sample))
 # W007negative <- W007_Dataset %>% filter(grepl('negative', Sample))
 # W008negative <- W008_Dataset %>% filter(grepl('negative', Sample))
@@ -41,7 +41,7 @@ W002negative <- W002_Dataset %>% filter(grepl('negative', Sample))
 # W015negative <- W015_Dataset %>% filter(grepl('negative', Sample))
 
 # Create a data frame "Negativecontrol" with all the negative controls 
-Negativecontrol <- rbind(W000negative,W001negative, W002negative)
+Negativecontrol <- rbind(W000negative,W001negative, W002negative, W003negative, W004negative, W005negative)
 
 # Calculate the number of background fibres
 Negativecontrol$Diff <- Negativecontrol$`After transfer` - Negativecontrol$`Before transfer`
@@ -74,9 +74,9 @@ show(pNegativecontrol)
 W000positive <- W000_Dataset %>% filter(grepl('positive', Sample))
 W001positive <- W001_Dataset %>% filter(grepl('positive', Sample))
 W002positive <- W002_Dataset %>% filter(grepl('positive', Sample))
-# W003positive <- W003_Dataset %>% filter(grepl('positive', Sample))
-# W004positive <- W004_Dataset %>% filter(grepl('positive', Sample))
-# W005positive <- W005_Dataset %>% filter(grepl('positive', Sample))
+W003positive <- W003_Dataset %>% filter(grepl('positive', Sample))
+W004positive <- W004_Dataset %>% filter(grepl('positive', Sample))
+W005positive <- W005_Dataset %>% filter(grepl('positive', Sample))
 # W006positive <- W006_Dataset %>% filter(grepl('positive', Sample))
 # W007positive <- W007_Dataset %>% filter(grepl('positive', Sample))
 # W008positive <- W008_Dataset %>% filter(grepl('positive', Sample))
@@ -88,7 +88,7 @@ W002positive <- W002_Dataset %>% filter(grepl('positive', Sample))
 # W014positive <- W014_Dataset %>% filter(grepl('positive', Sample))
 # W015positive <- W015_Dataset %>% filter(grepl('positive', Sample))
 
-Positivecontrol <- rbind(W000positive,W001positive, W002positive)
+Positivecontrol <- rbind(W000positive,W001positive, W002positive, W003positive, W004positive, W005positive)
 Positivecontrol$Diff <- Positivecontrol$`After transfer` - Positivecontrol$`Before transfer`
 
 # if value = 0, no difference. if value > 0, fibre there before and not after. if value < 0, fibre there not before but after
@@ -131,22 +131,12 @@ pControls <- annotate_figure(pControls_pending, left = textGrob("Number of fibre
 # ggsave("Controls.png", pControls, width = 6, height = 6, units = "in", dpi=150, path = "Results")
 
 #### Creating dataset with only column Coder and After transfer after removing the positive and negative control ####
-forFibreCount0<- W000_Dataset[!(W000_Dataset$Sample=="W000_positive" | W000_Dataset$Sample=="W000_negative"),]
-forFibreCount1<- W001_Dataset[!(W001_Dataset$Sample=="W001_positive" | W001_Dataset$Sample=="W001_negative"),]
-forFibreCount2<- W002_Dataset[!(W002_Dataset$Sample=="W002_positive" | W002_Dataset$Sample=="W002_negative"),]
-# forFibreCount3<- W003_Dataset[!(W003_Dataset$Sample=="W003_positive" | W003_Dataset$Sample=="W003_negative"),]
-# forFibreCount4<- W004_Dataset[!(W004_Dataset$Sample=="W004_positive" | W004_Dataset$Sample=="W004_negative"),]
-# forFibreCount5<- W005_Dataset[!(W005_Dataset$Sample=="W005_positive" | W005_Dataset$Sample=="W005_negative"),]
-# forFibreCount6<- W006_Dataset[!(W006_Dataset$Sample=="W006_positive" | W006_Dataset$Sample=="W006_negative"),]
-# forFibreCount7<- W007_Dataset[!(W007_Dataset$Sample=="W007_positive" | W007_Dataset$Sample=="W007_negative"),]
-# forFibreCount8<- W008_Dataset[!(W008_Dataset$Sample=="W008_positive" | W008_Dataset$Sample=="W008_negative"),]
-# forFibreCount9<- W009_Dataset[!(W009_Dataset$Sample=="W009_positive" | W009_Dataset$Sample=="W009_negative"),]
-# forFibreCount10<- W010_Dataset[!(W010_Dataset$Sample=="W010_positive" | W010_Dataset$Sample=="W010_negative"),]
-# forFibreCount11<- W011_Dataset[!(W011_Dataset$Sample=="W011_positive" | W011_Dataset$Sample=="W011_negative"),]
-# forFibreCount12<- W012_Dataset[!(W012_Dataset$Sample=="W012_positive" | W012_Dataset$Sample=="W012_negative"),]
-# forFibreCount13<- W013_Dataset[!(W013_Dataset$Sample=="W013_positive" | W013_Dataset$Sample=="W013_negative"),]
-# forFibreCount14<- W014_Dataset[!(W014_Dataset$Sample=="W014_positive" | W014_Dataset$Sample=="W014_negative"),]
-# forFibreCount15<- W015_Dataset[!(W015_Dataset$Sample=="W015_positive" | W015_Dataset$Sample=="W015_negative"),]
+forFibreCount0<- W000_Dataset[!(W000_Dataset$Sample=="MP_W000_G1_positive_B" | W000_Dataset$Sample=="MP_W000_G1_negative_B"),]
+forFibreCount1<- W001_Dataset[!(W001_Dataset$Sample=="MP_W001_G1_positive_B" | W001_Dataset$Sample=="MP_W001_G1_negative_B"),]
+forFibreCount2<- W002_Dataset[!(W002_Dataset$Sample=="MP_W002_G1_positive_B" | W002_Dataset$Sample=="MP_W002_G1_negative_B"),]
+forFibreCount3<- W003_Dataset[!(W003_Dataset$Sample=="MP_W003_G1_positive_B" | W003_Dataset$Sample=="MP_W003_G1_negative_B"),]
+forFibreCount4<- W004_Dataset[!(W004_Dataset$Sample=="MP_W004_G1_positive_B" | W004_Dataset$Sample=="MP_W004_G1_negative_B"),]
+forFibreCount5<- W005_Dataset[!(W005_Dataset$Sample=="MP_W005_G1_positive_B" | W005_Dataset$Sample=="MP_W005_G1_negative_B"),]
 
 #########################################################
 #####           ANALYSE OF THE BACKGROUND           #####
@@ -158,12 +148,12 @@ BackgroundW001 <- forFibreCount1 %>%
   dplyr::select(Coder,`Before transfer`)
 BackgroundW002 <- forFibreCount2 %>%
   dplyr::select(Coder,`Before transfer`)
-# BackgroundW003 <- forFibreCount3 %>%
-#   dplyr::select(Coder,`Before transfer`)
-# BackgroundW004 <- forFibreCount4 %>%
-#   dplyr::select(Coder,`Before transfer`)
-# BackgroundW005 <- forFibreCount5 %>%
-#   dplyr::select(Coder,`Before transfer`)
+BackgroundW003 <- forFibreCount3 %>%
+  dplyr::select(Coder,`Before transfer`)
+BackgroundW004 <- forFibreCount4 %>%
+  dplyr::select(Coder,`Before transfer`)
+BackgroundW005 <- forFibreCount5 %>%
+  dplyr::select(Coder,`Before transfer`)
 # BackgroundW006 <- forFibreCount6 %>%
 #   dplyr::select(Coder,`Before transfer`)
 # BackgroundW007 <- forFibreCount7 %>%
@@ -186,7 +176,7 @@ BackgroundW002 <- forFibreCount2 %>%
 #   dplyr::select(Coder,`Before transfer`)
 
 #### Combine all the dataframe ####
-BackgroundFibreCount <- rbind(BackgroundW000, BackgroundW001, BackgroundW002)
+BackgroundFibreCount <- rbind(BackgroundW000, BackgroundW001, BackgroundW002, BackgroundW003, BackgroundW004,BackgroundW005)
 names(BackgroundFibreCount) <- c("group", "value")
 # write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
@@ -203,12 +193,12 @@ TransferW001 <- forFibreCount1 %>%
   dplyr::select(Coder,`After transfer`)
 TransferW002 <- forFibreCount2 %>%
   dplyr::select(Coder,`After transfer`)
-# TransferW003 <- forFibreCount3 %>%
-#   dplyr::select(Coder,`After transfer`)
-# TransferW004 <- forFibreCount4 %>%
-#   dplyr::select(Coder,`After transfer`)
-# TransferW005 <- forFibreCount5 %>%
-#   dplyr::select(Coder,`After transfer`)
+TransferW003 <- forFibreCount3 %>%
+  dplyr::select(Coder,`After transfer`)
+TransferW004 <- forFibreCount4 %>%
+  dplyr::select(Coder,`After transfer`)
+TransferW005 <- forFibreCount5 %>%
+  dplyr::select(Coder,`After transfer`)
 # TransferW006 <- forFibreCount6 %>%
 #   dplyr::select(Coder,`After transfer`)
 # TransferW007 <- forFibreCount7 %>%
@@ -231,12 +221,12 @@ TransferW002 <- forFibreCount2 %>%
 #   dplyr::select(Coder,`After transfer`)
 
 #### Combine all the dataframe ####
-TransferFibreCount <- rbind(TransferW000, TransferW001, TransferW002)
+TransferFibreCount <- rbind(TransferW000, TransferW001, TransferW002, TransferW003, TransferW004,TransferW005)
 names(TransferFibreCount) <- c("group", "value")
 # write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
 #### Bar plots of data by group - distribution ####
-histogram(~ value | group,data=TransferFibreCount,layout=c(3,1),
+histogram(~ value | group,data=TransferFibreCount,layout=c(3,3),
           xlab="Number of fibres")
 
 #### Create a table with descriptive statistics ####
@@ -264,162 +254,131 @@ pAtr <- ggplot(TransferFibreCount, aes(x=group, y=value)) +
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
 show(pAtr)
+# ggplotly(pAtr)
 ggsave("Fibre Count boxplot_ATr.png", pAtr, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
 #########################################################
 #####                  SHEDDING TEST                #####
 #########################################################
-Shedding <- read.csv('./Fibre count Summary/Shedding_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding <- read.csv('./Fibre count Summary/SH_W000-W003_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
 Shedding$Slice<- gsub(".TIF","",Shedding$Slice)
 SheddingExtended <- data.frame(str_split(Shedding$Slice, "_", simplify=TRUE))
-names(SheddingExtended) <- c("Garment","Weight","Repeat","condition")
+names(SheddingExtended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
 SheddingTotal <- cbind(SheddingExtended,Area=Shedding$Total.Area)
 
 # Convert Area from inch2 to mm2
 # 1 pixel = 1 x10^-5 inch2, so (Area*1)/0.000011 to convert into px
 SheddingTotal$Area.px <- (SheddingTotal$Area*1)/0.000011
-# 1 mm = 112 pixels, 1mm2 = 12544 px
-SheddingTotal$Area.mm2 <- SheddingTotal$Area.px/12544
+# 1 mm = 110 pixels, 1mm2 = 12100 px
+SheddingTotal$Area.mm2 <- SheddingTotal$Area.px/12100
 
 # Split data per garments
-SheddingRed <- SheddingTotal[SheddingTotal$Garment =='Red',]
-SheddingYellow <- SheddingTotal[SheddingTotal$Garment =='Yellow',]
-
-# Split data per washing condition
-DataAreaRedunwashed <- SheddingRed[SheddingRed$condition =='unwashed',]
-DataAreaRedwashed <- SheddingRed[SheddingRed$condition =='washed',]
-DataAreaYellowunwashed <- SheddingYellow[SheddingYellow$condition =='unwashed',]
-DataAreaYellowwashed <- SheddingYellow[SheddingYellow$condition =='washed',]
-
-# for Appendix
-write.table(DataAreaRedunwashed, file = "Shedding red garment unwashed.csv", quote = F, sep = ",", row.names = F)
-write.table(DataAreaRedwashed, file = "Shedding red garment washed.csv", quote = F, sep = ",", row.names = F)
-write.table(DataAreaYellowunwashed, file = "Shedding yellow garment unwashed.csv", quote = F, sep = ",", row.names = F)
-write.table(DataAreaYellowwashed, file = "Shedding yellow garment washed.csv", quote = F, sep = ",", row.names = F)
+SheddingW000 <- SheddingTotal[SheddingTotal$Wash =='W000',]
+SheddingW001 <- SheddingTotal[SheddingTotal$Wash =='W001',]
+SheddingW003 <- SheddingTotal[SheddingTotal$Wash =='W003',]
 
 # split per weight - unwashed
-DataAreaRedunwashed100 <- DataAreaRedunwashed[DataAreaRedunwashed$Weight =='100g',]
-DataAreaRedunwashed200 <- DataAreaRedunwashed[DataAreaRedunwashed$Weight =='200g',]
-DataAreaRedunwashed400 <- DataAreaRedunwashed[DataAreaRedunwashed$Weight =='400g',]
-DataAreaRedunwashed800 <- DataAreaRedunwashed[DataAreaRedunwashed$Weight =='800g',]
-DataAreaRedunwashed1000 <- DataAreaRedunwashed[DataAreaRedunwashed$Weight =='1000g',]
+DataAreaSheddingW000.100 <- SheddingW000[SheddingW000$Weight =='100g',]
+DataAreaSheddingW000.200 <- SheddingW000[SheddingW000$Weight =='200g',]
+DataAreaSheddingW000.400 <- SheddingW000[SheddingW000$Weight =='400g',]
+DataAreaSheddingW000.800 <- SheddingW000[SheddingW000$Weight =='800g',]
+DataAreaSheddingW000.1000 <- SheddingW000[SheddingW000$Weight =='1000g',]
+DataAreaSheddingW000.2000 <- SheddingW000[SheddingW000$Weight =='2000g',]
 
-DataAreaYellowunwashed100 <- DataAreaYellowunwashed[DataAreaYellowunwashed$Weight =='100g',]
-DataAreaYellowunwashed200 <- DataAreaYellowunwashed[DataAreaYellowunwashed$Weight =='200g',]
-DataAreaYellowunwashed400 <- DataAreaYellowunwashed[DataAreaYellowunwashed$Weight =='400g',]
-DataAreaYellowunwashed800 <- DataAreaYellowunwashed[DataAreaYellowunwashed$Weight =='800g',]
-DataAreaYellowunwashed1000 <- DataAreaYellowunwashed[DataAreaYellowunwashed$Weight =='1000g',]
+DataAreaSheddingW001.100 <- SheddingW001[SheddingW001$Weight =='100g',]
+DataAreaSheddingW001.200 <- SheddingW001[SheddingW001$Weight =='200g',]
+DataAreaSheddingW001.400 <- SheddingW001[SheddingW001$Weight =='400g',]
+DataAreaSheddingW001.800 <- SheddingW001[SheddingW001$Weight =='800g',]
+DataAreaSheddingW001.1000 <- SheddingW001[SheddingW001$Weight =='1000g',]
+DataAreaSheddingW001.2000 <- SheddingW001[SheddingW001$Weight =='2000g',]
 
-# split per weight - washed
-DataAreaRedwashed100 <- DataAreaRedwashed[DataAreaRedwashed$Weight =='100g',]
-DataAreaRedwashed200 <- DataAreaRedwashed[DataAreaRedwashed$Weight =='200g',]
-DataAreaRedwashed400 <- DataAreaRedwashed[DataAreaRedwashed$Weight =='400g',]
-DataAreaRedwashed800 <- DataAreaRedwashed[DataAreaRedwashed$Weight =='800g',]
-DataAreaRedwashed1000 <- DataAreaRedwashed[DataAreaRedwashed$Weight =='1000g',]
-
-DataAreaYellowwashed100 <- DataAreaYellowwashed[DataAreaYellowwashed$Weight =='100g',]
-DataAreaYellowwashed200 <- DataAreaYellowwashed[DataAreaYellowwashed$Weight =='200g',]
-DataAreaYellowwashed400 <- DataAreaYellowwashed[DataAreaYellowwashed$Weight =='400g',]
-DataAreaYellowwashed800 <- DataAreaYellowwashed[DataAreaYellowwashed$Weight =='800g',]
-DataAreaYellowwashed1000 <- DataAreaYellowwashed[DataAreaYellowwashed$Weight =='1000g',]
+DataAreaSheddingW003.100 <- SheddingW003[SheddingW003$Weight =='100g',]
+DataAreaSheddingW003.200 <- SheddingW003[SheddingW003$Weight =='200g',]
+DataAreaSheddingW003.400 <- SheddingW003[SheddingW003$Weight =='400g',]
+DataAreaSheddingW003.800 <- SheddingW003[SheddingW003$Weight =='800g',]
+DataAreaSheddingW003.1000 <- SheddingW003[SheddingW003$Weight =='1000g',]
+DataAreaSheddingW003.2000 <- SheddingW003[SheddingW003$Weight =='2000g',]
 
 # Calculation of mean and SD
-meanDataAreaRedunwashed100<- data.frame(meanArea=round(mean(DataAreaRedunwashed100$Area.mm2),digits =2 ))
-meanDataAreaRedunwashed100$SD<- round(sd(DataAreaRedunwashed100$Area.mm2),digits =2 )
-meanDataAreaRedunwashed100$Weight <- "100g"
-meanDataAreaRedunwashed200<- data.frame(meanArea=round(mean(DataAreaRedunwashed200$Area.mm2),digits =2 ))
-meanDataAreaRedunwashed200$SD<- round(sd(DataAreaRedunwashed200$Area.mm2),digits =2 )
-meanDataAreaRedunwashed200$Weight <- "200g"
-meanDataAreaRedunwashed400<- data.frame(meanArea=round(mean(DataAreaRedunwashed400$Area.mm2),digits =2 ))
-meanDataAreaRedunwashed400$SD<- round(sd(DataAreaRedunwashed400$Area.mm2),digits =2 )
-meanDataAreaRedunwashed400$Weight <- "400g"
-meanDataAreaRedunwashed800<- data.frame(meanArea=round(mean(DataAreaRedunwashed800$Area.mm2),digits =2 ))
-meanDataAreaRedunwashed800$SD<- round(sd(DataAreaRedunwashed800$Area.mm2),digits =2 )
-meanDataAreaRedunwashed800$Weight <- "800g"
-meanDataAreaRedunwashed1000<- data.frame(meanArea=round(mean(DataAreaRedunwashed1000$Area.mm2),digits =2 ))
-meanDataAreaRedunwashed1000$SD<- round(sd(DataAreaRedunwashed1000$Area.mm2),digits =2 )
-meanDataAreaRedunwashed1000$Weight <- "1000g"
+meanDataAreaSheddingW000.100<- data.frame(meanArea=round(mean(DataAreaSheddingW000.100$Area.mm2),digits =2 ))
+meanDataAreaSheddingW000.100$SD<- round(sd(DataAreaSheddingW000.100$Area.mm2),digits =2 )
+meanDataAreaSheddingW000.100$Weight <- "100g"
+meanDataAreaSheddingW000.200<- data.frame(meanArea=round(mean(DataAreaSheddingW000.200$Area.mm2),digits =2 ))
+meanDataAreaSheddingW000.200$SD<- round(sd(DataAreaSheddingW000.200$Area.mm2),digits =2 )
+meanDataAreaSheddingW000.200$Weight <- "200g"
+meanDataAreaSheddingW000.400<- data.frame(meanArea=round(mean(DataAreaSheddingW000.400$Area.mm2),digits =2 ))
+meanDataAreaSheddingW000.400$SD<- round(sd(DataAreaSheddingW000.400$Area.mm2),digits =2 )
+meanDataAreaSheddingW000.400$Weight <- "400g"
+meanDataAreaSheddingW000.800<- data.frame(meanArea=round(mean(DataAreaSheddingW000.800$Area.mm2),digits =2 ))
+meanDataAreaSheddingW000.800$SD<- round(sd(DataAreaSheddingW000.800$Area.mm2),digits =2 )
+meanDataAreaSheddingW000.800$Weight <- "800g"
+meanDataAreaSheddingW000.1000<- data.frame(meanArea=round(mean(DataAreaSheddingW000.1000$Area.mm2),digits =2 ))
+meanDataAreaSheddingW000.1000$SD<- round(sd(DataAreaSheddingW000.1000$Area.mm2),digits =2 )
+meanDataAreaSheddingW000.1000$Weight <- "1000g"
+meanDataAreaSheddingW000.2000<- data.frame(meanArea=round(mean(DataAreaSheddingW000.2000$Area.mm2),digits =2 ))
+meanDataAreaSheddingW000.2000$SD<- round(sd(DataAreaSheddingW000.2000$Area.mm2),digits =2 )
+meanDataAreaSheddingW000.2000$Weight <- "2000g"
 
-meanDataAreaYellowunwashed100<- data.frame(meanArea=round(mean(DataAreaYellowunwashed100$Area.mm2),digits =2 ))
-meanDataAreaYellowunwashed100$SD<- round(sd(DataAreaYellowunwashed100$Area.mm2),digits =2 )
-meanDataAreaYellowunwashed100$Weight <- "100g"
-meanDataAreaYellowunwashed200<- data.frame(meanArea=round(mean(DataAreaYellowunwashed200$Area.mm2),digits =2 ))
-meanDataAreaYellowunwashed200$SD<- round(sd(DataAreaYellowunwashed200$Area.mm2),digits =2 )
-meanDataAreaYellowunwashed200$Weight <- "200g"
-meanDataAreaYellowunwashed400<- data.frame(meanArea=round(mean(DataAreaYellowunwashed400$Area.mm2),digits =2 ))
-meanDataAreaYellowunwashed400$SD<- round(sd(DataAreaYellowunwashed400$Area.mm2),digits =2 )
-meanDataAreaYellowunwashed400$Weight <- "400g"
-meanDataAreaYellowunwashed800<- data.frame(meanArea=round(mean(DataAreaYellowunwashed800$Area.mm2),digits =2 ))
-meanDataAreaYellowunwashed800$SD<- round(sd(DataAreaYellowunwashed800$Area.mm2),digits =2 )
-meanDataAreaYellowunwashed800$Weight <- "800g"
-meanDataAreaYellowunwashed1000<- data.frame(meanArea=round(mean(DataAreaYellowunwashed1000$Area.mm2),digits =2 ))
-meanDataAreaYellowunwashed1000$SD<- round(sd(DataAreaYellowunwashed1000$Area.mm2),digits =2 )
-meanDataAreaYellowunwashed1000$Weight <- "1000g"
+meanDataAreaSheddingW001.100<- data.frame(meanArea=round(mean(DataAreaSheddingW001.100$Area.mm2),digits =2 ))
+meanDataAreaSheddingW001.100$SD<- round(sd(DataAreaSheddingW001.100$Area.mm2),digits =2 )
+meanDataAreaSheddingW001.100$Weight <- "100g"
+meanDataAreaSheddingW001.200<- data.frame(meanArea=round(mean(DataAreaSheddingW001.200$Area.mm2),digits =2 ))
+meanDataAreaSheddingW001.200$SD<- round(sd(DataAreaSheddingW001.200$Area.mm2),digits =2 )
+meanDataAreaSheddingW001.200$Weight <- "200g"
+meanDataAreaSheddingW001.400<- data.frame(meanArea=round(mean(DataAreaSheddingW001.400$Area.mm2),digits =2 ))
+meanDataAreaSheddingW001.400$SD<- round(sd(DataAreaSheddingW001.400$Area.mm2),digits =2 )
+meanDataAreaSheddingW001.400$Weight <- "400g"
+meanDataAreaSheddingW001.800<- data.frame(meanArea=round(mean(DataAreaSheddingW001.800$Area.mm2),digits =2 ))
+meanDataAreaSheddingW001.800$SD<- round(sd(DataAreaSheddingW001.800$Area.mm2),digits =2 )
+meanDataAreaSheddingW001.800$Weight <- "800g"
+meanDataAreaSheddingW001.1000<- data.frame(meanArea=round(mean(DataAreaSheddingW001.1000$Area.mm2),digits =2 ))
+meanDataAreaSheddingW001.1000$SD<- round(sd(DataAreaSheddingW001.1000$Area.mm2),digits =2 )
+meanDataAreaSheddingW001.1000$Weight <- "1000g"
+meanDataAreaSheddingW001.2000<- data.frame(meanArea=round(mean(DataAreaSheddingW001.2000$Area.mm2),digits =2 ))
+meanDataAreaSheddingW001.2000$SD<- round(sd(DataAreaSheddingW001.2000$Area.mm2),digits =2 )
+meanDataAreaSheddingW001.2000$Weight <- "2000g"
 
-meanDataAreaRedwashed100<- data.frame(meanArea=round(mean(DataAreaRedwashed100$Area.mm2),digits =2 ))
-meanDataAreaRedwashed100$SD<- round(sd(DataAreaRedwashed100$Area.mm2),digits =2 )
-meanDataAreaRedwashed100$Weight <- "100g"
-meanDataAreaRedwashed200<- data.frame(meanArea=round(mean(DataAreaRedwashed200$Area.mm2),digits =2 ))
-meanDataAreaRedwashed200$SD<- round(sd(DataAreaRedwashed200$Area.mm2),digits =2 )
-meanDataAreaRedwashed200$Weight <- "200g"
-meanDataAreaRedwashed400<- data.frame(meanArea=round(mean(DataAreaRedwashed400$Area.mm2),digits =2 ))
-meanDataAreaRedwashed400$SD<- round(sd(DataAreaRedwashed400$Area.mm2),digits =2 )
-meanDataAreaRedwashed400$Weight <- "400g"
-meanDataAreaRedwashed800<- data.frame(meanArea=round(mean(DataAreaRedwashed800$Area.mm2),digits =2 ))
-meanDataAreaRedwashed800$SD<- round(sd(DataAreaRedwashed800$Area.mm2),digits =2 )
-meanDataAreaRedwashed800$Weight <- "800g"
-meanDataAreaRedwashed1000<- data.frame(meanArea=round(mean(DataAreaRedwashed1000$Area.mm2),digits =2 ))
-meanDataAreaRedwashed1000$SD<- round(sd(DataAreaRedwashed1000$Area.mm2),digits =2 )
-meanDataAreaRedwashed1000$Weight <- "1000g"
-
-meanDataAreaYellowwashed100<- data.frame(meanArea=round(mean(DataAreaYellowwashed100$Area.mm2),digits =2 ))
-meanDataAreaYellowwashed100$SD<- round(sd(DataAreaYellowwashed100$Area.mm2),digits =2 )
-meanDataAreaYellowwashed100$Weight <- "100g"
-meanDataAreaYellowwashed200<- data.frame(meanArea=round(mean(DataAreaYellowwashed200$Area.mm2),digits =2 ))
-meanDataAreaYellowwashed200$SD<- round(sd(DataAreaYellowwashed200$Area.mm2),digits =2 )
-meanDataAreaYellowwashed200$Weight <- "200g"
-meanDataAreaYellowwashed400<- data.frame(meanArea=round(mean(DataAreaYellowwashed400$Area.mm2),digits =2 ))
-meanDataAreaYellowwashed400$SD<- round(sd(DataAreaYellowwashed400$Area.mm2),digits =2 )
-meanDataAreaYellowwashed400$Weight <- "400g"
-meanDataAreaYellowwashed800<- data.frame(meanArea=round(mean(DataAreaYellowwashed800$Area.mm2),digits =2 ))
-meanDataAreaYellowwashed800$SD<- round(sd(DataAreaYellowwashed800$Area.mm2),digits =2 )
-meanDataAreaYellowwashed800$Weight <- "800g"
-meanDataAreaYellowwashed1000<- data.frame(meanArea=round(mean(DataAreaYellowwashed1000$Area.mm2),digits =2 ))
-meanDataAreaYellowwashed1000$SD<- round(sd(DataAreaYellowwashed1000$Area.mm2),digits =2 )
-meanDataAreaYellowwashed1000$Weight <- "1000g"
+meanDataAreaSheddingW003.100<- data.frame(meanArea=round(mean(DataAreaSheddingW003.100$Area.mm2),digits =2 ))
+meanDataAreaSheddingW003.100$SD<- round(sd(DataAreaSheddingW003.100$Area.mm2),digits =2 )
+meanDataAreaSheddingW003.100$Weight <- "100g"
+meanDataAreaSheddingW003.200<- data.frame(meanArea=round(mean(DataAreaSheddingW003.200$Area.mm2),digits =2 ))
+meanDataAreaSheddingW003.200$SD<- round(sd(DataAreaSheddingW003.200$Area.mm2),digits =2 )
+meanDataAreaSheddingW003.200$Weight <- "200g"
+meanDataAreaSheddingW003.400<- data.frame(meanArea=round(mean(DataAreaSheddingW003.400$Area.mm2),digits =2 ))
+meanDataAreaSheddingW003.400$SD<- round(sd(DataAreaSheddingW003.400$Area.mm2),digits =2 )
+meanDataAreaSheddingW003.400$Weight <- "400g"
+meanDataAreaSheddingW003.800<- data.frame(meanArea=round(mean(DataAreaSheddingW003.800$Area.mm2),digits =2 ))
+meanDataAreaSheddingW003.800$SD<- round(sd(DataAreaSheddingW003.800$Area.mm2),digits =2 )
+meanDataAreaSheddingW003.800$Weight <- "800g"
+meanDataAreaSheddingW003.1000<- data.frame(meanArea=round(mean(DataAreaSheddingW003.1000$Area.mm2),digits =2 ))
+meanDataAreaSheddingW003.1000$SD<- round(sd(DataAreaSheddingW003.1000$Area.mm2),digits =2 )
+meanDataAreaSheddingW003.1000$Weight <- "1000g"
+meanDataAreaSheddingW003.2000<- data.frame(meanArea=round(mean(DataAreaSheddingW003.2000$Area.mm2),digits =2 ))
+meanDataAreaSheddingW003.2000$SD<- round(sd(DataAreaSheddingW003.2000$Area.mm2),digits =2 )
+meanDataAreaSheddingW003.2000$Weight <- "2000g"
 
 # Combined data sets
-DataRedUnwashedtotal <- rbind(meanDataAreaRedunwashed100,meanDataAreaRedunwashed200,meanDataAreaRedunwashed400,
-                              meanDataAreaRedunwashed800,meanDataAreaRedunwashed1000)
-DataRedUnwashedtotal$Condition <- "unwashed"
-DataRedwashedtotal <- rbind(meanDataAreaRedwashed100,meanDataAreaRedwashed200,meanDataAreaRedwashed400,
-                            meanDataAreaRedwashed800,meanDataAreaRedwashed1000)
-DataRedwashedtotal$Condition <- "washed"
-DataAreaRedCombined <- rbind(DataRedwashedtotal,DataRedUnwashedtotal)
+DataW000total <- rbind(meanDataAreaSheddingW000.100,meanDataAreaSheddingW000.200,meanDataAreaSheddingW000.400,
+                              meanDataAreaSheddingW000.800,meanDataAreaSheddingW000.1000,meanDataAreaSheddingW000.2000)
+DataW000total$Condition <- "W000"
 
-DataYellowUnwashedtotal <- rbind(meanDataAreaYellowunwashed100,meanDataAreaYellowunwashed200,meanDataAreaYellowunwashed400,
-                                 meanDataAreaYellowunwashed800,meanDataAreaYellowunwashed1000)
-DataYellowUnwashedtotal$Condition <- "unwashed"
-DataYellowwashedtotal <- rbind(meanDataAreaYellowwashed100,meanDataAreaYellowwashed200,meanDataAreaYellowwashed400,
-                               meanDataAreaYellowwashed800,meanDataAreaYellowwashed1000)
-DataYellowwashedtotal$Condition <- "washed"
-DataAreaYellowCombined <- rbind(DataYellowwashedtotal,DataYellowUnwashedtotal)
+DataW001total <- rbind(meanDataAreaSheddingW001.100,meanDataAreaSheddingW001.200,meanDataAreaSheddingW001.400,
+                       meanDataAreaSheddingW001.800,meanDataAreaSheddingW001.1000,meanDataAreaSheddingW001.2000)
+DataW001total$Condition <- "W001"
+
+DataW003total <- rbind(meanDataAreaSheddingW003.100,meanDataAreaSheddingW003.200,meanDataAreaSheddingW003.400,
+                       meanDataAreaSheddingW003.800,meanDataAreaSheddingW003.1000,meanDataAreaSheddingW003.2000)
+DataW003total$Condition <- "W003"
+
+DataAreaCombined <- rbind(DataW000total,DataW001total, DataW003total)
 
 #### PLOT ####
-# calculation of the percentage difference between washed and unwashed
-y = rep(c(150, 175, 175, 200, 225),2)
-x = rep(c(1:5), 2)
-Red <- data.frame(cbind(DataRedUnwashedtotal$meanArea,DataRedwashedtotal$meanArea))
-Red$ratio <- round((Red$X1/Red$X2), digits=2)
-label = rep(Red$ratio,2)
-# plot
-PlotRedShedding <- ggplot(DataAreaRedCombined, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g')),
-                                                   y= meanArea, fill=Condition)) +
+PlotShedding <- ggplot(DataAreaCombined, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                                   y= meanArea, fill=Condition))+
   geom_bar(stat="identity", position=position_dodge())+
-  geom_text(aes(label = meanArea), hjust=0.5,vjust = -3.5,position = position_dodge(.9))+
-  geom_line(aes(y=0,colour='Ratio',group=Weight))+
+  geom_text(aes(label = meanArea), hjust=0.5,vjust = -9.5,position = position_dodge(.9))+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
-  theme_bw(base_family = "Arial", base_size = 14) +
+  theme_bw(base_family = "Arial", base_size = 12) +
   ylim(0,500)+
   scale_fill_grey(start = 0.4,end = 0.9)+
   theme(legend.title = element_blank(),
@@ -427,198 +386,6 @@ PlotRedShedding <- ggplot(DataAreaRedCombined, aes(x = factor(Weight, level = c(
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
-  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))+
-  geom_text(x=x, y=y+2, label=label, colour="#c9101a")+
-  geom_errorbarh(aes(xmax = (x + 0.3), xmin = (x - 0.3), y = y-20), height = 15,colour="#c9101a") 
-PlotRedShedding
-ggsave("Shedding Red.png", PlotRedShedding, width = 7, height =6, units = "in", dpi=600,
-       path = "C:/Users/2395804/OneDrive - University of Dundee/Desktop/PhD Results/Transfer project/Labwork analysis/Results")
-
-# calculation of the percentage difference between washed and unwashed
-a = rep(c(275, 300, 325, 400, 425),2)
-b = rep(c(1:5), 2)
-Yellow <- data.frame(cbind(DataYellowUnwashedtotal$meanArea,DataYellowwashedtotal$meanArea))
-Yellow$ratio <- round((Yellow$X1/Yellow$X2), digits=2)
-label = rep(Yellow$ratio,2)
-# Plot
-PlotYellowShedding <- ggplot(DataAreaYellowCombined, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g')),
-                                                         y= meanArea, fill=Condition)) +
-  geom_bar(stat="identity", position=position_dodge())+
-  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5,position = position_dodge(.9))+
-  geom_line(aes(y=0,colour='Ratio',group=Weight))+
-  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
-  theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,500)+
-  scale_fill_grey(start = 0.4,end = 0.9)+
-  theme(legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
-  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.3,position=position_dodge(.9))+
-  geom_text(x=b, y=a+2, label=label,colour="#c9101a")+
-  geom_errorbarh(aes(xmax = (b + 0.3), xmin = (b - 0.3), y = a-20), height = 15,colour="#c9101a") 
-PlotYellowShedding 
-ggsave("Shedding Yellow.png", PlotYellowShedding, width = 7, height = 7, units = "in", dpi=600,
-       path = "C:/Users/2395804/OneDrive - University of Dundee/Desktop/PhD Results/Transfer project/Labwork analysis/Results")
-
-pSheddingCombined_pending <- ggarrange(PlotRedShedding+ rremove("ylab") + rremove("xlab"),
-                                       PlotYellowShedding+ rremove("ylab") + rremove("xlab"),
-                                       labels = c("   100% virgin cotton donor - Red","65/35% recycled/virgin cotton donor - Yellow"),
-                                       common.legend = TRUE, legend = "right",
-                                       align = "hv",
-                                       ncol = 1, nrow = 2,
-                                       font.label = list(size = 10, color = "black", family = "Arial", position = "top"),
-                                       hjust=-0.2,vjust=2.5)
-pSheddingCombined_pending
-pSheddingCombined <- annotate_figure(pSheddingCombined_pending, left = textGrob("Total fibre area (mm\u00b2)\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
-                                     bottom = textGrob("weight", vjust = 0.5, hjust = 0.5,gp = gpar(cex = 1)))
-pSheddingCombined
-ggsave("Shedding Red VS Yellow.png", pSheddingCombined, width = 7, height = 9, units = "in", dpi=600,
-       path = "C:/Users/2395804/OneDrive - University of Dundee/Desktop/PhD Results/Transfer project/Labwork analysis/Results")
-
-#### STATS ####
-# Statistical analysis of the effect of the weight on the total area
-# qqplot to see the distribution 
-ggplot(DataAreaRedunwashed) +
-  aes(x = Weight, y = Area.mm2, color = Weight) +
-  geom_jitter() +
-  theme(legend.position = "none")
-
-ggplot(DataAreaRedwashed) +
-  aes(x = Weight, y = Area.mm2, color = Weight) +
-  geom_jitter() +
-  theme(legend.position = "none")
-
-ggplot(DataAreaYellowunwashed) +
-  aes(x = Weight, y = Area.mm2, color = Weight) +
-  geom_jitter() +
-  theme(legend.position = "none")
-
-ggplot(DataAreaYellowwashed) +
-  aes(x = Weight, y = Area.mm2, color = Weight) +
-  geom_jitter() +
-  theme(legend.position = "none")
-
-# Test of normality
-# Red, unwashed
-res_aovRedunwashed <- aov(Area.mm2 ~ Weight, data = DataAreaRedunwashed)
-par(mfrow = c(1, 2)) # combine plots
-# histogram
-hist(res_aovRedunwashed$residuals)
-# QQ-plot
-qqPlot(res_aovRedunwashed$residuals, id = FALSE) # id = FALSE to remove point identification
-shapiro.test(res_aovRedunwashed$residuals)
-# p-value = 0.03681, data do not follow a normal distribution.
-
-# Red, washed
-res_aovRedwashed <- aov(Area.mm2 ~ Weight, data = DataAreaRedwashed)
-par(mfrow = c(1, 2)) # combine plots
-# histogram
-hist(res_aovRedwashed$residuals)
-# QQ-plot
-qqPlot(res_aovRedwashed$residuals, id = FALSE) # id = FALSE to remove point identification
-shapiro.test(res_aovRedwashed$residuals)
-# p-value = 0.05321 (> 0.05), data follow a normal distribution.
-
-# Yellow, unwashed
-res_aovYellowunwashed <- aov(Area.mm2 ~ Weight, data = DataAreaYellowunwashed)
-par(mfrow = c(1, 2)) # combine plots
-# histogram
-hist(res_aovYellowunwashed$residuals)
-# QQ-plot
-qqPlot(res_aovYellowunwashed$residuals, id = FALSE) # id = FALSE to remove point identification
-shapiro.test(res_aovYellowunwashed$residuals)
-# p-value = 0.1894 (> 0.05), data follow a normal distribution.
-
-# Yellow, washed
-res_aovYellowwashed <- aov(Area.mm2 ~ Weight, data = DataAreaYellowwashed)
-par(mfrow = c(1, 2)) # combine plots
-# histogram
-hist(res_aovYellowwashed$residuals)
-# QQ-plot
-qqPlot(res_aovYellowwashed$residuals, id = FALSE) # id = FALSE to remove point identification
-shapiro.test(res_aovYellowwashed$residuals)
-# p-value = 0.1733 (> 0.05), data follow a normal distribution.
-
-# Equality of variances - homogeneity
-bartlett.test(Area.mm2 ~ Weight, data = DataAreaRedunwashed) # p-value = 0.5594, the three groups have similar variances
-bartlett.test(Area.mm2 ~ Weight, data = DataAreaRedwashed) # p-value = 0.04187, the three groups have different variances
-bartlett.test(Area.mm2 ~ Weight, data = DataAreaYellowunwashed) # p-value = 0.6034, the three groups have similar variances
-bartlett.test(Area.mm2 ~ Weight, data = DataAreaYellowwashed) # p-value = 0.5449, the three groups have similar variances
-
-# Choice of test
-# for DataAreaRedunwashed : data do not follow a normal distribution and have similar variance: Kruskall- Wallis
-# for DataAreaRedwashed : data follow a normal distribution and have different variance: Welch ANOVA
-# for DataAreaYellowunwashed : data follow a normal distribution and have similar variance: ANOVA
-# for DataAreaYellowwashed : data follow a normal distribution and have similar variance: ANOVA
-
-# Kruskal-Wallis test for DataAreaRedunwashed
-#H0: The 3 groups are equal
-#H1: At least one group is different from the other 2 groups
-kruskal.test(Area.mm2 ~ Weight,data = DataAreaRedunwashed)
-# p-value = 0.1606, the groups are equal (p-value = 0.8061).
-# Post-hoc test following Kruskal-Wallis
-dunnTest(Area.mm2 ~ Weight,data = DataAreaRedunwashed,method = "holm")
-
-### Welch ANOVA for DataAreaRedwashed
-# used when variances are unequal. This can be done by replacing var.equal = TRUE by var.equal = FALSE
-oneway.test(DataAreaRedwashed$Area.mm2 ~ DataAreaRedwashed$Weight, var.equal = FALSE)
-# p-value = 0.08245,  p-value > 0.05,  all means are equal
-posthoc.tgh(y=DataAreaRedwashed$Area.mm2, x=DataAreaRedwashed$Weight);
-
-### ANOVA for DataAreaYellowunwashed
-DataAreaYellowunwashed$Weight = as.factor(DataAreaYellowunwashed$Weight)
-res_aov <- aov(Area.mm2 ~ Weight,data = DataAreaYellowunwashed)
-summary(res_aov)
-# p-value = 0.00242 **,  we reject the hypothesis that all means are equal
-# Therefore, we can conclude that at least one weight is different than the others
-# Tukey HSD test:
-TukeyHSD(res_aov)
-
-### ANOVA for DataAreaYellowwashed
-DataAreaYellowwashed$Weight = as.factor(DataAreaYellowwashed$Weight)
-res_aov <- aov(Area.mm2 ~ Weight,data = DataAreaYellowwashed)
-summary(res_aov)
-# p-value = 0.409, no differences between groups
-# Tukey HSD test:
-TukeyHSD(res_aov)
-
-# STATS - comparing effect of the wash in the shedding #
-# qqplot to see the distribution
-# Red
-ggplot(SheddingRed) +
-  aes(x = condition, y = Area.mm2, color = condition) +
-  geom_jitter() +
-  theme(legend.position = "none")
-
-# Yellow
-ggplot(SheddingYellow) +
-  aes(x = condition, y = Area.mm2, color = condition) +
-  geom_jitter() +
-  theme(legend.position = "none")
-
-# Test of normality
-res_aovSheddingRed <- aov(Area.mm2 ~ condition, data = SheddingRed)
-par(mfrow = c(1, 2)) # combine plots
-# histogram
-hist(res_aovSheddingRed$residuals)
-# QQ-plot
-qqPlot(res_aovSheddingRed$residuals, id = FALSE) # id = FALSE to remove point identification
-shapiro.test(res_aovSheddingRed$residuals)
-# p-value = 0.0004514, data do not follow a normal distribution.
-
-res_aovSheddingYellow <- aov(Area.mm2 ~ condition, data = SheddingYellow)
-par(mfrow = c(1, 2)) # combine plots
-# histogram
-hist(res_aovSheddingYellow$residuals)
-# QQ-plot
-qqPlot(res_aovSheddingYellow$residuals, id = FALSE) # id = FALSE to remove point identification
-shapiro.test(res_aovSheddingYellow$residuals)
-# p-value = 0.06834, data follow a normal distribution.
-
-# Equality of variances - homogeneity
-bartlett.test(Area.mm2 ~ condition, data = SheddingRed) # p-value =  0.4728, the three groups have similar variances
-bartlett.test(Area.mm2 ~ condition, data = SheddingYellow) # p-value = 1.719e-08, the three groups have similar variances
-
-# Choice of test
-# for SheddingRed : data do not follow a normal distribution and have similar variance: Kruskall- Wallis
-# for SheddingYellow : data do not follow a normal distribution and have similar variance: Kruskall- Wallis
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+PlotShedding
+ggsave("Shedding_W000-3.png", PlotShedding, width = 10, height = 9, units = "in", dpi=150, path = "Results")

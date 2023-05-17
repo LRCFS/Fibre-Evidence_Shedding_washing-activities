@@ -42,7 +42,7 @@ source("Functions/get_formula.R")
 #############################################################
 
 # where the generated figures are saved, create folder if not existing
-#dir.create(file.path(Results.dir),recursive = TRUE) # will create folder if not already there.
+# dir.create(file.path(Results.dir),recursive = TRUE) # will create folder if not already there.
 Results.dir <- "Results/"
 
 #############################################################
