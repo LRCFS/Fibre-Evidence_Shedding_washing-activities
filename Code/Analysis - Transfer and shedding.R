@@ -180,21 +180,20 @@ histogram(~ value | group,data=TransferFibreCount_G1,layout=c(3,3),
           xlab="Number of fibres")
 
 #### Create a table with descriptive statistics ####
-meanAtr <- aggregate(value ~  group, TransferFibreCount_G1, function(x) {round(mean(x), digits=2)})
-SDAtr <- aggregate(value ~  group, TransferFibreCount_G1, function(x) {round(SD(x), digits=2)})
-SD2Atr <- round(sqrt((SDAtr$value^2)+(0.95^2)),digits=2)
-medianAtr <- aggregate(value ~  group, TransferFibreCount_G1, median)
-datatableAtr <- cbind(meanAtr, medianAtr$value, SDAtr$value, SD2Atr)
-names(datatableAtr) <- c("Wash number", "Average", "median", "SD", "SD2")
-datatableAtr$Forthesis <- paste(datatableAtr$Average, datatableAtr$SD, sep=" ± ")
-#write.table(datatableAtr, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
+meanAtr_G1 <- aggregate(value ~  group, TransferFibreCount_G1, function(x) {round(mean(x), digits=2)})
+SDAtr_G1 <- aggregate(value ~  group, TransferFibreCount_G1, function(x) {round(SD(x), digits=2)})
+SD2Atr_G1 <- round(sqrt((SDAtr_G1$value^2)+(0.95^2)),digits=2)
+medianAtr_G1 <- aggregate(value ~  group, TransferFibreCount_G1, median)
+datatableAtr_G1 <- cbind(meanAtr_G1, medianAtr_G1$value, SDAtr_G1$value, SD2Atr_G1)
+names(datatableAtr_G1) <- c("Wash number", "Average", "median", "SD", "SD2")
+datatableAtr_G1$Forthesis <- paste(datatableAtr_G1$Average, datatableAtr_G$SD, sep=" ± ")
+#write.table(datatableAtr_G, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
 
 write.table(TransferFibreCount_G1, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
 #### GRAPH - FIGURE 4-8 ####
 pAtr_G1 <- ggplot(TransferFibreCount_G1, aes(x=group, y=value)) +
   geom_boxplot() +
-  #scale_x_discrete(labels = every_n_labeler(5)) +
   stat_summary(fun = mean, colour="darkred",
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
@@ -393,14 +392,14 @@ histogram(~ value | group,data=TransferFibreCount_G2,layout=c(3,3),
           xlab="Number of fibres")
 
 #### Create a table with descriptive statistics ####
-meanAtr <- aggregate(value ~  group, TransferFibreCount_G2, function(x) {round(mean(x), digits=2)})
-SDAtr <- aggregate(value ~  group, TransferFibreCount_G2, function(x) {round(SD(x), digits=2)})
-SD2Atr <- round(sqrt((SDAtr$value^2)+(0.95^2)),digits=2)
-medianAtr <- aggregate(value ~  group, TransferFibreCount_G2, median)
-datatableAtr <- cbind(meanAtr, medianAtr$value, SDAtr$value, SD2Atr)
-names(datatableAtr) <- c("Wash number", "Average", "median", "SD", "SD2")
-datatableAtr$Forthesis <- paste(datatableAtr$Average, datatableAtr$SD, sep=" ± ")
-#write.table(datatableAtr, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
+meanAtr_G2 <- aggregate(value ~  group, TransferFibreCount_G2, function(x) {round(mean(x), digits=2)})
+SDAtr_G2 <- aggregate(value ~  group, TransferFibreCount_G2, function(x) {round(SD(x), digits=2)})
+SD2Atr_G2 <- round(sqrt((SDAtr_G2$value^2)+(0.95^2)),digits=2)
+medianAtr_G2 <- aggregate(value ~  group, TransferFibreCount_G2, median)
+datatableAtr_G2 <- cbind(meanAtr_G2, medianAtr_G2$value, SDAtr_G2$value, SD2Atr_G2)
+names(datatableAtr_G2) <- c("Wash number", "Average", "median", "SD", "SD2")
+datatableAtr_G2$Forthesis <- paste(datatableAtr_G2$Average, datatableAtr_G2$SD, sep=" ± ")
+#write.table(datatableAtr_G2, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
 
 write.table(TransferFibreCount_G2, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
@@ -429,9 +428,12 @@ ggsave("Fibre Count boxplot_ATr_G2.png", pAtr_G2, width = 6, height = 7, units =
 #################################################################################################
 #####                             FIBRE ANALYSIS GARMENT COMBINED                           #####
 #################################################################################################
+TransferFibreCount_PhDG <- read.csv('./Transfer_Fibre_Count_red jumpers_PhD.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+TransferFibreCount_PhDG <- TransferFibreCount_PhDG[is.element(TransferFibreCount_PhDG$group, c('W000','W001','W002','W003','W004','W005','W006','W007')),]
+TransferFibreCount_PhDG$Coder <-"Garment PhD"
 TransferFibreCount_G1$Coder <-"Garment 1"
 TransferFibreCount_G2$Coder <-"Garment 2"
-TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2)
+TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2,TransferFibreCount_PhDG)
 
 pAtr_Total <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
   geom_boxplot() +
@@ -448,6 +450,10 @@ ggsave("Fibre Count boxplot_ATr_Total.png", pAtr_Total, width = 6, height = 7, u
 pAtr_Total_2nd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
   geom_boxplot() +
   facet_wrap(~Coder)+
+  stat_summary(fun = mean, colour="black",
+               geom="point",position=position_dodge(width=0.75)) +
+  stat_summary(fun = mean, colour="black", aes(group=1),
+               geom="line", lwd=1, lty=1) +
   labs(x="\nWash number", y="Number of Fibre\n") +
   scale_fill_brewer(palette = "Reds")+
   theme_classic(base_family = "Arial", base_size = 14) +
