@@ -396,7 +396,7 @@ pSH <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g', '
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
   ylim(0,500)+
-  scale_fill_manual("legend", values = c("W000" = "#A6CEE3", "W001" = "#1F78B4"))+ # to obtain the colour brewer.pal(12, "Paired")
+  scale_fill_manual("legend", values = c("W000_G2" = "#A6CEE3", "W001_G2" = "#1F78B4","W003_G2" = "#B2DF8A"))+ # to obtain the colour brewer.pal(12, "Paired")
   theme(legend.title = element_blank(),
         strip.background.x = element_rect(colour = "grey", fill = "white"),
         legend.position = "bottom",
@@ -405,7 +405,6 @@ pSH <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g', '
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH
 ggsave("Shedding_G2_W000-3.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
-
 
 ##################
 #####   G3   #####
@@ -565,6 +564,7 @@ DataW000_G4B_total$Condition <- "W000_G4B"
 #######################
 
 FibreCount_Shedding_Combined <- rbind(DataW000_G1_total,DataW000_G2_total,DataW000_G3_total,DataW000_G4A_total,DataW000_G4B_total)
+FibreCount_Shedding_allGarmentCombined <- aggregate(FibreCount_Shedding_Combined$meanArea,list(FibreCount_Shedding_Combined$Weight), FUN=mean)
 
 #### PLOT ####
 # calculation of the percentage difference between washed and unwashed
@@ -588,4 +588,4 @@ pSH <- ggplot(FibreCount_Shedding_Combined, aes(x = factor(Weight, level = c('10
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH
-ggsave("Shedding_G2_W000-3.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+ggsave("Shedding_W000_all garment combined.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
