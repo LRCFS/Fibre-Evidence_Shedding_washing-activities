@@ -1,81 +1,53 @@
-group,value
-W000,6
-W000,7
-W000,1
-W000,8
-W000,5
-W000,5
-W000,8
-W000,8
-W000,6
-W000,7
-W001,11
-W001,13
-W001,2
-W001,5
-W001,6
-W001,13
-W001,9
-W001,6
-W001,11
-W001,11
-W002,3
-W002,3
-W002,2
-W002,1
-W002,1
-W002,4
-W002,6
-W002,2
-W002,5
-W002,3
-W003,2
-W003,4
-W003,3
-W003,0
-W003,5
-W003,4
-W003,3
-W003,6
-W003,2
-W003,7
-W004,0
-W004,2
-W004,5
-W004,0
-W004,2
-W004,2
-W004,0
-W004,4
-W004,0
-W004,2
-W005,1
-W005,1
-W005,2
-W005,2
-W005,0
-W005,2
-W005,2
-W005,3
-W005,1
-W005,1
-W006,1
-W006,3
-W006,1
-W006,0
-W006,0
-W006,2
-W006,0
-W006,1
-W006,1
-W006,1
-W007,0
-W007,0
-W007,0
-W007,1
-W007,1
-W007,1
-W007,0
-W007,1
-W007,0
-W007,1
+group,value,Coder
+W000,8,Garment 2
+W000,5,Garment 2
+W000,6,Garment 2
+W000,4,Garment 2
+W000,6,Garment 2
+W000,3,Garment 2
+W000,2,Garment 2
+W000,3,Garment 2
+W000,6,Garment 2
+W000,6,Garment 2
+W001,15,Garment 2
+W001,7,Garment 2
+W001,9,Garment 2
+W001,16,Garment 2
+W001,11,Garment 2
+W001,11,Garment 2
+W001,11,Garment 2
+W001,10,Garment 2
+W001,22,Garment 2
+W001,17,Garment 2
+W002,8,Garment 2
+W002,3,Garment 2
+W002,5,Garment 2
+W002,9,Garment 2
+W002,5,Garment 2
+W002,9,Garment 2
+W002,11,Garment 2
+W002,13,Garment 2
+W002,7,Garment 2
+W002,9,Garment 2
+W003,6,Garment 2
+W003,1,Garment 2
+W003,5,Garment 2
+W003,2,Garment 2
+W003,1,Garment 2
+W003,6,Garment 2
+W003,4,Garment 2
+W003,8,Garment 2
+W003,14,Garment 2
+W003,4,Garment 2
+W003,0,Garment 2
+W003,10,Garment 2
+W004,4,Garment 2
+W004,4,Garment 2
+W004,6,Garment 2
+W004,6,Garment 2
+W004,6,Garment 2
+W004,3,Garment 2
+W004,6,Garment 2
+W004,4,Garment 2
+W004,4,Garment 2
+W004,3,Garment 2

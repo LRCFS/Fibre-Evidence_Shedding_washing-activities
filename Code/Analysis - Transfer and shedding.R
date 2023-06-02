@@ -143,7 +143,7 @@ BackgroundW007 <- forFibreCount7 %>%
 BackgroundFibreCount <- rbind(BackgroundW000, BackgroundW001, BackgroundW002,BackgroundW003,BackgroundW004,
                               BackgroundW005,BackgroundW006,BackgroundW007)
 names(BackgroundFibreCount) <- c("group", "value")
-# write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
+# write.table(TransferFibreCount_G1, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
 # Count the number of fibres found on the background images
 BackgroundFibreCountfibres <- aggregate(BackgroundFibreCount$group,list(BackgroundFibreCount$value), FUN=length) # W011: NA
@@ -170,43 +170,44 @@ TransferW007 <- forFibreCount7 %>%
   dplyr::select(Coder,`After transfer`)
 
 #### Combine all the dataframe ####
-TransferFibreCount <- rbind(TransferW000, TransferW001, TransferW002,TransferW003,TransferW004,TransferW005,
+TransferFibreCount_G1 <- rbind(TransferW000, TransferW001, TransferW002,TransferW003,TransferW004,TransferW005,
                             TransferW006,TransferW007)
-names(TransferFibreCount) <- c("group", "value")
-# write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
+names(TransferFibreCount_G1) <- c("group", "value")
+# write.table(TransferFibreCount_G1, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
 #### Bar plots of data by group - distribution ####
-histogram(~ value | group,data=TransferFibreCount,layout=c(3,3),
+histogram(~ value | group,data=TransferFibreCount_G1,layout=c(3,3),
           xlab="Number of fibres")
 
 #### Create a table with descriptive statistics ####
-meanAtr <- aggregate(value ~  group, TransferFibreCount, function(x) {round(mean(x), digits=2)})
-SDAtr <- aggregate(value ~  group, TransferFibreCount, function(x) {round(SD(x), digits=2)})
+meanAtr <- aggregate(value ~  group, TransferFibreCount_G1, function(x) {round(mean(x), digits=2)})
+SDAtr <- aggregate(value ~  group, TransferFibreCount_G1, function(x) {round(SD(x), digits=2)})
 SD2Atr <- round(sqrt((SDAtr$value^2)+(0.95^2)),digits=2)
-medianAtr <- aggregate(value ~  group, TransferFibreCount, median)
+medianAtr <- aggregate(value ~  group, TransferFibreCount_G1, median)
 datatableAtr <- cbind(meanAtr, medianAtr$value, SDAtr$value, SD2Atr)
 names(datatableAtr) <- c("Wash number", "Average", "median", "SD", "SD2")
 datatableAtr$Forthesis <- paste(datatableAtr$Average, datatableAtr$SD, sep=" ± ")
 #write.table(datatableAtr, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
 
-write.table(TransferFibreCount, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
+write.table(TransferFibreCount_G1, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
 #### GRAPH - FIGURE 4-8 ####
-pAtr <- ggplot(TransferFibreCount, aes(x=group, y=value)) +
+pAtr_G1 <- ggplot(TransferFibreCount_G1, aes(x=group, y=value)) +
   geom_boxplot() +
   #scale_x_discrete(labels = every_n_labeler(5)) +
   stat_summary(fun = mean, colour="darkred",
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
+  ylim(0,25)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
-show(pAtr)
-ggsave("Fibre Count boxplot_ATr_G1.png", pAtr, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+show(pAtr_G1)
+ggsave("Fibre Count boxplot_ATr_G1.png", pAtr_G1, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------
@@ -383,28 +384,28 @@ TransferW004 <- forFibreCount4 %>%
 #   dplyr::select(Coder,`After transfer`)
 
 #### Combine all the dataframe ####
-TransferFibreCount <- rbind(TransferW000, TransferW001, TransferW002,TransferW003, TransferW004) #TransferW005,TransferW006,TransferW007)
-names(TransferFibreCount) <- c("group", "value")
-# write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
+TransferFibreCount_G2 <- rbind(TransferW000, TransferW001, TransferW002,TransferW003, TransferW004) #TransferW005,TransferW006,TransferW007)
+names(TransferFibreCount_G2) <- c("group", "value")
+# write.table(TransferFibreCount_G2, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
 #### Bar plots of data by group - distribution ####
-histogram(~ value | group,data=TransferFibreCount,layout=c(3,3),
+histogram(~ value | group,data=TransferFibreCount_G2,layout=c(3,3),
           xlab="Number of fibres")
 
 #### Create a table with descriptive statistics ####
-meanAtr <- aggregate(value ~  group, TransferFibreCount, function(x) {round(mean(x), digits=2)})
-SDAtr <- aggregate(value ~  group, TransferFibreCount, function(x) {round(SD(x), digits=2)})
+meanAtr <- aggregate(value ~  group, TransferFibreCount_G2, function(x) {round(mean(x), digits=2)})
+SDAtr <- aggregate(value ~  group, TransferFibreCount_G2, function(x) {round(SD(x), digits=2)})
 SD2Atr <- round(sqrt((SDAtr$value^2)+(0.95^2)),digits=2)
-medianAtr <- aggregate(value ~  group, TransferFibreCount, median)
+medianAtr <- aggregate(value ~  group, TransferFibreCount_G2, median)
 datatableAtr <- cbind(meanAtr, medianAtr$value, SDAtr$value, SD2Atr)
 names(datatableAtr) <- c("Wash number", "Average", "median", "SD", "SD2")
 datatableAtr$Forthesis <- paste(datatableAtr$Average, datatableAtr$SD, sep=" ± ")
 #write.table(datatableAtr, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
 
-write.table(TransferFibreCount, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
+write.table(TransferFibreCount_G2, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
 #### GRAPH - FIGURE 4-8 ####
-pAtr <- ggplot(TransferFibreCount, aes(x=group, y=value)) +
+pAtr_G2 <- ggplot(TransferFibreCount_G2, aes(x=group, y=value)) +
   geom_boxplot() +
   #scale_x_discrete(labels = every_n_labeler(5)) +
   stat_summary(fun = mean, colour="darkred",
@@ -417,5 +418,55 @@ pAtr <- ggplot(TransferFibreCount, aes(x=group, y=value)) +
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
-show(pAtr)
-ggsave("Fibre Count boxplot_ATr_G2.png", pAtr, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+show(pAtr_G2)
+ggsave("Fibre Count boxplot_ATr_G2.png", pAtr_G2, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
+
+#################################################################################################
+#####                             FIBRE ANALYSIS GARMENT COMBINED                           #####
+#################################################################################################
+TransferFibreCount_G1$Coder <-"Garment 1"
+TransferFibreCount_G2$Coder <-"Garment 2"
+TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2)
+
+pAtr_Total <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
+  geom_boxplot() +
+  labs(x="\nWash number", y="Number of Fibre\n") +
+  scale_fill_brewer(palette = "Reds")+
+  theme_classic(base_family = "Arial", base_size = 14) +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+show(pAtr_Total)
+ggsave("Fibre Count boxplot_ATr_Total.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+
+pAtr_Total_2nd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
+  geom_boxplot() +
+  facet_wrap(~Coder)+
+  labs(x="\nWash number", y="Number of Fibre\n") +
+  scale_fill_brewer(palette = "Reds")+
+  theme_classic(base_family = "Arial", base_size = 14) +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+show(pAtr_Total_2nd)
+ggsave("Fibre Count boxplot_ATr_Total_2nd.png", pAtr_Total_2nd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+
+pAtr_Total_3rd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
+  geom_boxplot() +
+  facet_wrap(~group, scale="free")+
+  labs(x="\nWash number", y="Number of Fibre\n") +
+  scale_fill_brewer(palette = "Reds")+
+  theme_classic(base_family = "Arial", base_size = 14) +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+show(pAtr_Total_3rd)
+ggsave("Fibre Count boxplot_ATr_Total_3rd.png", pAtr_Total_3rd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
