@@ -108,20 +108,6 @@ Wastewatervolume_G1$U.V2 <-Wastewatervolume_G1$U.V*2
 #############################################################
 #####                   Data anaysis                    #####
 #############################################################
-
-# Bar plots of data by group
-ggplot(Wastewaterfibres_G1p4, aes(x=Diff.FN)) + 
-  geom_histogram(aes(y=..density..), colour="black", fill="white", bins=50)+
-  geom_density(alpha=.2, fill="#FF6666") 
-ggqqplot(Wastewaterfibres_G1p4$Diff.FN)
-shapiro.test(Wastewaterfibres_G1p4$Diff.FN)
-
-ggplot(Wastewatervolume_G1, aes(x=Total)) + 
-  geom_histogram(aes(y=..density..), colour="black", fill="white", bins=50)+
-  geom_density(alpha=.2, fill="#FF6666") 
-ggqqplot(Wastewatervolume_G1$Total)
-shapiro.test(Wastewatervolume_G1$Total)
-
 ### GRAPH - Volume
 # First exclude wash 34 from the dataframe due to error during experiments
 pVolume <- ggplot(data = Wastewatervolume_G1, aes(x =Washnumber, y = Total)) +
@@ -136,8 +122,7 @@ pVolume <- ggplot(data = Wastewatervolume_G1, aes(x =Washnumber, y = Total)) +
         axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)),
         axis.title.x = element_text(margin = margin(t = 10, r = 0, b = 0, l = 0)))+ # top, right,bottom,left
   geom_errorbar(aes(ymin=Total-U.V2, ymax=Total+U.V2), width=0.5)+
-  geom_smooth(formula = y ~ x,method='lm', se=F,color="black", linetype="dashed", size=0.5)+
-  stat_regline_equation(label.y = 19.25,label.x = 39.25) #this means at 9th unit regresion line equation will be shown
+  geom_smooth(formula = y ~ x,method='lm', se=F,color="black", linetype="dashed", size=0.5)
 show(pVolume)
 ggsave("Wastewater volume_G1.png", pVolume, width = 7, height = 4, units = "in", dpi=600, path = "Results")
 
@@ -168,17 +153,25 @@ ggsave("Wastewater fibres_G1.png", pfibres, width = 7, height = 4, units = "in",
 # set alpha level to 0.05
 
 #Visualize data using scatter plots Volume VS wash number
-PearsonVW <- ggscatter(Wastewatervolume_G1, x = "Washnumber", y = "Total",
+PearsonVW_G1 <- ggscatter(Wastewatervolume_G1, x = "Washnumber", y = "Total",
                        add = "reg.line",
                        xlab = "Wash number", ylab = "Volume of water (L)")+
-  stat_cor(method = "pearson", label.x = 3, label.y = 30)# Customize reg. line
-PearsonVW                 
-ggsave("Pearson volume VS wash number - red.png", PearsonVW, width = 7, height = 4, units = "in", dpi=600, path = "Results")
+  stat_cor(method = "pearson", label.x = 3, label.y = 25)# Customize reg. line
+PearsonVW_G1                 
+ggsave("Pearson volume VS wash number_G1.png", PearsonVW_G1, width = 7, height = 4, units = "in", dpi=600, path = "Results")
+
+#Visualize data using scatter plots Fibres VS Volume
+Wastewatervolume_fibre_G1 <- data.frame(cbind(Wastewatervolume_G1,Fibre=Wastewaterfibres_G1p4$Diff.FN))
+PearsonVf_G1 <- ggscatter(Wastewatervolume_fibre_G1, x = "Fibre", y = "Total",
+                       add = "reg.line",
+                       xlab = "Fibre (mg)", ylab = "Volume (L)")+
+  stat_cor(method = "pearson", label.x = 70, label.y = 25)
+PearsonVf_G1   
+ggsave("Pearson fibre VS wash number_G1.png", PearsonVf_G1, width = 7, height = 4, units = "in", dpi=600, path = "Results")
 
 #############################################################
 #####                    GARMENT 2                      #####
 #############################################################
-
 ###### Wastewater fibres ######
 # mean for each rows (selected columns)
 Wastewaterfibres_G2$meanValue <- rowMeans(subset(Wastewaterfibres_G2, select = c(mass1: mass5)), na.rm = TRUE)
@@ -205,7 +198,7 @@ names(merge.dat) = c("Experiment","P1","P2","SEM1", "SEM2")
 
 # add the filter ID
 merge.dat <- cbind(Wastewaterfibres_G2$Filter,merge.dat)
-merge.dat <- merge.dat[1:8,]
+merge.dat <- merge.dat[1:14,]
 names(merge.dat)[names(merge.dat) == 'Wastewaterfibres_G2$Filter'] <- 'Filter'
 
 # Calculate difference and U.F
@@ -261,20 +254,6 @@ Wastewatervolume_G2$U.V2 <-Wastewatervolume_G2$U.V*2
 #############################################################
 #####                   Data anaysis                    #####
 #############################################################
-
-# Bar plots of data by group
-ggplot(Wastewaterfibres_G2p4, aes(x=Diff.FN)) + 
-  geom_histogram(aes(y=..density..), colour="black", fill="white", bins=50)+
-  geom_density(alpha=.2, fill="#FF6666") 
-ggqqplot(Wastewaterfibres_G2p4$Diff.FN)
-shapiro.test(Wastewaterfibres_G2p4$Diff.FN)
-
-ggplot(Wastewatervolume_G2, aes(x=Total)) + 
-  geom_histogram(aes(y=..density..), colour="black", fill="white", bins=50)+
-  geom_density(alpha=.2, fill="#FF6666") 
-ggqqplot(Wastewatervolume_G2$Total)
-shapiro.test(Wastewatervolume_G2$Total)
-
 ### GRAPH - Volume
 # First exclude wash 34 from the dataframe due to error during experiments
 pVolume <- ggplot(data = Wastewatervolume_G2, aes(x =Washnumber, y = Total)) +
@@ -289,8 +268,7 @@ pVolume <- ggplot(data = Wastewatervolume_G2, aes(x =Washnumber, y = Total)) +
         axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)),
         axis.title.x = element_text(margin = margin(t = 10, r = 0, b = 0, l = 0)))+ # top, right,bottom,left
   geom_errorbar(aes(ymin=Total-U.V2, ymax=Total+U.V2), width=0.5)+
-  geom_smooth(formula = y ~ x,method='lm', se=F,color="black", linetype="dashed", size=0.5)+
-  stat_regline_equation(label.y = 19.25,label.x = 39.25) #this means at 9th unit regresion line equation will be shown
+  geom_smooth(formula = y ~ x,method='lm', se=F,color="black", linetype="dashed", size=0.5)
 show(pVolume)
 ggsave("Wastewater volume_G2.png", pVolume, width = 7, height = 4, units = "in", dpi=600, path = "Results")
 
@@ -321,8 +299,65 @@ ggsave("Wastewater fibres_G2.png", pfibres, width = 7, height = 4, units = "in",
 # set alpha level to 0.05
 
 #Visualize data using scatter plots Volume VS wash number
-PearsonVW <- ggscatter(Wastewatervolume_G2, x = "Washnumber", y = "Total",
-                       add = "reg.line",
-                       xlab = "Wash number", ylab = "Volume of water (L)")+
-  stat_cor(method = "pearson", label.x = 3, label.y = 30)# Customize reg. line
-PearsonVW
+PearsonVW_G2 <- ggscatter(Wastewatervolume_G2, x = "Washnumber", y = "Total",
+                          add = "reg.line",
+                          xlab = "Wash number", ylab = "Volume of water (L)")+
+  stat_cor(method = "pearson", label.x = 3, label.y = 25)# Customize reg. line
+PearsonVW_G2                 
+ggsave("Pearson volume VS wash number_G2.png", PearsonVW_G2, width = 7, height = 4, units = "in", dpi=600, path = "Results")
+
+#Visualize data using scatter plots Fibres VS Volume
+Wastewatervolume_fibre_G2 <- data.frame(cbind(Wastewatervolume_G2,Fibre=Wastewaterfibres_G2p4$Diff.FN))
+PearsonVf_G2 <- ggscatter(Wastewatervolume_fibre_G2, x = "Fibre", y = "Total",
+                          add = "reg.line",
+                          xlab = "Fibre (mg)", ylab = "Volume (L)")+
+  stat_cor(method = "pearson", label.x = 70, label.y = 25)
+PearsonVf_G2   
+ggsave("Pearson fibre VS wash number_G2.png", PearsonVf_G2, width = 7, height = 4, units = "in", dpi=600, path = "Results")
+
+### Combined graph ###
+datatable <- paste(Wastewaterfibres_G1p4$Diff.FN, Wastewaterfibres_G1p4$U.C3, sep=" ± ")
+datatable2 <- paste(Wastewaterfibres_G2p4$Diff.FN, Wastewaterfibres_G2p4$U.C3, sep=" ± ")
+Ratio <- data.frame(round(Wastewaterfibres_G2p4$Diff.FN/Wastewaterfibres_G2p4$Diff.FN, digits = 2))
+# write.table(datatable, file = "Fibre count red.csv", quote = F, sep = ",", row.names = F)
+# write.table(datatable2, file = "Fibre count yellow.csv", quote = F, sep = ",", row.names = F)
+
+Wastewatervolume_G1$Coder <- "1 garment, no detergent"
+Wastewatervolume_G2$Coder <- "1 garment, detergent"
+TotalWastewatervolume <-rbind(Wastewatervolume_G1,Wastewatervolume_G2)
+
+pVolume <- ggplot(data = TotalWastewatervolume, aes(x =Washnumber, y = Total, color=Coder, group=Coder)) +
+  geom_line(aes(linetype=Coder), size=0.7)+
+  labs(x="Wash number", y="Volume of water (L)")+
+  scale_colour_manual(values=c("tomato","black"))+
+  scale_linetype_manual(values=c("solid","solid"))+
+  scale_y_continuous(breaks = seq(0, 35, by = 1), limits = c(18, 29),expand = c(0,0))+
+  scale_x_continuous(breaks = seq(1, 51, by = 2), limits = c(1, 51),expand = c(0.01,0))+
+  theme_bw(base_family = "Arial", base_size = 16) +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=0.5))+
+  geom_errorbar(aes(ymin=Total-U.V, ymax=Total+U.V), width=0.5, colour="black")
+show(pVolume)
+ggsave("Wastewater volume-Total.png", pVolume, width = 8, height = 5, units = "in", dpi=600, path = "Results")
+
+Wastewaterfibres_G1p4$Coder <- "1 garment, no detergent"
+Wastewaterfibres_G2p4$Coder <- "1 garment, detergent"
+TotalWastewaterfibres <-rbind(Wastewaterfibres_G1p4,Wastewaterfibres_G2p4)
+
+pfibre <- ggplot(data = TotalWastewaterfibres, aes(x =Experiment, y = Diff.FN, color=Coder, group=Coder)) +
+  geom_line(aes(linetype=Coder), size=0.7)+
+  labs(x="Wash number", y="Fibres (mg)")+
+  scale_colour_manual(values=c("tomato","black"))+
+  scale_linetype_manual(values=c("solid","solid"))+
+  scale_y_continuous(breaks = seq(0, 600, by = 50), limits = c(0, 100),expand = c(0,0))+
+  scale_x_continuous(breaks = seq(1, 51, by = 2), limits = c(1, 51),expand = c(0.01,0))+
+  theme_bw(base_family = "Arial", base_size = 16) +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=0.5))+
+  geom_errorbar(aes(ymin=Diff.FN-U.C3, ymax=Diff.FN+U.C3), width=0.5, colour="black")
+show(pfibre)
+ggsave("Wastewater fibres-Total.png", pfibre, width = 7, height = 5, units = "in", dpi=600, path = "Results")

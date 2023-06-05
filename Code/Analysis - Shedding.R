@@ -565,6 +565,7 @@ DataW000_G4B_total$Condition <- "W000_G4B"
 
 FibreCount_Shedding_Combined <- rbind(DataW000_G1_total,DataW000_G2_total,DataW000_G3_total,DataW000_G4A_total,DataW000_G4B_total)
 FibreCount_Shedding_allGarmentCombined <- aggregate(FibreCount_Shedding_Combined$meanArea,list(FibreCount_Shedding_Combined$Weight), FUN=mean)
+names(FibreCount_Shedding_allGarmentCombined) <- c("Weight","meanArea")
 
 #### PLOT ####
 # calculation of the percentage difference between washed and unwashed
@@ -587,5 +588,20 @@ pSH <- ggplot(FibreCount_Shedding_Combined, aes(x = factor(Weight, level = c('10
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSH
+ggsave("Shedding_W000_all garment.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
+pSH <- ggplot(FibreCount_Shedding_allGarmentCombined, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                                y= meanArea))+
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,500)+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "dark", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))
 pSH
 ggsave("Shedding_W000_all garment combined.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
