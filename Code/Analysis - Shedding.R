@@ -599,7 +599,7 @@ pSH <- ggplot(FibreCount_Shedding_allGarmentCombined, aes(x = factor(Weight, lev
   theme_bw(base_family = "Arial", base_size = 12) +
   ylim(0,500)+
   theme(legend.title = element_blank(),
-        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        strip.background.x = element_rect(colour = "dark", fill = "white"),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))
