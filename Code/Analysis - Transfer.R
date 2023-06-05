@@ -430,9 +430,9 @@ ggsave("Fibre Count boxplot_ATr_G2.png", pAtr_G2, width = 6, height = 7, units =
 #################################################################################################
 TransferFibreCount_PhDG <- read.csv('./Transfer_Fibre_Count_red jumpers_PhD.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
 TransferFibreCount_PhDG <- TransferFibreCount_PhDG[is.element(TransferFibreCount_PhDG$group, c('W000','W001','W002','W003','W004','W005','W006','W007')),]
-TransferFibreCount_PhDG$Coder <-"Garment PhD"
-TransferFibreCount_G1$Coder <-"Garment 1"
-TransferFibreCount_G2$Coder <-"Garment 2"
+TransferFibreCount_PhDG$Coder <-"5 garments - no detergent"
+TransferFibreCount_G1$Coder <-"1 garments - no detergent"
+TransferFibreCount_G2$Coder <-"1 garments -  detergent"
 TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2,TransferFibreCount_PhDG)
 
 pAtr_Total <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
