@@ -165,7 +165,7 @@ Wastewatervolume_fibre_G1 <- data.frame(cbind(Wastewatervolume_G1,Fibre=Wastewat
 PearsonVf_G1 <- ggscatter(Wastewatervolume_fibre_G1, x = "Fibre", y = "Total",
                        add = "reg.line",
                        xlab = "Fibre (mg)", ylab = "Volume (L)")+
-  stat_cor(method = "pearson", label.x = 70, label.y = 25)
+  stat_cor(method = "pearson", label.x = 50, label.y = 25)
 PearsonVf_G1   
 ggsave("Pearson fibre VS wash number_G1.png", PearsonVf_G1, width = 7, height = 4, units = "in", dpi=600, path = "Results")
 
