@@ -178,14 +178,14 @@ names(TransferFibreCount_G1) <- c("group", "value")
 histogram(~ value | group,data=TransferFibreCount_G1,layout=c(3,3),
           xlab="Number of fibres")
 
-#### Create a table with descriptive statistics ####
+### STATS FOR ARTICLE ###
 meanAtr_G1 <- aggregate(value ~  group, TransferFibreCount_G1, function(x) {round(mean(x), digits=2)})
 SDAtr_G1 <- aggregate(value ~  group, TransferFibreCount_G1, function(x) {round(SD(x), digits=2)})
 SD2Atr_G1 <- round(sqrt((SDAtr_G1$value^2)+(0.95^2)),digits=2)
 medianAtr_G1 <- aggregate(value ~  group, TransferFibreCount_G1, median)
 datatableAtr_G1 <- cbind(meanAtr_G1, medianAtr_G1$value, SDAtr_G1$value, SD2Atr_G1)
 names(datatableAtr_G1) <- c("Wash number", "Average", "median", "SD", "SD2")
-datatableAtr_G1$Forthesis <- paste(datatableAtr_G1$Average, datatableAtr_G$SD, sep=" ± ")
+datatableAtr_G1$Forthesis <- paste(datatableAtr_G1$Average, datatableAtr_G1$SD, sep=" ± ")
 #write.table(datatableAtr_G, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
 
 write.table(TransferFibreCount_G1, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
@@ -239,7 +239,7 @@ W006negative <- W006_G2_Dataset %>% filter(grepl('negative', Sample))
 W007negative <- W007_G2_Dataset %>% filter(grepl('negative', Sample))
 
 # Create a data frame "Negativecontrol" with all the negative controls 
-Negativecontrol <- rbind(W000negative,W001negative, W002negative,W003negative, W004negative, W005negative, W006negative, W007negative)
+Negativecontrol <- rbind(W000negative,W001negative, W002negative,W003negative, W004negative, W005negative, W006negative,W007negative)
 
 # Calculate the number of background fibres
 Negativecontrol$Diff <- Negativecontrol$`After transfer` - Negativecontrol$`Before transfer`
