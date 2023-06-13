@@ -689,23 +689,23 @@ ggsave("Fibre Count boxplot_ATr_G3.png", pAtr_G3, width = 6, height = 7, units =
 #####                             FIBRE ANALYSIS GARMENT COMBINED                           #####
 #################################################################################################
 TransferFibreCount_PhDG <- read.csv('./Transfer_Fibre_Count_red jumpers_PhD.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
-TransferFibreCount_PhDG <- TransferFibreCount_PhDG[is.element(TransferFibreCount_PhDG$group, c('W000','W001','W002','W003','W004','W005','W006','W007')),]
+TransferFibreCount_PhDG <- TransferFibreCount_PhDG[is.element(TransferFibreCount_PhDG$group, c('W000','W001','W002','W003','W004','W005','W006','W007','W008','W009','W010')),]
 TransferFibreCount_PhDG$Coder <-"5 garments - no detergent"
 TransferFibreCount_G1$Coder <-"1 garments - no detergent"
 TransferFibreCount_G2$Coder <-"1 garments -  detergent"
 TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2,TransferFibreCount_PhDG)
 
-pAtr_Total <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
-  geom_boxplot() +
-  labs(x="\nWash number", y="Number of Fibre\n") +
-  scale_fill_brewer(palette = "Reds")+
-  theme_classic(base_family = "Arial", base_size = 14) +
-  theme(legend.title = element_blank(),
-        legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
-show(pAtr_Total)
-ggsave("Fibre Count boxplot_ATr_Total.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+# pAtr_Total <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
+#   geom_boxplot() +
+#   labs(x="\nWash number", y="Number of Fibre\n") +
+#   scale_fill_brewer(palette = "Reds")+
+#   theme_classic(base_family = "Arial", base_size = 14) +
+#   theme(legend.title = element_blank(),
+#         legend.position = "bottom",
+#         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+#         axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+# show(pAtr_Total)
+# ggsave("Fibre Count boxplot_ATr_Total.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
 pAtr_Total_2nd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
   geom_boxplot() +
@@ -724,15 +724,16 @@ pAtr_Total_2nd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Cod
 show(pAtr_Total_2nd)
 ggsave("Fibre Count boxplot_ATr_Total_2nd.png", pAtr_Total_2nd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
-pAtr_Total_3rd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
-  geom_boxplot() +
-  facet_wrap(~group, scale="free")+
-  labs(x="\nWash number", y="Number of Fibre\n") +
-  scale_fill_brewer(palette = "Reds")+
-  theme_classic(base_family = "Arial", base_size = 14) +
-  theme(legend.title = element_blank(),
-        legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
-show(pAtr_Total_3rd)
-ggsave("Fibre Count boxplot_ATr_Total_3rd.png", pAtr_Total_3rd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+# pAtr_Total_3rd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
+#   geom_boxplot() +
+#   facet_wrap(~group, scale="free")+
+#   labs(x="\nWash number", y="Number of Fibre\n") +
+#   scale_fill_brewer(palette = "Reds")+
+#   theme_classic(base_family = "Arial", base_size = 14) +
+#   theme(legend.title = element_blank(),
+#         legend.position = "bottom",
+#         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+#         axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+# show(pAtr_Total_3rd)
+# ggsave("Fibre Count boxplot_ATr_Total_3rd.png", pAtr_Total_3rd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+
