@@ -498,3 +498,51 @@ W000_G3_Dataset[,2:3] = apply(W000_G3_Dataset[,2:3], 2, function(x) as.numeric(a
 
 # remove unused dataframe
 rm(W000_G3,W000_G3B,W000_G3Atr,W000_G3_Dataset_pending)
+
+#-----------------------------------------------------------#
+#####                     W001_G3                        ####
+#-----------------------------------------------------------#
+###_________________Data loading_________________###
+W001_G3 <- read.csv('./Fibre count Summary/W001_G3_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+# Creating the different dataframe before and after transfer
+W001_G3B <- W001_G3 %>% filter(grepl('_B.', Slice))
+W001_G3Atr <- W001_G3 %>% filter(grepl('_Atr.TIF', Slice))
+
+# removing the ".TIF" in W001_G3B and W001_G3Atr
+W001_G3B$Slice<- gsub(".TIF","",W001_G3B$Slice)
+W001_G3Atr$Slice<- gsub(".TIF","",W001_G3Atr$Slice)
+
+# Create table
+W001_G3_Dataset_pending <- data.frame(rbind(W001_G3B$Slice, W001_G3B$Count, W001_G3Atr$Count))
+W001_G3_Dataset<-as.data.frame(t(W001_G3_Dataset_pending))
+names(W001_G3_Dataset) <- c("Sample", "Before transfer", "After transfer")
+
+# change factor to numeric in the column 2 to 3
+W001_G3_Dataset[,2:3] = apply(W001_G3_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+
+# remove unused dataframe
+rm(W001_G3,W001_G3B,W001_G3Atr,W001_G3_Dataset_pending)
+
+#-----------------------------------------------------------#
+#####                     W002_G3                        ####
+#-----------------------------------------------------------#
+###_________________Data loading_________________###
+W002_G3 <- read.csv('./Fibre count Summary/W002_G3_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+# Creating the different dataframe before and after transfer
+W002_G3B <- W002_G3 %>% filter(grepl('_B.', Slice))
+W002_G3Atr <- W002_G3 %>% filter(grepl('_Atr.TIF', Slice))
+
+# removing the ".TIF" in W002_G3B and W002_G3Atr
+W002_G3B$Slice<- gsub(".TIF","",W002_G3B$Slice)
+W002_G3Atr$Slice<- gsub(".TIF","",W002_G3Atr$Slice)
+
+# Create table
+W002_G3_Dataset_pending <- data.frame(rbind(W002_G3B$Slice, W002_G3B$Count, W002_G3Atr$Count))
+W002_G3_Dataset<-as.data.frame(t(W002_G3_Dataset_pending))
+names(W002_G3_Dataset) <- c("Sample", "Before transfer", "After transfer")
+
+# change factor to numeric in the column 2 to 3
+W002_G3_Dataset[,2:3] = apply(W002_G3_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+
+# remove unused dataframe
+rm(W002_G3,W002_G3B,W002_G3Atr,W002_G3_Dataset_pending)
