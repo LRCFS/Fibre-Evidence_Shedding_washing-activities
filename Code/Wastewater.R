@@ -58,7 +58,7 @@ names(merge.dat_G1) = c("Experiment","P1","P2","SEM1", "SEM2")
 
 # add the filter ID
 merge.dat_G1 <- cbind(Wastewaterfibres_G1$Filter,merge.dat_G1)
-merge.dat_G1 <- merge.dat_G1[1:28,]
+merge.dat_G1 <- merge.dat_G1[1:16,]
 names(merge.dat_G1)[names(merge.dat_G1) == 'Wastewaterfibres_G1$Filter'] <- 'Filter'
 
 # Calculate difference and U.F
@@ -123,7 +123,7 @@ pVolume_G1 <- ggplot(data = Wastewatervolume_G1, aes(x =Washnumber, y = Total)) 
   geom_line(colour = "steelblue2")+
   labs(x="Wash number", y="Volume of water (L)")+
   scale_y_continuous(breaks = seq(0, 35, by = 1), limits = c(18, 29),expand = c(0,0))+
-  scale_x_continuous(breaks = seq(1, 8, by = 2), limits = c(1, 8),expand = c(0.01,0))+
+  scale_x_continuous(breaks = seq(1, 15, by = 2), limits = c(1, 15),expand = c(0.01,0))+
   theme_bw(base_size = 12) +
   theme(legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
@@ -143,7 +143,7 @@ pfibres_G1 <- ggplot(data = Wastewaterfibres_G1p4, aes(x =Experiment, y = Diff.F
   geom_line(colour = "Tomato")+
   labs(x="Wash number", y="Fibres (mg)")+
   scale_y_continuous(breaks = seq(0, 80, by = 10), limits = c(20, 80),expand = c(0,0))+
-  scale_x_continuous(breaks = seq(1, 8, by = 2), limits = c(1, 8),expand = c(0.01,0))+
+  scale_x_continuous(breaks = seq(1, 15, by = 2), limits = c(1, 15),expand = c(0.01,0))+
   theme_bw( base_size = 12) +
   theme(legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
@@ -220,7 +220,7 @@ names(merge.dat_G2) = c("Experiment","P1","P2","SEM1", "SEM2")
 
 # add the filter ID
 merge.dat_G2 <- cbind(Wastewaterfibres_G2$Filter,merge.dat_G2)
-merge.dat_G2 <- merge.dat_G2[1:22,]
+merge.dat_G2 <- merge.dat_G2[1:30,]
 names(merge.dat_G2)[names(merge.dat_G2) == 'Wastewaterfibres_G2$Filter'] <- 'Filter'
 
 # Calculate difference and U.F
@@ -279,7 +279,7 @@ pVolume_G2 <- ggplot(data = Wastewatervolume_G2, aes(x =Washnumber, y = Total)) 
   geom_line(colour = "steelblue2")+
   labs(x="Wash number", y="Volume of water (L)")+
   scale_y_continuous(breaks = seq(0, 35, by = 1), limits = c(18, 29),expand = c(0,0))+
-  scale_x_continuous(breaks = seq(1, 15, by = 2), limits = c(1, 15),expand = c(0.05,0))+
+  scale_x_continuous(breaks = seq(1, 16, by = 2), limits = c(0.7, 15.3),expand = c(0.05,0))+
   theme_bw(base_size = 12) +
   theme(legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
@@ -297,7 +297,7 @@ pfibres_G2 <- ggplot(data = Wastewaterfibres_G2p4, aes(x =Experiment, y = Diff.F
   geom_line(colour = "Tomato")+
   labs(x="Wash number", y="Fibres (mg)")+
   scale_y_continuous(breaks = seq(0, 100, by = 10), limits = c(20, 100),expand = c(0,0))+
-  scale_x_continuous(breaks = seq(1, 15, by = 2), limits = c(1, 15),expand = c(0.05,0))+
+  scale_x_continuous(breaks = seq(1, 16, by = 2), limits = c(0.7, 15.3),expand = c(0.05,0))+
   theme_bw( base_size = 12) +
   theme(legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
@@ -362,7 +362,7 @@ names(merge.dat_G3) = c("Experiment","P1","P2","SEM1", "SEM2")
 
 # add the filter ID
 merge.dat_G3 <- cbind(Wastewaterfibres_G3$Filter,merge.dat_G3)
-merge.dat_G3 <- merge.dat_G3[1:2,]
+merge.dat_G3 <- merge.dat_G3[1:10,]
 names(merge.dat_G3)[names(merge.dat_G3) == 'Wastewaterfibres_G3$Filter'] <- 'Filter'
 
 # Calculate difference and U.F
@@ -421,7 +421,7 @@ pVolume_G3 <- ggplot(data = Wastewatervolume_G3, aes(x =Washnumber, y = Total)) 
   geom_line(colour = "steelblue2")+
   labs(x="Wash number", y="Volume of water (L)")+
   scale_y_continuous(breaks = seq(0, 35, by = 1), limits = c(18, 29),expand = c(0,0))+
-  scale_x_continuous(breaks = seq(1, 15, by = 2), limits = c(1, 15),expand = c(0.05,0))+
+  scale_x_continuous(breaks = seq(1, 16, by = 2), limits = c(0.7, 15.3),expand = c(0.05,0))+
   theme_bw(base_size = 12) +
   theme(legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
@@ -439,7 +439,7 @@ pfibres_G3 <- ggplot(data = Wastewaterfibres_G3p4, aes(x =Experiment, y = Diff.F
   geom_line(colour = "Tomato")+
   labs(x="Wash number", y="Fibres (mg)")+
   scale_y_continuous(breaks = seq(0, 100, by = 10), limits = c(20, 100),expand = c(0,0))+
-  scale_x_continuous(breaks = seq(1, 15, by = 2), limits = c(1, 15),expand = c(0.05,0))+
+  scale_x_continuous(breaks = seq(1, 16, by = 2), limits = c(0.7, 15.3),expand = c(0.05,0))+
   theme_bw( base_size = 12) +
   theme(legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
@@ -483,6 +483,7 @@ Wastewatervolume_PhD <- subset(Wastewatervolume_PhD, Washnumber!="34")
 Wastewatervolume_PhD$Coder <- "5 garments, no detergent"
 Wastewatervolume_G1$Coder <- "1 garment, no detergent"
 Wastewatervolume_G2$Coder <- "1 garment, detergent"
+Wastewatervolume_G2$Coder <- "1 garment, detergent + solftener"
 TotalWastewatervolume <-rbind(Wastewatervolume_PhD,Wastewatervolume_G1,Wastewatervolume_G2)
 
 pVolume_Total <- ggplot(data = TotalWastewatervolume, aes(x =Washnumber, y = Total, color=Coder, group=Coder)) +
