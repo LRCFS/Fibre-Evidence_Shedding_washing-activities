@@ -207,7 +207,7 @@ ggsave("Shedding_G1_W000-7.png", pSH, width = 10, height = 9, units = "in", dpi=
 ##################
 #####   G2   #####
 ##################
-Shedding_G2 <- read.csv('./Fibre count Summary/SH_G2_W000-W013_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_G2 <- read.csv('./Fibre count Summary/SH_G2_W000-W015_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
 Shedding_G2$Slice<- gsub(".TIF","",Shedding_G2$Slice)
 Shedding_G2Extended <- data.frame(str_split(Shedding_G2$Slice, "_", simplify=TRUE))
 names(Shedding_G2Extended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
@@ -228,6 +228,7 @@ DataAreaW007_G2 <- Shedding_G2Total[Shedding_G2Total$Wash =='W007',]
 DataAreaW009_G2 <- Shedding_G2Total[Shedding_G2Total$Wash =='W009',]
 DataAreaW011_G2 <- Shedding_G2Total[Shedding_G2Total$Wash =='W011',]
 DataAreaW013_G2 <- Shedding_G2Total[Shedding_G2Total$Wash =='W013',]
+DataAreaW015_G2 <- Shedding_G2Total[Shedding_G2Total$Wash =='W015',]
 
 # split per weight
 DataAreaW000_G2_100 <- DataAreaW000_G2[DataAreaW000_G2$Weight =='100g',]
@@ -285,6 +286,13 @@ DataAreaW013_G2_400 <- DataAreaW013_G2[DataAreaW013_G2$Weight =='400g',]
 DataAreaW013_G2_800 <- DataAreaW013_G2[DataAreaW013_G2$Weight =='800g',]
 DataAreaW013_G2_1000 <- DataAreaW013_G2[DataAreaW013_G2$Weight =='1000g',]
 DataAreaW013_G2_2000 <- DataAreaW013_G2[DataAreaW013_G2$Weight =='2000g',]
+
+DataAreaW015_G2_100 <- DataAreaW015_G2[DataAreaW015_G2$Weight =='100g',]
+DataAreaW015_G2_200 <- DataAreaW015_G2[DataAreaW015_G2$Weight =='200g',]
+DataAreaW015_G2_400 <- DataAreaW015_G2[DataAreaW015_G2$Weight =='400g',]
+DataAreaW015_G2_800 <- DataAreaW015_G2[DataAreaW015_G2$Weight =='800g',]
+DataAreaW015_G2_1000 <- DataAreaW015_G2[DataAreaW015_G2$Weight =='1000g',]
+DataAreaW015_G2_2000 <- DataAreaW015_G2[DataAreaW015_G2$Weight =='2000g',]
 
 # Calculation of mean and SD
 meanDataAreaW000_G2_100<- data.frame(meanArea=round(mean(DataAreaW000_G2_100$Area.mm2),digits =2 ))
@@ -439,6 +447,25 @@ meanDataAreaW013_G2_2000<- data.frame(meanArea=round(mean(DataAreaW013_G2_2000$A
 meanDataAreaW013_G2_2000$SD<- round(sd(DataAreaW013_G2_2000$Area.mm2),digits =2 )
 meanDataAreaW013_G2_2000$Weight <- "2000g"
 
+meanDataAreaW015_G2_100<- data.frame(meanArea=round(mean(DataAreaW015_G2_100$Area.mm2),digits =2 ))
+meanDataAreaW015_G2_100$SD<- round(sd(DataAreaW015_G2_100$Area.mm2),digits =2 )
+meanDataAreaW015_G2_100$Weight <- "100g"
+meanDataAreaW015_G2_200<- data.frame(meanArea=round(mean(DataAreaW015_G2_200$Area.mm2),digits =2 ))
+meanDataAreaW015_G2_200$SD<- round(sd(DataAreaW015_G2_200$Area.mm2),digits =2 )
+meanDataAreaW015_G2_200$Weight <- "200g"
+meanDataAreaW015_G2_400<- data.frame(meanArea=round(mean(DataAreaW015_G2_400$Area.mm2),digits =2 ))
+meanDataAreaW015_G2_400$SD<- round(sd(DataAreaW015_G2_400$Area.mm2),digits =2 )
+meanDataAreaW015_G2_400$Weight <- "400g"
+meanDataAreaW015_G2_800<- data.frame(meanArea=round(mean(DataAreaW015_G2_800$Area.mm2),digits =2 ))
+meanDataAreaW015_G2_800$SD<- round(sd(DataAreaW015_G2_800$Area.mm2),digits =2 )
+meanDataAreaW015_G2_800$Weight <- "800g"
+meanDataAreaW015_G2_1000<- data.frame(meanArea=round(mean(DataAreaW015_G2_1000$Area.mm2),digits =2 ))
+meanDataAreaW015_G2_1000$SD<- round(sd(DataAreaW015_G2_1000$Area.mm2),digits =2 )
+meanDataAreaW015_G2_1000$Weight <- "1000g"
+meanDataAreaW015_G2_2000<- data.frame(meanArea=round(mean(DataAreaW015_G2_2000$Area.mm2),digits =2 ))
+meanDataAreaW015_G2_2000$SD<- round(sd(DataAreaW015_G2_2000$Area.mm2),digits =2 )
+meanDataAreaW015_G2_2000$Weight <- "2000g"
+
 # Combined data sets
 DataW000_G2_total <- rbind(meanDataAreaW000_G2_100,meanDataAreaW000_G2_200,meanDataAreaW000_G2_400,
                            meanDataAreaW000_G2_800,meanDataAreaW000_G2_1000,meanDataAreaW000_G2_2000)
@@ -472,7 +499,11 @@ DataW013total <- rbind(meanDataAreaW013_G2_100,meanDataAreaW013_G2_200,meanDataA
                        meanDataAreaW013_G2_800,meanDataAreaW013_G2_1000,meanDataAreaW013_G2_2000)
 DataW013total$Condition <- "W013_G2"
 
-FibreCount_Shedding_G2 <- rbind(DataW000_G2_total,DataW001_G2_total,DataW003_G2_total, DataW005total,DataW007total,DataW009total,DataW011total,DataW013total)
+DataW015total <- rbind(meanDataAreaW015_G2_100,meanDataAreaW015_G2_200,meanDataAreaW015_G2_400,
+                       meanDataAreaW015_G2_800,meanDataAreaW015_G2_1000,meanDataAreaW015_G2_2000)
+DataW015total$Condition <- "W015_G2"
+
+FibreCount_Shedding_G2 <- rbind(DataW000_G2_total,DataW001_G2_total,DataW003_G2_total, DataW005total,DataW007total,DataW009total,DataW011total,DataW013total,DataW015total)
 
 write.table(FibreCount_Shedding_G2, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
@@ -497,12 +528,12 @@ pSH <- ggplot(FibreCount_Shedding_G2, aes(x = factor(Weight, level = c('100g', '
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH
-ggsave("Shedding_G2_W000-13.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+ggsave("Shedding_G2_W000-15.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 ##################
 #####   G3   #####
 ##################
-Shedding_G3 <- read.csv('./Fibre count Summary/SH_G3_W000-W003_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_G3 <- read.csv('./Fibre count Summary/SH_G3_W000-W005_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
 Shedding_G3$Slice<- gsub(".TIF","",Shedding_G3$Slice)
 Shedding_G3Extended <- data.frame(str_split(Shedding_G3$Slice, "_", simplify=TRUE))
 names(Shedding_G3Extended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
@@ -518,6 +549,7 @@ Shedding_G3Total$Area.mm2 <- Shedding_G3Total$Area.px/12544
 DataAreaW000_G3 <- Shedding_G3Total[Shedding_G3Total$Wash =='W000',]
 DataAreaW001_G3 <- Shedding_G3Total[Shedding_G3Total$Wash =='W001',]
 DataAreaW003_G3 <- Shedding_G3Total[Shedding_G3Total$Wash =='W003',]
+DataAreaW005_G3 <- Shedding_G3Total[Shedding_G3Total$Wash =='W005',]
 
 # split per weight
 DataAreaW000_G3_100 <- DataAreaW000_G3[DataAreaW000_G3$Weight =='100g',]
@@ -540,6 +572,13 @@ DataAreaW003_G3_400 <- DataAreaW003_G3[DataAreaW003_G3$Weight =='400g',]
 DataAreaW003_G3_800 <- DataAreaW003_G3[DataAreaW003_G3$Weight =='800g',]
 DataAreaW003_G3_1000 <- DataAreaW003_G3[DataAreaW003_G3$Weight =='1000g',]
 DataAreaW003_G3_2000 <- DataAreaW003_G3[DataAreaW003_G3$Weight =='2000g',]
+
+DataAreaW005_G3_100 <- DataAreaW005_G3[DataAreaW005_G3$Weight =='100g',]
+DataAreaW005_G3_200 <- DataAreaW005_G3[DataAreaW005_G3$Weight =='200g',]
+DataAreaW005_G3_400 <- DataAreaW005_G3[DataAreaW005_G3$Weight =='400g',]
+DataAreaW005_G3_800 <- DataAreaW005_G3[DataAreaW005_G3$Weight =='800g',]
+DataAreaW005_G3_1000 <- DataAreaW005_G3[DataAreaW005_G3$Weight =='1000g',]
+DataAreaW005_G3_2000 <- DataAreaW005_G3[DataAreaW005_G3$Weight =='2000g',]
 
 # Calculation of mean and SD
 meanDataAreaW000_G3_100<- data.frame(meanArea=round(mean(DataAreaW000_G3_100$Area.mm2),digits =2 ))
@@ -599,6 +638,25 @@ meanDataAreaW003_G3_2000<- data.frame(meanArea=round(mean(DataAreaW003_G3_2000$A
 meanDataAreaW003_G3_2000$SD<- round(sd(DataAreaW003_G3_2000$Area.mm2),digits =2 )
 meanDataAreaW003_G3_2000$Weight <- "2000g"
 
+meanDataAreaW005_G3_100<- data.frame(meanArea=round(mean(DataAreaW005_G3_100$Area.mm2),digits =2 ))
+meanDataAreaW005_G3_100$SD<- round(sd(DataAreaW005_G3_100$Area.mm2),digits =2 )
+meanDataAreaW005_G3_100$Weight <- "100g"
+meanDataAreaW005_G3_200<- data.frame(meanArea=round(mean(DataAreaW005_G3_200$Area.mm2),digits =2 ))
+meanDataAreaW005_G3_200$SD<- round(sd(DataAreaW005_G3_200$Area.mm2),digits =2 )
+meanDataAreaW005_G3_200$Weight <- "200g"
+meanDataAreaW005_G3_400<- data.frame(meanArea=round(mean(DataAreaW005_G3_400$Area.mm2),digits =2 ))
+meanDataAreaW005_G3_400$SD<- round(sd(DataAreaW005_G3_400$Area.mm2),digits =2 )
+meanDataAreaW005_G3_400$Weight <- "400g"
+meanDataAreaW005_G3_800<- data.frame(meanArea=round(mean(DataAreaW005_G3_800$Area.mm2),digits =2 ))
+meanDataAreaW005_G3_800$SD<- round(sd(DataAreaW005_G3_800$Area.mm2),digits =2 )
+meanDataAreaW005_G3_800$Weight <- "800g"
+meanDataAreaW005_G3_1000<- data.frame(meanArea=round(mean(DataAreaW005_G3_1000$Area.mm2),digits =2 ))
+meanDataAreaW005_G3_1000$SD<- round(sd(DataAreaW005_G3_1000$Area.mm2),digits =2 )
+meanDataAreaW005_G3_1000$Weight <- "1000g"
+meanDataAreaW005_G3_2000<- data.frame(meanArea=round(mean(DataAreaW005_G3_2000$Area.mm2),digits =2 ))
+meanDataAreaW005_G3_2000$SD<- round(sd(DataAreaW005_G3_2000$Area.mm2),digits =2 )
+meanDataAreaW005_G3_2000$Weight <- "2000g"
+
 # Combined data sets
 DataW000_G3_total <- rbind(meanDataAreaW000_G3_100,meanDataAreaW000_G3_200,meanDataAreaW000_G3_400,
                            meanDataAreaW000_G3_800,meanDataAreaW000_G3_1000,meanDataAreaW000_G3_2000)
@@ -612,7 +670,11 @@ DataW003_G3_total <- rbind(meanDataAreaW003_G3_100,meanDataAreaW003_G3_200,meanD
                            meanDataAreaW003_G3_800,meanDataAreaW003_G3_1000,meanDataAreaW003_G3_2000)
 DataW003_G3_total$Condition <- "W003_G3"
 
-FibreCount_Shedding_G3 <- rbind(DataW000_G3_total,DataW001_G3_total,DataW003_G3_total) #,DataW005total,DataW007total,DataW009total,DataW011total)
+DataW005_G3_total <- rbind(meanDataAreaW005_G3_100,meanDataAreaW005_G3_200,meanDataAreaW005_G3_400,
+                           meanDataAreaW005_G3_800,meanDataAreaW005_G3_1000,meanDataAreaW005_G3_2000)
+DataW005_G3_total$Condition <- "W005_G3"
+
+FibreCount_Shedding_G3 <- rbind(DataW000_G3_total,DataW001_G3_total,DataW003_G3_total, DataW005_G3_total) #,DataW005total,DataW007total,DataW009total,DataW011total)
 
 write.table(FibreCount_Shedding_G3, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
@@ -637,7 +699,7 @@ pSH <- ggplot(FibreCount_Shedding_G3, aes(x = factor(Weight, level = c('100g', '
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH
-ggsave("Shedding_G3_W000-3.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+ggsave("Shedding_G3_W000-5.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 
 ##################
