@@ -350,7 +350,7 @@ forFibreCount8<- W008_G2_Dataset[!(W008_G2_Dataset$Sample=="MP_W008_G2_positive_
 forFibreCount9<- W009_G2_Dataset[!(W009_G2_Dataset$Sample=="MP_W009_G2_positive_B" | W009_G2_Dataset$Sample=="MP_W009_G2_negative_B"),]
 forFibreCount10<- W010_G2_Dataset[!(W010_G2_Dataset$Sample=="MP_W010_G2_positive_B" | W010_G2_Dataset$Sample=="MP_W010_G2_negative_B"),]
 forFibreCount13<- W013_G2_Dataset[!(W013_G2_Dataset$Sample=="MP_W013_G2_positive_B" | W013_G2_Dataset$Sample=="MP_W013_G2_negative_B"),]
-forFibreCount13<- W015_G2_Dataset[!(W015_G2_Dataset$Sample=="MP_W015_G2_positive_B" | W015_G2_Dataset$Sample=="MP_W015_G2_negative_B"),]
+forFibreCount15<- W015_G2_Dataset[!(W015_G2_Dataset$Sample=="MP_W015_G2_positive_B" | W015_G2_Dataset$Sample=="MP_W015_G2_negative_B"),]
 
 #########################################################
 #####           ANALYSE OF THE BACKGROUND           #####

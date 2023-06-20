@@ -691,7 +691,7 @@ pSH <- ggplot(FibreCount_Shedding_G3, aes(x = factor(Weight, level = c('100g', '
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
   ylim(0,500)+
-  scale_fill_manual("legend", values = c("W000_G3" = "#A6CEE3", "W001_G3" = "#1F78B4", "W003_G3" = "#B2DF8A"))+ # to obtain the colour brewer.pal(12, "Paired")
+  scale_fill_manual("legend", values = c("W000_G3" = "#A6CEE3", "W001_G3" = "#1F78B4", "W003_G3" = "#B2DF8A", "W005_G3" = "#5e8a37"))+ # to obtain the colour brewer.pal(12, "Paired")
   theme(legend.title = element_blank(),
         strip.background.x = element_rect(colour = "grey", fill = "white"),
         legend.position = "bottom",
