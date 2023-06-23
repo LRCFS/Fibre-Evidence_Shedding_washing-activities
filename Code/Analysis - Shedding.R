@@ -217,23 +217,22 @@ y = rep(c(125, 150, 175, 200, 225),2)
 x = rep(c(1:5), 2)
 
 # plot
-pSH <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+pSH_G1 <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                           y= meanArea, fill=Condition))+
-  geom_bar(stat="identity", position=position_dodge())+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
   ylim(0,500)+
-  scale_fill_manual("legend", values = c("W000_G1" = "#FED976", "W001_G1" = "#FEB24C","W003_G1" = "#FD8D3C",
-                                         "W005_G1" = "#FC4E2A","W007_G1" = "#E31A1C", "W009_G1" = "#bf191b"))+ # to obtain the colour brewer.pal(9, "YlOrRd")
+  scale_fill_manual(values = brewer.pal(9, "Greys")[1:9])+
   theme(legend.title = element_blank(),
-        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        strip.background.x = element_rect(colour = "Greys", fill = "white"),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
-pSH
-ggsave("Shedding_G1_W000-9.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+pSH_G1
+ggsave("Shedding_G1_W000-9.png", pSH_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 ##################
 #####   G2   #####
@@ -544,22 +543,22 @@ y = rep(c(125, 150, 175, 200, 225),2)
 x = rep(c(1:5), 2)
 
 # plot
-pSH <- ggplot(FibreCount_Shedding_G2, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+pSH_G2 <- ggplot(FibreCount_Shedding_G2, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                           y= meanArea, fill=Condition))+
-  geom_bar(stat="identity", position=position_dodge())+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
   ylim(0,500)+
-  scale_fill_manual("legend", values = c("W000_G2" = "#A6CEE3", "W001_G2" = "#1F78B4","W003_G2" = "#B2DF8A", "W005_G2" = "#5e8a37", "W007_G2" = "#9e8adf", "W009_G2" = "#564982", "W011_G2" = "#e6de9a", "W013_G2" = "#969160"))+ # to obtain the colour brewer.pal(12, "Paired")
+  scale_fill_manual(values = brewer.pal(9, "Blues")[1:9])+
   theme(legend.title = element_blank(),
         strip.background.x = element_rect(colour = "grey", fill = "white"),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
-pSH
-ggsave("Shedding_G2_W000-15.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+pSH_G2
+ggsave("Shedding_G2_W000-15.png", pSH_G2, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 ##################
 #####   G3   #####
@@ -746,22 +745,22 @@ y = rep(c(125, 150, 175, 200, 225),2)
 x = rep(c(1:5), 2)
 
 # plot
-pSH <- ggplot(FibreCount_Shedding_G3, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+pSH_G3 <- ggplot(FibreCount_Shedding_G3, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                           y= meanArea, fill=Condition))+
-  geom_bar(stat="identity", position=position_dodge())+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
   ylim(0,500)+
-  scale_fill_manual("legend", values = c("W000_G3" = "#A6CEE3", "W001_G3" = "#1F78B4", "W003_G3" = "#B2DF8A", "W005_G3" = "#5e8a37", "W007_G3" = "#9e8adf"))+ # to obtain the colour brewer.pal(12, "Paired")
+  scale_fill_manual(values = brewer.pal(9, "Reds")[1:9])+
   theme(legend.title = element_blank(),
         strip.background.x = element_rect(colour = "grey", fill = "white"),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
-pSH
-ggsave("Shedding_G3_W000-7.png", pSH, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+pSH_G3
+ggsave("Shedding_G3_W000-7.png", pSH_G3, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 
 ##################
@@ -815,6 +814,32 @@ DataW000_G4A_total <- rbind(meanDataAreaW000_G4A_100,meanDataAreaW000_G4A_200,me
                             meanDataAreaW000_G4A_800,meanDataAreaW000_G4A_1000,meanDataAreaW000_G4A_2000)
 DataW000_G4A_total$Condition <- "W000_G4A"
 
+FibreCount_Shedding_G4A <- rbind(DataW000_G4A_total)
+
+write.table(FibreCount_Shedding_G4A, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
+
+# calculation of the percentage difference between washed and unwashed
+y = rep(c(125, 150, 175, 200, 225),2)
+x = rep(c(1:5), 2)
+
+# plot
+pSH_G4A <- ggplot(FibreCount_Shedding_G4A, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                          y= meanArea, fill=Condition))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,500)+
+  scale_fill_manual(values = brewer.pal(9, "Paired")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSH_G4A
+ggsave("Shedding_G4A_W000.png", pSH_G4A, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
 ##################
 ####   G4B    ####
 ##################
@@ -865,6 +890,32 @@ meanDataAreaW000_G4B_2000$Weight <- "2000g"
 DataW000_G4B_total <- rbind(meanDataAreaW000_G4B_100,meanDataAreaW000_G4B_200,meanDataAreaW000_G4B_400,
                             meanDataAreaW000_G4B_800,meanDataAreaW000_G4B_1000,meanDataAreaW000_G4B_2000)
 DataW000_G4B_total$Condition <- "W000_G4B"
+
+FibreCount_Shedding_G4B <- rbind(DataW000_G4B_total)
+
+write.table(FibreCount_Shedding_G4B, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
+
+# calculation of the percentage difference between washed and unwashed
+y = rep(c(125, 150, 175, 200, 225),2)
+x = rep(c(1:5), 2)
+
+# plot
+pSH_G4B <- ggplot(FibreCount_Shedding_G4B, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                               y= meanArea, fill=Condition))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,500)+
+  scale_fill_manual(values = brewer.pal(9, "Paired")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSH_G4B
+ggsave("Shedding_G4B_W000.png", pSH_G4B, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 #######################
 ####   COMBINED    ####
