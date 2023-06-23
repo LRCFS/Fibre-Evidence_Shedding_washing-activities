@@ -750,7 +750,7 @@ pAtr_Total_2nd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Cod
 show(pAtr_Total_2nd)
 ggsave("Fibre Count boxplot_ATr_Total_2nd.png", pAtr_Total_2nd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
-# Combined results from positive and negative controls
+# Combined results
 pAtr_combined_pending <- ggarrange(pAtr_PhD+ rremove("ylab") + rremove("xlab"), vjust = 0.8, hjust = 0.8,                                                # First row with scatter plot
                                    ggarrange(pAtr_G1+ rremove("ylab") + rremove("xlab"),
                                              pAtr_G2+ rremove("ylab") + rremove("xlab"),
