@@ -979,6 +979,83 @@ pSH_G4B <- ggplot(FibreCount_Shedding_G4B, aes(x = factor(Weight, level = c('100
 pSH_G4B
 ggsave("Shedding_G4B_W000.png", pSH_G4B, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
+##################
+####   G4C    ####
+##################
+Shedding_G4C <- read.csv('./Fibre count Summary/SH_G4C_W000_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_G4C$Slice<- gsub(".TIF","",Shedding_G4C$Slice)
+Shedding_G4CExtended <- data.frame(str_split(Shedding_G4C$Slice, "_", simplify=TRUE))
+names(Shedding_G4CExtended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
+Shedding_G4CTotal <- cbind(Shedding_G4CExtended,Area=Shedding_G4C$Total.Area)
+
+# Convert Area from inch2 to mm2
+# 1 pixel = 1 x10^-5 inch2, so (Area*1)/0.000011 to convert into px
+Shedding_G4CTotal$Area.px <- (Shedding_G4CTotal$Area*1)/0.000011
+# 1 mm = 112 pixels, 1mm2 = 12544 px
+Shedding_G4CTotal$Area.mm2 <- Shedding_G4CTotal$Area.px/12544
+
+# Split data per washing condition
+DataAreaW000_G4C <- Shedding_G4CTotal[Shedding_G4CTotal$Wash =='W000',]
+
+# split per weight
+DataAreaW000_G4C_100 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='100g',]
+DataAreaW000_G4C_200 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='200g',]
+DataAreaW000_G4C_400 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='400g',]
+DataAreaW000_G4C_800 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='800g',]
+DataAreaW000_G4C_1000 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='1000g',]
+DataAreaW000_G4C_2000 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='2000g',]
+
+# Calculation of mean and SD
+meanDataAreaW000_G4C_100<- data.frame(meanArea=round(mean(DataAreaW000_G4C_100$Area.mm2),digits =2 ))
+meanDataAreaW000_G4C_100$SD<- round(sd(DataAreaW000_G4C_100$Area.mm2),digits =2 )
+meanDataAreaW000_G4C_100$Weight <- "100g"
+meanDataAreaW000_G4C_200<- data.frame(meanArea=round(mean(DataAreaW000_G4C_200$Area.mm2),digits =2 ))
+meanDataAreaW000_G4C_200$SD<- round(sd(DataAreaW000_G4C_200$Area.mm2),digits =2 )
+meanDataAreaW000_G4C_200$Weight <- "200g"
+meanDataAreaW000_G4C_400<- data.frame(meanArea=round(mean(DataAreaW000_G4C_400$Area.mm2),digits =2 ))
+meanDataAreaW000_G4C_400$SD<- round(sd(DataAreaW000_G4C_400$Area.mm2),digits =2 )
+meanDataAreaW000_G4C_400$Weight <- "400g"
+meanDataAreaW000_G4C_800<- data.frame(meanArea=round(mean(DataAreaW000_G4C_800$Area.mm2),digits =2 ))
+meanDataAreaW000_G4C_800$SD<- round(sd(DataAreaW000_G4C_800$Area.mm2),digits =2 )
+meanDataAreaW000_G4C_800$Weight <- "800g"
+meanDataAreaW000_G4C_1000<- data.frame(meanArea=round(mean(DataAreaW000_G4C_1000$Area.mm2),digits =2 ))
+meanDataAreaW000_G4C_1000$SD<- round(sd(DataAreaW000_G4C_1000$Area.mm2),digits =2 )
+meanDataAreaW000_G4C_1000$Weight <- "1000g"
+meanDataAreaW000_G4C_2000<- data.frame(meanArea=round(mean(DataAreaW000_G4C_2000$Area.mm2),digits =2 ))
+meanDataAreaW000_G4C_2000$SD<- round(sd(DataAreaW000_G4C_2000$Area.mm2),digits =2 )
+meanDataAreaW000_G4C_2000$Weight <- "2000g"
+
+# Combined data sets
+DataW000_G4C_total <- rbind(meanDataAreaW000_G4C_100,meanDataAreaW000_G4C_200,meanDataAreaW000_G4C_400,
+                            meanDataAreaW000_G4C_800,meanDataAreaW000_G4C_1000,meanDataAreaW000_G4C_2000)
+DataW000_G4C_total$Condition <- "W000_G4C"
+
+FibreCount_Shedding_G4C <- rbind(DataW000_G4C_total)
+
+write.table(FibreCount_Shedding_G4C, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
+
+# calculation of the percentage difference between washed and unwashed
+y = rep(c(125, 150, 175, 200, 225),2)
+x = rep(c(1:5), 2)
+
+# plot
+pSH_G4C <- ggplot(FibreCount_Shedding_G4C, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                               y= meanArea, fill=Condition))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,500)+
+  scale_fill_manual(values = brewer.pal(9, "Paired")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSH_G4C
+ggsave("Shedding_G4C_W000.png", pSH_G4C, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
 #######################
 ####   COMBINED    ####
 #######################

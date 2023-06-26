@@ -810,3 +810,78 @@ W009_G3_Dataset[,2:3] = apply(W009_G3_Dataset[,2:3], 2, function(x) as.numeric(a
 
 # remove unused dataframe
 rm(W009_G3,W009_G3B,W009_G3Atr,W009_G3_Dataset_pending)
+
+#############################################################
+#####                    GARMENT 4                      #####
+#############################################################
+#-----------------------------------------------------------#
+#####                     W000_G4A                        ####
+#-----------------------------------------------------------#
+###_________________Data loading_________________###
+W000_G4A <- read.csv('./Fibre count Summary/W000_G4A_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+# Creating the different dataframe before and after transfer
+W000_G4AB <- W000_G4A %>% filter(grepl('_B.', Slice))
+W000_G4AAtr <- W000_G4A %>% filter(grepl('_Atr.TIF', Slice))
+
+# removing the ".TIF" in W000_G4AB and W000_G4AAtr
+W000_G4AB$Slice<- gsub(".TIF","",W000_G4AB$Slice)
+W000_G4AAtr$Slice<- gsub(".TIF","",W000_G4AAtr$Slice)
+
+# Create table
+W000_G4A_Dataset_pending <- data.frame(rbind(W000_G4AB$Slice, W000_G4AB$Count, W000_G4AAtr$Count))
+W000_G4A_Dataset<-as.data.frame(t(W000_G4A_Dataset_pending))
+names(W000_G4A_Dataset) <- c("Sample", "Before transfer", "After transfer")
+
+# change factor to numeric in the column 2 to 3
+W000_G4A_Dataset[,2:3] = apply(W000_G4A_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+
+# remove unused dataframe
+rm(W000_G4A,W000_G4AB,W000_G4AAtr,W000_G4A_Dataset_pending)
+
+#-----------------------------------------------------------#
+#####                     W000_G4B                        ####
+#-----------------------------------------------------------#
+###_________________Data loading_________________###
+W000_G4B <- read.csv('./Fibre count Summary/W000_G4B_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+# Creating the different dataframe before and after transfer
+W000_G4BB <- W000_G4B %>% filter(grepl('_B.', Slice))
+W000_G4BAtr <- W000_G4B %>% filter(grepl('_Atr.TIF', Slice))
+
+# removing the ".TIF" in W000_G4BB and W000_G4BAtr
+W000_G4BB$Slice<- gsub(".TIF","",W000_G4BB$Slice)
+W000_G4BAtr$Slice<- gsub(".TIF","",W000_G4BAtr$Slice)
+
+# Create table
+W000_G4B_Dataset_pending <- data.frame(rbind(W000_G4BB$Slice, W000_G4BB$Count, W000_G4BAtr$Count))
+W000_G4B_Dataset<-as.data.frame(t(W000_G4B_Dataset_pending))
+names(W000_G4B_Dataset) <- c("Sample", "Before transfer", "After transfer")
+
+# change factor to numeric in the column 2 to 3
+W000_G4B_Dataset[,2:3] = apply(W000_G4B_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+
+# remove unused dataframe
+rm(W000_G4B,W000_G4BB,W000_G4BAtr,W000_G4B_Dataset_pending)
+
+#-----------------------------------------------------------#
+#####                     W000_G4C                        ####
+#-----------------------------------------------------------#
+###_________________Data loading_________________###
+W000_G4C <- read.csv('./Fibre count Summary/W000_G4C_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+# Creating the different dataframe before and after transfer
+W000_G4CB <- W000_G4C %>% filter(grepl('_B.', Slice))
+W000_G4CAtr <- W000_G4C %>% filter(grepl('_Atr.TIF', Slice))
+
+# removing the ".TIF" in W000_G4CB and W000_G4CAtr
+W000_G4CB$Slice<- gsub(".TIF","",W000_G4CB$Slice)
+W000_G4CAtr$Slice<- gsub(".TIF","",W000_G4CAtr$Slice)
+
+# Create table
+W000_G4C_Dataset_pending <- data.frame(rbind(W000_G4CB$Slice, W000_G4CB$Count, W000_G4CAtr$Count))
+W000_G4C_Dataset<-as.data.frame(t(W000_G4C_Dataset_pending))
+names(W000_G4C_Dataset) <- c("Sample", "Before transfer", "After transfer")
+
+# change factor to numeric in the column 2 to 3
+W000_G4C_Dataset[,2:3] = apply(W000_G4C_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+
+# remove unused dataframe
+rm(W000_G4C,W000_G4CB,W000_G4CAtr,W000_G4C_Dataset_pending)
