@@ -66,7 +66,7 @@ FibreCount_TransferArea_G1 <- rbind(meanDataAreaW000_G1_TR, meanDataAreaW001_G1_
 #write.table(FibreCount_TransferArea_G1, file = "Transfer_Area.csv", quote = F, sep = ",", row.names = F)
 
 # plot
-pSH_G1 <- ggplot(FibreCount_TransferArea_G1, aes(x = factor(Wash, level = c('W000', 'W001','W003','W005','W006','W007','W009','W011')),
+pSH_G1 <- ggplot(FibreCount_TransferArea_G1, aes(x = factor(Wash, level = c('W000','W001','W003','W005','W007','W009','W011')),
                                           y= meanArea, fill=Condition))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
@@ -82,6 +82,54 @@ pSH_G1 <- ggplot(FibreCount_TransferArea_G1, aes(x = factor(Wash, level = c('W00
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH_G1
 ggsave("TransferArea_G1_W000-11.png", pSH_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
+# comparison to shedding
+SH_meanDataAreaW000_G1_800 <- meanDataAreaW000_G1_800[,!names(meanDataAreaW000_G1_800) %in% c("Weight")]
+SH_meanDataAreaW001_G1_800 <- meanDataAreaW001_G1_800[,!names(meanDataAreaW001_G1_800) %in% c("Weight")]
+SH_meanDataAreaW003_G1_800 <- meanDataAreaW003_G1_800[,!names(meanDataAreaW003_G1_800) %in% c("Weight")]
+SH_meanDataAreaW005_G1_800 <- meanDataAreaW005_G1_800[,!names(meanDataAreaW005_G1_800) %in% c("Weight")]
+SH_meanDataAreaW007_G1_800 <- meanDataAreaW007_G1_800[,!names(meanDataAreaW007_G1_800) %in% c("Weight")]
+SH_meanDataAreaW009_G1_800 <- meanDataAreaW009_G1_800[,!names(meanDataAreaW009_G1_800) %in% c("Weight")]
+SH_meanDataAreaW011_G1_800 <- meanDataAreaW011_G1_800[,!names(meanDataAreaW011_G1_800) %in% c("Weight")]
+
+SH_meanDataAreaW000_G1_800$Wash <- "W000"
+SH_meanDataAreaW001_G1_800$Wash <- "W001"
+SH_meanDataAreaW003_G1_800$Wash <- "W003"
+SH_meanDataAreaW005_G1_800$Wash <- "W005"
+SH_meanDataAreaW007_G1_800$Wash <- "W007"
+SH_meanDataAreaW009_G1_800$Wash <- "W009"
+SH_meanDataAreaW011_G1_800$Wash <- "W011"
+
+SH_meanDataAreaW000_G1_800$Condition <- "W000_G1"
+SH_meanDataAreaW001_G1_800$Condition <- "W001_G1"
+SH_meanDataAreaW003_G1_800$Condition <- "W003_G1"
+SH_meanDataAreaW005_G1_800$Condition <- "W005_G1"
+SH_meanDataAreaW007_G1_800$Condition <- "W007_G1"
+SH_meanDataAreaW009_G1_800$Condition <- "W009_G1"
+SH_meanDataAreaW011_G1_800$Condition <- "W011_G1"
+
+FibreCount_Shedding_800g_G1 <- rbind(SH_meanDataAreaW000_G1_800,SH_meanDataAreaW001_G1_800,SH_meanDataAreaW003_G1_800,SH_meanDataAreaW005_G1_800,SH_meanDataAreaW007_G1_800,SH_meanDataAreaW009_G1_800,SH_meanDataAreaW011_G1_800)
+
+FibreCount_TransferArea_G1$Coder <-"Transfer Experiments"
+FibreCount_Shedding_800g_G1$Coder <-"Shedding Experiments"
+G1_FibreCount_Total <- rbind(FibreCount_TransferArea_G1,FibreCount_Shedding_800g_G1)
+
+pSHTR_G1 <- ggplot(G1_FibreCount_Total, aes(x = factor(Wash, level = c('W000','W001','W003','W005','W007','W009','W011')),
+                                             y= meanArea, fill=Coder))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,290)+
+  scale_fill_manual(values = brewer.pal(9, "Set1")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "Greys", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSHTR_G1
+ggsave("Fibre Count boxplot_SHTR_G1.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
 ##################
 #####   G2   #####
@@ -273,3 +321,27 @@ pSH_G3 <- ggplot(FibreCount_TransferArea_G1, aes(x = factor(Wash, level = c('W00
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH_G3
 ggsave("TransferArea_G3_W000-11.png", pSH_G3, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
+# COMBINED
+
+FibreCount_TransferArea_G1$Coder <-"Garment 1"
+FibreCount_TransferArea_G2$Coder <-"Garment 2"
+FibreCount_TransferArea_G3$Coder <-"Garment 3"
+G1_FibreCount_Total <- rbind(FibreCount_TransferArea_G1,FibreCount_TransferArea_G2) #,FibreCount_TransferArea_G3)
+
+pTR_comb <- ggplot(G1_FibreCount_Total, aes(x = factor(Wash, level = c('W000','W001','W003','W005','W007','W009','W010','W011','W013','W015')),
+                                            y= meanArea, fill=Coder))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,3)+
+  scale_fill_manual(values = brewer.pal(9, "Set1")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "Greys", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pTR_comb
+ggsave("TransferArea_Total.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
