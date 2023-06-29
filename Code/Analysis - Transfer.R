@@ -214,7 +214,7 @@ pAtr_G1 <- ggplot(TransferFibreCount_G1, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,15)+
+  ylim(0,22)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
@@ -467,7 +467,7 @@ pAtr_G2 <- ggplot(TransferFibreCount_G2, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,25)+
+  ylim(0,22)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
@@ -704,7 +704,7 @@ pAtr_G3 <- ggplot(TransferFibreCount_G3, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,20)+
+  ylim(0,22)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
@@ -941,7 +941,7 @@ pAtr_G4A <- ggplot(TransferFibreCount_G4A, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,20)+
+  ylim(0,30)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
@@ -1173,7 +1173,7 @@ pAtr_G4B <- ggplot(TransferFibreCount_G4B, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,20)+
+  ylim(0,25)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
@@ -1405,7 +1405,7 @@ pAtr_G4C <- ggplot(TransferFibreCount_G4C, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,20)+
+  ylim(0,25)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),

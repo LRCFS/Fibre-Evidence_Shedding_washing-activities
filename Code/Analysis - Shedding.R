@@ -254,7 +254,7 @@ pSH_G1 <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g'
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,500)+
+  ylim(0,490)+
   scale_fill_manual(values = brewer.pal(9, "Greys")[1:9])+
   theme(legend.title = element_blank(),
         strip.background.x = element_rect(colour = "Greys", fill = "white"),
@@ -580,7 +580,7 @@ pSH_G2 <- ggplot(FibreCount_Shedding_G2, aes(x = factor(Weight, level = c('100g'
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,450)+
+  ylim(0,490)+
   scale_fill_manual(values = brewer.pal(9, "Blues")[1:9])+
   theme(legend.title = element_blank(),
         strip.background.x = element_rect(colour = "grey", fill = "white"),
@@ -844,7 +844,7 @@ pSH_G3 <- ggplot(FibreCount_Shedding_G3, aes(x = factor(Weight, level = c('100g'
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,500)+
+  ylim(0,490)+
   scale_fill_manual(values = brewer.pal(9, "Reds")[1:9])+
   theme(legend.title = element_blank(),
         strip.background.x = element_rect(colour = "grey", fill = "white"),
