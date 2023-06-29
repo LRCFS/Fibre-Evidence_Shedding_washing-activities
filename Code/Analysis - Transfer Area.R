@@ -129,7 +129,7 @@ pSHTR_G1 <- ggplot(G1_FibreCount_Total, aes(x = factor(Wash, level = c('W000','W
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSHTR_G1
-ggsave("Fibre Count boxplot_SHTR_G1.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+#ggsave("Fibre Count boxplot_SHTR_G1.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
 ##################
 #####   G2   #####
@@ -223,12 +223,12 @@ pSH_G2 <- ggplot(FibreCount_TransferArea_G2, aes(x = factor(Wash, level = c('W00
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH_G2
-ggsave("TransferArea_G2_W000-15.png", pSH_G2, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+#ggsave("TransferArea_G2_W000-15.png", pSH_G2, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 ##################
 #####   G3   #####
 ##################
-TransferArea_G3 <- read.csv('./Fibre count Summary/TR_G3_W000-W015_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+TransferArea_G3 <- read.csv('./Fibre count Summary/TR_G3_W000-W010_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
 TransferArea_G3$Slice<- gsub(".TIF","",TransferArea_G3$Slice)
 TransferArea_G3Extended <- data.frame(str_split(TransferArea_G3$Slice, "_", simplify=TRUE))
 names(TransferArea_G3Extended) <- c("Project","Wash","Garment","Bound","Condition")
@@ -243,11 +243,8 @@ TransferArea_G3Total$Area.mm2 <- TransferArea_G3Total$Area.px/12544
 # Split data per washing condition
 DataAreaW000_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W000',]
 DataAreaW001_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W001',]
-DataAreaW002_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W002',]
 DataAreaW003_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W003',]
-DataAreaW004_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W004',]
 DataAreaW005_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W005',]
-DataAreaW006_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W006',]
 DataAreaW007_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W007',]
 DataAreaW009_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W009',]
 DataAreaW010_G3_TR <- TransferArea_G3Total[TransferArea_G3Total$Wash =='W010',]
@@ -300,12 +297,12 @@ meanDataAreaW015_G3_TR$SD<- round(sd(DataAreaW015_G3_TR$Area.mm2),digits =2 )
 meanDataAreaW015_G3_TR$Wash <- "W015"
 meanDataAreaW015_G3_TR$Condition <- "W015_G3"
 
-FibreCount_TransferArea_G3 <- rbind(meanDataAreaW000_G3_TR, meanDataAreaW001_G3_TR, meanDataAreaW003_G3_TR, meanDataAreaW005_G3_TR, meanDataAreaW007_G3_TR,meanDataAreaW009_G3_TR, meanDataAreaW010_G3_TR, meanDataAreaW013_G3_TR,meanDataAreaW015_G3_TR)
+FibreCount_TransferArea_G3 <- rbind(meanDataAreaW000_G3_TR, meanDataAreaW001_G3_TR, meanDataAreaW003_G3_TR, meanDataAreaW005_G3_TR, meanDataAreaW007_G3_TR,meanDataAreaW009_G3_TR, meanDataAreaW010_G3_TR) #, meanDataAreaW013_G3_TR,meanDataAreaW015_G3_TR)
 
 #write.table(FibreCount_TransferArea_G3, file = "Transfer_Area.csv", quote = F, sep = ",", row.names = F)
 
 # plot
-pSH_G3 <- ggplot(FibreCount_TransferArea_G1, aes(x = factor(Wash, level = c('W000','W001','W003','W005','W007','W009','W011')),
+pSH_G3 <- ggplot(FibreCount_TransferArea_G3, aes(x = factor(Wash, level = c('W000','W001','W003','W005','W007','W009','W010')),
                                                  y= meanArea, fill=Condition))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
@@ -320,14 +317,14 @@ pSH_G3 <- ggplot(FibreCount_TransferArea_G1, aes(x = factor(Wash, level = c('W00
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH_G3
-ggsave("TransferArea_G3_W000-11.png", pSH_G3, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+ggsave("TransferArea_G3_W000-10.png", pSH_G3, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 # COMBINED
 
 FibreCount_TransferArea_G1$Coder <-"Garment 1"
 FibreCount_TransferArea_G2$Coder <-"Garment 2"
 FibreCount_TransferArea_G3$Coder <-"Garment 3"
-G1_FibreCount_Total <- rbind(FibreCount_TransferArea_G1,FibreCount_TransferArea_G2) #,FibreCount_TransferArea_G3)
+G1_FibreCount_Total <- rbind(FibreCount_TransferArea_G1,FibreCount_TransferArea_G2,FibreCount_TransferArea_G3)
 
 pTR_comb <- ggplot(G1_FibreCount_Total, aes(x = factor(Wash, level = c('W000','W001','W003','W005','W007','W009','W010','W011','W013','W015')),
                                             y= meanArea, fill=Coder))+

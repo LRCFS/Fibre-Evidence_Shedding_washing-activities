@@ -202,7 +202,7 @@ SD2Atr_G1 <- round(sqrt((SDAtr_G1$value^2)+(0.95^2)),digits=2)
 medianAtr_G1 <- aggregate(value ~  group, TransferFibreCount_G1, median)
 datatableAtr_G1 <- cbind(meanAtr_G1, medianAtr_G1$value, SDAtr_G1$value, SD2Atr_G1)
 names(datatableAtr_G1) <- c("Wash number", "Average", "median", "SD", "SD2")
-datatableAtr_G1$Forthesis <- paste(datatableAtr_G1$Average, datatableAtr_G$SD, sep=" ± ")
+datatableAtr_G1$Forthesis <- paste(datatableAtr_G1$Average, datatableAtr_G1$SD, sep=" ± ")
 #write.table(datatableAtr_G, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
 
 write.table(TransferFibreCount_G1, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
@@ -1460,7 +1460,8 @@ TransferFibreCount_PhDG$Coder <-"5 garments - no detergent"
 TransferFibreCount_G1$Coder <-"1 garment - no detergent"
 TransferFibreCount_G2$Coder <-"1 garment -  detergent"
 TransferFibreCount_G3$Coder <-"1 garment -  detergent + softener"
-TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2, TransferFibreCount_G3,TransferFibreCount_PhDG)
+G4_TransferFibreCount_Total$Coder <-"12 garments - no detergent"
+TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2, TransferFibreCount_G3, G4_TransferFibreCount_Total) #,TransferFibreCount_PhDG)
 
 pAtr_Total <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
   geom_boxplot() +
