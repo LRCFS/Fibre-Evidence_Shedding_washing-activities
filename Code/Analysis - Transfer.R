@@ -497,6 +497,7 @@ W007_G3_Dataset$Coder <- "W007"
 W008_G3_Dataset$Coder <- "W008"
 W009_G3_Dataset$Coder <- "W009"
 W010_G3_Dataset$Coder <- "W010"
+W013_G3_Dataset$Coder <- "W013"
 
 #########################################################
 #####                     Controls                  #####
@@ -513,9 +514,10 @@ W007negative <- W007_G3_Dataset %>% filter(grepl('negative', Sample))
 W008negative <- W008_G3_Dataset %>% filter(grepl('negative', Sample))
 W009negative <- W009_G3_Dataset %>% filter(grepl('negative', Sample))
 W010negative <- W010_G3_Dataset %>% filter(grepl('negative', Sample))
+W013negative <- W013_G3_Dataset %>% filter(grepl('negative', Sample))
 
 # Create a data frame "Negativecontrol" with all the negative controls 
-Negativecontrol <- rbind(W000negative,W001negative,W002negative,W003negative,W004negative,W005negative,W006negative,W007negative,W008negative,W009negative,W010negative)
+Negativecontrol <- rbind(W000negative,W001negative,W002negative,W003negative,W004negative,W005negative,W006negative,W007negative,W008negative,W009negative,W010negative,W013negative)
 
 # Calculate the number of background fibres
 Negativecontrol$Diff <- Negativecontrol$`After transfer` - Negativecontrol$`Before transfer`
@@ -556,8 +558,9 @@ W007positive <- W007_G3_Dataset %>% filter(grepl('positive', Sample))
 W008positive <- W008_G3_Dataset %>% filter(grepl('positive', Sample))
 W009positive <- W009_G3_Dataset %>% filter(grepl('positive', Sample))
 W010positive <- W010_G3_Dataset %>% filter(grepl('positive', Sample))
+W013positive <- W013_G3_Dataset %>% filter(grepl('positive', Sample))
 
-Positivecontrol <- rbind(W000positive,W001positive,W002positive,W003positive,W004positive,W005positive,W006positive,W007positive,W008positive,W009positive,W010positive)
+Positivecontrol <- rbind(W000positive,W001positive,W002positive,W003positive,W004positive,W005positive,W006positive,W007positive,W008positive,W009positive,W010positive,W013positive)
 Positivecontrol$Diff <- Positivecontrol$`After transfer` - Positivecontrol$`Before transfer`
 
 # if value = 0, no difference. if value > 0, fibre there before and not after. if value < 0, fibre there not before but after
@@ -612,6 +615,7 @@ forFibreCount7<- W007_G3_Dataset[!(W007_G3_Dataset$Sample=="MP_W007_G3_positive_
 forFibreCount8<- W008_G3_Dataset[!(W008_G3_Dataset$Sample=="MP_W008_G3_positive_B" | W008_G3_Dataset$Sample=="MP_W008_G3_negative_B"),]
 forFibreCount9<- W009_G3_Dataset[!(W009_G3_Dataset$Sample=="MP_W009_G3_positive_B" | W009_G3_Dataset$Sample=="MP_W009_G3_negative_B"),]
 forFibreCount10<- W010_G3_Dataset[!(W010_G3_Dataset$Sample=="MP_W010_G3_positive_B" | W010_G3_Dataset$Sample=="MP_W010_G3_negative_B"),]
+forFibreCount13<- W013_G3_Dataset[!(W013_G3_Dataset$Sample=="MP_W013_G3_positive_B" | W013_G3_Dataset$Sample=="MP_W013_G3_negative_B"),]
 
 #########################################################
 #####           ANALYSE OF THE BACKGROUND           #####
@@ -639,9 +643,11 @@ BackgroundW009 <- forFibreCount9 %>%
   dplyr::select(Coder,`Before transfer`)
 BackgroundW010 <- forFibreCount10 %>%
   dplyr::select(Coder,`Before transfer`)
+BackgroundW013 <- forFibreCount13 %>%
+  dplyr::select(Coder,`Before transfer`)
 
 #### Combine all the dataframe ####
-BackgroundFibreCount <- rbind(BackgroundW000,BackgroundW001,BackgroundW002,BackgroundW003,BackgroundW004,BackgroundW005,BackgroundW006,BackgroundW007,BackgroundW008,BackgroundW009,BackgroundW010)
+BackgroundFibreCount <- rbind(BackgroundW000,BackgroundW001,BackgroundW002,BackgroundW003,BackgroundW004,BackgroundW005,BackgroundW006,BackgroundW007,BackgroundW008,BackgroundW009,BackgroundW010,BackgroundW013)
 names(BackgroundFibreCount) <- c("group", "value")
 # write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
@@ -674,9 +680,11 @@ TransferW009 <- forFibreCount9 %>%
   dplyr::select(Coder,`After transfer`)
 TransferW010 <- forFibreCount10 %>%
   dplyr::select(Coder,`After transfer`)
+TransferW013 <- forFibreCount13 %>%
+  dplyr::select(Coder,`After transfer`)
 
 #### Combine all the dataframe ####
-TransferFibreCount_G3 <- rbind(TransferW000, TransferW001,TransferW002,TransferW003,TransferW004,TransferW005,TransferW006,TransferW007,TransferW008,TransferW009,TransferW010)
+TransferFibreCount_G3 <- rbind(TransferW000, TransferW001,TransferW002,TransferW003,TransferW004,TransferW005,TransferW006,TransferW007,TransferW008,TransferW009,TransferW010,TransferW013)
 names(TransferFibreCount_G3) <- c("group", "value")
 # write.table(TransferFibreCount_G3, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
@@ -727,7 +735,7 @@ W000_G4A_Dataset$Coder <- "W000"
 W001_G4A_Dataset$Coder <- "W001"
 W002_G4A_Dataset$Coder <- "W002"
 W003_G4A_Dataset$Coder <- "W003"
-#W004_G4A_Dataset$Coder <- "W004"
+W004_G4A_Dataset$Coder <- "W004"
 #W005_G4A_Dataset$Coder <- "W005"
 #W006_G4A_Dataset$Coder <- "W006"
 #W007_G4A_Dataset$Coder <- "W007"
@@ -743,7 +751,7 @@ W000negative <- W000_G4A_Dataset %>% filter(grepl('negative', Sample))
 W001negative <- W001_G4A_Dataset %>% filter(grepl('negative', Sample))
 W002negative <- W002_G4A_Dataset %>% filter(grepl('negative', Sample))
 W003negative <- W003_G4A_Dataset %>% filter(grepl('negative', Sample))
-#W004negative <- W004_G4A_Dataset %>% filter(grepl('negative', Sample))
+W004negative <- W004_G4A_Dataset %>% filter(grepl('negative', Sample))
 #W005negative <- W005_G4A_Dataset %>% filter(grepl('negative', Sample))
 #W006negative <- W006_G4A_Dataset %>% filter(grepl('negative', Sample))
 #W007negative <- W007_G4A_Dataset %>% filter(grepl('negative', Sample))
@@ -752,7 +760,7 @@ W003negative <- W003_G4A_Dataset %>% filter(grepl('negative', Sample))
 #W010negative <- W010_G4A_Dataset %>% filter(grepl('negative', Sample))
 
 # Create a data frame "Negativecontrol" with all the negative controls 
-Negativecontrol <- rbind(W000negative,W001negative,W002negative,W003negative) #,W004negative,W005negative,W006negative,W007negative,W008negative,W009negative) #,W010negative)
+Negativecontrol <- rbind(W000negative,W001negative,W002negative,W003negative,W004negative) #,W005negative,W006negative,W007negative,W008negative,W009negative) #,W010negative)
 
 # Calculate the number of background fibres
 Negativecontrol$Diff <- Negativecontrol$`After transfer` - Negativecontrol$`Before transfer`
@@ -786,7 +794,7 @@ W000positive <- W000_G4A_Dataset %>% filter(grepl('positive', Sample))
 W001positive <- W001_G4A_Dataset %>% filter(grepl('positive', Sample))
 W002positive <- W002_G4A_Dataset %>% filter(grepl('positive', Sample))
 W003positive <- W003_G4A_Dataset %>% filter(grepl('positive', Sample))
-#W004positive <- W004_G4A_Dataset %>% filter(grepl('positive', Sample))
+W004positive <- W004_G4A_Dataset %>% filter(grepl('positive', Sample))
 #W005positive <- W005_G4A_Dataset %>% filter(grepl('positive', Sample))
 #W006positive <- W006_G4A_Dataset %>% filter(grepl('positive', Sample))
 #W007positive <- W007_G4A_Dataset %>% filter(grepl('positive', Sample))
@@ -794,7 +802,7 @@ W003positive <- W003_G4A_Dataset %>% filter(grepl('positive', Sample))
 #W009positive <- W009_G4A_Dataset %>% filter(grepl('positive', Sample))
 #W010positive <- W010_G4A_Dataset %>% filter(grepl('positive', Sample))
 
-Positivecontrol <- rbind(W000positive,W001positive,W002positive,W003positive) #,W004positive,W005positive,W006positive,W007positive,W008positive,W009positive) #,W010positive)
+Positivecontrol <- rbind(W000positive,W001positive,W002positive,W003positive,W004positive) #,W005positive,W006positive,W007positive,W008positive,W009positive) #,W010positive)
 Positivecontrol$Diff <- Positivecontrol$`After transfer` - Positivecontrol$`Before transfer`
 
 # if value = 0, no difference. if value > 0, fibre there before and not after. if value < 0, fibre there not before but after
@@ -842,7 +850,7 @@ forFibreCount0<- W000_G4A_Dataset[!(W000_G4A_Dataset$Sample=="MP_W000_G4A_positi
 forFibreCount1<- W001_G4A_Dataset[!(W001_G4A_Dataset$Sample=="MP_W001_G4A_positive_B" | W001_G4A_Dataset$Sample=="MP_W001_G4A_negative_B"),]
 forFibreCount2<- W002_G4A_Dataset[!(W002_G4A_Dataset$Sample=="MP_W002_G4A_positive_B" | W002_G4A_Dataset$Sample=="MP_W002_G4A_negative_B"),]
 forFibreCount3<- W003_G4A_Dataset[!(W003_G4A_Dataset$Sample=="MP_W003_G4A_positive_B" | W003_G4A_Dataset$Sample=="MP_W003_G4A_negative_B"),]
-#forFibreCount4<- W004_G4A_Dataset[!(W004_G4A_Dataset$Sample=="MP_W004_G4A_positive_B" | W004_G4A_Dataset$Sample=="MP_W004_G4A_negative_B"),]
+forFibreCount4<- W004_G4A_Dataset[!(W004_G4A_Dataset$Sample=="MP_W004_G4A_positive_B" | W004_G4A_Dataset$Sample=="MP_W004_G4A_negative_B"),]
 #forFibreCount5<- W005_G4A_Dataset[!(W005_G4A_Dataset$Sample=="MP_W005_G4A_positive_B" | W005_G4A_Dataset$Sample=="MP_W005_G4A_negative_B"),]
 #forFibreCount6<- W006_G4A_Dataset[!(W006_G4A_Dataset$Sample=="MP_W006_G4A_positive_B" | W006_G4A_Dataset$Sample=="MP_W006_G4A_negative_B"),]
 #forFibreCount7<- W007_G4A_Dataset[!(W007_G4A_Dataset$Sample=="MP_W007_G4A_positive_B" | W007_G4A_Dataset$Sample=="MP_W007_G4A_negative_B"),]
@@ -862,8 +870,8 @@ BackgroundW002 <- forFibreCount2 %>%
   dplyr::select(Coder,`Before transfer`)
 BackgroundW003 <- forFibreCount3 %>%
   dplyr::select(Coder,`Before transfer`)
-#BackgroundW004 <- forFibreCount4 %>%
-#  dplyr::select(Coder,`Before transfer`)
+BackgroundW004 <- forFibreCount4 %>%
+  dplyr::select(Coder,`Before transfer`)
 #BackgroundW005 <- forFibreCount5 %>%
 #  dplyr::select(Coder,`Before transfer`)
 #BackgroundW006 <- forFibreCount6 %>%
@@ -878,7 +886,7 @@ BackgroundW003 <- forFibreCount3 %>%
 #  dplyr::select(Coder,`Before transfer`)
 
 #### Combine all the dataframe ####
-BackgroundFibreCount <- rbind(BackgroundW000,BackgroundW001,BackgroundW002,BackgroundW003) #,BackgroundW004,BackgroundW005,BackgroundW006,BackgroundW007,BackgroundW008,BackgroundW009) #,BackgroundW010)
+BackgroundFibreCount <- rbind(BackgroundW000,BackgroundW001,BackgroundW002,BackgroundW003,BackgroundW004) #,BackgroundW005,BackgroundW006,BackgroundW007,BackgroundW008,BackgroundW009) #,BackgroundW010)
 names(BackgroundFibreCount) <- c("group", "value")
 # write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
@@ -897,8 +905,8 @@ TransferW002 <- forFibreCount2 %>%
   dplyr::select(Coder,`After transfer`)
 TransferW003 <- forFibreCount3 %>%
   dplyr::select(Coder,`After transfer`)
-#TransferW004 <- forFibreCount4 %>%
-#  dplyr::select(Coder,`After transfer`)
+TransferW004 <- forFibreCount4 %>%
+  dplyr::select(Coder,`After transfer`)
 #TransferW005 <- forFibreCount5 %>%
 #  dplyr::select(Coder,`After transfer`)
 #TransferW006 <- forFibreCount6 %>%
@@ -913,7 +921,7 @@ TransferW003 <- forFibreCount3 %>%
 #  dplyr::select(Coder,`After transfer`)
 
 #### Combine all the dataframe ####
-TransferFibreCount_G4A <- rbind(TransferW000,TransferW001,TransferW002,TransferW003) #,TransferW004,TransferW005,TransferW006,TransferW007,TransferW008,TransferW009) #,TransferW010)
+TransferFibreCount_G4A <- rbind(TransferW000,TransferW001,TransferW002,TransferW003,TransferW004) #,TransferW005,TransferW006,TransferW007,TransferW008,TransferW009) #,TransferW010)
 names(TransferFibreCount_G4A) <- c("group", "value")
 # write.table(TransferFibreCount_G4A, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
@@ -959,7 +967,7 @@ W000_G4B_Dataset$Coder <- "W000"
 W001_G4B_Dataset$Coder <- "W001"
 W002_G4B_Dataset$Coder <- "W002"
 W003_G4B_Dataset$Coder <- "W003"
-#W004_G4B_Dataset$Coder <- "W004"
+W004_G4B_Dataset$Coder <- "W004"
 #W005_G4B_Dataset$Coder <- "W005"
 #W006_G4B_Dataset$Coder <- "W006"
 #W007_G4B_Dataset$Coder <- "W007"
@@ -975,7 +983,7 @@ W000negative <- W000_G4B_Dataset %>% filter(grepl('negative', Sample))
 W001negative <- W001_G4B_Dataset %>% filter(grepl('negative', Sample))
 W002negative <- W002_G4B_Dataset %>% filter(grepl('negative', Sample))
 W003negative <- W003_G4B_Dataset %>% filter(grepl('negative', Sample))
-#W004negative <- W004_G4B_Dataset %>% filter(grepl('negative', Sample))
+W004negative <- W004_G4B_Dataset %>% filter(grepl('negative', Sample))
 #W005negative <- W005_G4B_Dataset %>% filter(grepl('negative', Sample))
 #W006negative <- W006_G4B_Dataset %>% filter(grepl('negative', Sample))
 #W007negative <- W007_G4B_Dataset %>% filter(grepl('negative', Sample))
@@ -984,7 +992,7 @@ W003negative <- W003_G4B_Dataset %>% filter(grepl('negative', Sample))
 #W010negative <- W010_G4B_Dataset %>% filter(grepl('negative', Sample))
 
 # Create a data frame "Negativecontrol" with all the negative controls 
-Negativecontrol <- rbind(W000negative,W001negative,W002negative,W003negative) #,W004negative,W005negative,W006negative,W007negative,W008negative,W009negative) #,W010negative)
+Negativecontrol <- rbind(W000negative,W001negative,W002negative,W003negative,W004negative) #,W005negative,W006negative,W007negative,W008negative,W009negative) #,W010negative)
 
 # Calculate the number of background fibres
 Negativecontrol$Diff <- Negativecontrol$`After transfer` - Negativecontrol$`Before transfer`
@@ -1018,7 +1026,7 @@ W000positive <- W000_G4B_Dataset %>% filter(grepl('positive', Sample))
 W001positive <- W001_G4B_Dataset %>% filter(grepl('positive', Sample))
 W002positive <- W002_G4B_Dataset %>% filter(grepl('positive', Sample))
 W003positive <- W003_G4B_Dataset %>% filter(grepl('positive', Sample))
-#W004positive <- W004_G4B_Dataset %>% filter(grepl('positive', Sample))
+W004positive <- W004_G4B_Dataset %>% filter(grepl('positive', Sample))
 #W005positive <- W005_G4B_Dataset %>% filter(grepl('positive', Sample))
 #W006positive <- W006_G4B_Dataset %>% filter(grepl('positive', Sample))
 #W007positive <- W007_G4B_Dataset %>% filter(grepl('positive', Sample))
@@ -1026,7 +1034,7 @@ W003positive <- W003_G4B_Dataset %>% filter(grepl('positive', Sample))
 #W009positive <- W009_G4B_Dataset %>% filter(grepl('positive', Sample))
 #W010positive <- W010_G4B_Dataset %>% filter(grepl('positive', Sample))
 
-Positivecontrol <- rbind(W000positive,W001positive,W002positive,W003positive) #,W004positive,W005positive,W006positive,W007positive,W008positive,W009positive) #,W010positive)
+Positivecontrol <- rbind(W000positive,W001positive,W002positive,W003positive,W004positive) #,W005positive,W006positive,W007positive,W008positive,W009positive) #,W010positive)
 Positivecontrol$Diff <- Positivecontrol$`After transfer` - Positivecontrol$`Before transfer`
 
 # if value = 0, no difference. if value > 0, fibre there before and not after. if value < 0, fibre there not before but after
@@ -1074,7 +1082,7 @@ forFibreCount0<- W000_G4B_Dataset[!(W000_G4B_Dataset$Sample=="MP_W000_G4B_positi
 forFibreCount1<- W001_G4B_Dataset[!(W001_G4B_Dataset$Sample=="MP_W001_G4B_positive_B" | W001_G4B_Dataset$Sample=="MP_W001_G4B_negative_B"),]
 forFibreCount2<- W002_G4B_Dataset[!(W002_G4B_Dataset$Sample=="MP_W002_G4B_positive_B" | W002_G4B_Dataset$Sample=="MP_W002_G4B_negative_B"),]
 forFibreCount3<- W003_G4B_Dataset[!(W003_G4B_Dataset$Sample=="MP_W003_G4B_positive_B" | W003_G4B_Dataset$Sample=="MP_W003_G4B_negative_B"),]
-#forFibreCount4<- W004_G4B_Dataset[!(W004_G4B_Dataset$Sample=="MP_W004_G4B_positive_B" | W004_G4B_Dataset$Sample=="MP_W004_G4B_negative_B"),]
+forFibreCount4<- W004_G4B_Dataset[!(W004_G4B_Dataset$Sample=="MP_W004_G4B_positive_B" | W004_G4B_Dataset$Sample=="MP_W004_G4B_negative_B"),]
 #forFibreCount5<- W005_G4B_Dataset[!(W005_G4B_Dataset$Sample=="MP_W005_G4B_positive_B" | W005_G4B_Dataset$Sample=="MP_W005_G4B_negative_B"),]
 #forFibreCount6<- W006_G4B_Dataset[!(W006_G4B_Dataset$Sample=="MP_W006_G4B_positive_B" | W006_G4B_Dataset$Sample=="MP_W006_G4B_negative_B"),]
 #forFibreCount7<- W007_G4B_Dataset[!(W007_G4B_Dataset$Sample=="MP_W007_G4B_positive_B" | W007_G4B_Dataset$Sample=="MP_W007_G4B_negative_B"),]
@@ -1094,8 +1102,8 @@ BackgroundW002 <- forFibreCount2 %>%
   dplyr::select(Coder,`Before transfer`)
 BackgroundW003 <- forFibreCount3 %>%
   dplyr::select(Coder,`Before transfer`)
-#BackgroundW004 <- forFibreCount4 %>%
-#  dplyr::select(Coder,`Before transfer`)
+BackgroundW004 <- forFibreCount4 %>%
+  dplyr::select(Coder,`Before transfer`)
 #BackgroundW005 <- forFibreCount5 %>%
 #  dplyr::select(Coder,`Before transfer`)
 #BackgroundW006 <- forFibreCount6 %>%
@@ -1110,7 +1118,7 @@ BackgroundW003 <- forFibreCount3 %>%
 #  dplyr::select(Coder,`Before transfer`)
 
 #### Combine all the dataframe ####
-BackgroundFibreCount <- rbind(BackgroundW000,BackgroundW001,BackgroundW002,BackgroundW003) #,BackgroundW004,BackgroundW005,BackgroundW006,BackgroundW007,BackgroundW008,BackgroundW009) #,BackgroundW010)
+BackgroundFibreCount <- rbind(BackgroundW000,BackgroundW001,BackgroundW002,BackgroundW003,BackgroundW004) #,BackgroundW005,BackgroundW006,BackgroundW007,BackgroundW008,BackgroundW009) #,BackgroundW010)
 names(BackgroundFibreCount) <- c("group", "value")
 # write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
@@ -1129,8 +1137,8 @@ TransferW002 <- forFibreCount2 %>%
   dplyr::select(Coder,`After transfer`)
 TransferW003 <- forFibreCount3 %>%
   dplyr::select(Coder,`After transfer`)
-#TransferW004 <- forFibreCount4 %>%
-#  dplyr::select(Coder,`After transfer`)
+TransferW004 <- forFibreCount4 %>%
+  dplyr::select(Coder,`After transfer`)
 #TransferW005 <- forFibreCount5 %>%
 #  dplyr::select(Coder,`After transfer`)
 #TransferW006 <- forFibreCount6 %>%
@@ -1145,7 +1153,7 @@ TransferW003 <- forFibreCount3 %>%
 #  dplyr::select(Coder,`After transfer`)
 
 #### Combine all the dataframe ####
-TransferFibreCount_G4B <- rbind(TransferW000,TransferW001,TransferW002,TransferW003) #,TransferW004,TransferW005,TransferW006,TransferW007,TransferW008,TransferW009) #,TransferW010)
+TransferFibreCount_G4B <- rbind(TransferW000,TransferW001,TransferW002,TransferW003,TransferW004) #,TransferW005,TransferW006,TransferW007,TransferW008,TransferW009) #,TransferW010)
 names(TransferFibreCount_G4B) <- c("group", "value")
 # write.table(TransferFibreCount_G4B, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
@@ -1191,7 +1199,7 @@ W000_G4C_Dataset$Coder <- "W000"
 W001_G4C_Dataset$Coder <- "W001"
 W002_G4C_Dataset$Coder <- "W002"
 W003_G4C_Dataset$Coder <- "W003"
-#W004_G4C_Dataset$Coder <- "W004"
+W004_G4C_Dataset$Coder <- "W004"
 #W005_G4C_Dataset$Coder <- "W005"
 #W006_G4C_Dataset$Coder <- "W006"
 #W007_G4C_Dataset$Coder <- "W007"
@@ -1207,7 +1215,7 @@ W000negative <- W000_G4C_Dataset %>% filter(grepl('negative', Sample))
 W001negative <- W001_G4C_Dataset %>% filter(grepl('negative', Sample))
 W002negative <- W002_G4C_Dataset %>% filter(grepl('negative', Sample))
 W003negative <- W003_G4C_Dataset %>% filter(grepl('negative', Sample))
-#W004negative <- W004_G4C_Dataset %>% filter(grepl('negative', Sample))
+W004negative <- W004_G4C_Dataset %>% filter(grepl('negative', Sample))
 #W005negative <- W005_G4C_Dataset %>% filter(grepl('negative', Sample))
 #W006negative <- W006_G4C_Dataset %>% filter(grepl('negative', Sample))
 #W007negative <- W007_G4C_Dataset %>% filter(grepl('negative', Sample))
@@ -1216,7 +1224,7 @@ W003negative <- W003_G4C_Dataset %>% filter(grepl('negative', Sample))
 #W010negative <- W010_G4C_Dataset %>% filter(grepl('negative', Sample))
 
 # Create a data frame "Negativecontrol" with all the negative controls 
-Negativecontrol <- rbind(W000negative,W001negative,W002negative,W003negative) #,W004negative,W005negative,W006negative,W007negative,W008negative,W009negative) #,W010negative)
+Negativecontrol <- rbind(W000negative,W001negative,W002negative,W003negative,W004negative) #,W005negative,W006negative,W007negative,W008negative,W009negative) #,W010negative)
 
 # Calculate the number of background fibres
 Negativecontrol$Diff <- Negativecontrol$`After transfer` - Negativecontrol$`Before transfer`
@@ -1250,7 +1258,7 @@ W000positive <- W000_G4C_Dataset %>% filter(grepl('positive', Sample))
 W001positive <- W001_G4C_Dataset %>% filter(grepl('positive', Sample))
 W002positive <- W002_G4C_Dataset %>% filter(grepl('positive', Sample))
 W003positive <- W003_G4C_Dataset %>% filter(grepl('positive', Sample))
-#W004positive <- W004_G4C_Dataset %>% filter(grepl('positive', Sample))
+W004positive <- W004_G4C_Dataset %>% filter(grepl('positive', Sample))
 #W005positive <- W005_G4C_Dataset %>% filter(grepl('positive', Sample))
 #W006positive <- W006_G4C_Dataset %>% filter(grepl('positive', Sample))
 #W007positive <- W007_G4C_Dataset %>% filter(grepl('positive', Sample))
@@ -1258,7 +1266,7 @@ W003positive <- W003_G4C_Dataset %>% filter(grepl('positive', Sample))
 #W009positive <- W009_G4C_Dataset %>% filter(grepl('positive', Sample))
 #W010positive <- W010_G4C_Dataset %>% filter(grepl('positive', Sample))
 
-Positivecontrol <- rbind(W000positive,W001positive,W002positive,W003positive) #,W004positive,W005positive,W006positive,W007positive,W008positive,W009positive) #,W010positive)
+Positivecontrol <- rbind(W000positive,W001positive,W002positive,W003positive,W004positive) #,W005positive,W006positive,W007positive,W008positive,W009positive) #,W010positive)
 Positivecontrol$Diff <- Positivecontrol$`After transfer` - Positivecontrol$`Before transfer`
 
 # if value = 0, no difference. if value > 0, fibre there before and not after. if value < 0, fibre there not before but after
@@ -1306,7 +1314,7 @@ forFibreCount0<- W000_G4C_Dataset[!(W000_G4C_Dataset$Sample=="MP_W000_G4C_positi
 forFibreCount1<- W001_G4C_Dataset[!(W001_G4C_Dataset$Sample=="MP_W001_G4C_positive_B" | W001_G4C_Dataset$Sample=="MP_W001_G4C_negative_B"),]
 forFibreCount2<- W002_G4C_Dataset[!(W002_G4C_Dataset$Sample=="MP_W002_G4C_positive_B" | W002_G4C_Dataset$Sample=="MP_W002_G4C_negative_B"),]
 forFibreCount3<- W003_G4C_Dataset[!(W003_G4C_Dataset$Sample=="MP_W003_G4C_positive_B" | W003_G4C_Dataset$Sample=="MP_W003_G4C_negative_B"),]
-#forFibreCount4<- W004_G4C_Dataset[!(W004_G4C_Dataset$Sample=="MP_W004_G4C_positive_B" | W004_G4C_Dataset$Sample=="MP_W004_G4C_negative_B"),]
+forFibreCount4<- W004_G4C_Dataset[!(W004_G4C_Dataset$Sample=="MP_W004_G4C_positive_B" | W004_G4C_Dataset$Sample=="MP_W004_G4C_negative_B"),]
 #forFibreCount5<- W005_G4C_Dataset[!(W005_G4C_Dataset$Sample=="MP_W005_G4C_positive_B" | W005_G4C_Dataset$Sample=="MP_W005_G4C_negative_B"),]
 #forFibreCount6<- W006_G4C_Dataset[!(W006_G4C_Dataset$Sample=="MP_W006_G4C_positive_B" | W006_G4C_Dataset$Sample=="MP_W006_G4C_negative_B"),]
 #forFibreCount7<- W007_G4C_Dataset[!(W007_G4C_Dataset$Sample=="MP_W007_G4C_positive_B" | W007_G4C_Dataset$Sample=="MP_W007_G4C_negative_B"),]
@@ -1326,8 +1334,8 @@ BackgroundW002 <- forFibreCount2 %>%
   dplyr::select(Coder,`Before transfer`)
 BackgroundW003 <- forFibreCount3 %>%
   dplyr::select(Coder,`Before transfer`)
-#BackgroundW004 <- forFibreCount4 %>%
-#  dplyr::select(Coder,`Before transfer`)
+BackgroundW004 <- forFibreCount4 %>%
+  dplyr::select(Coder,`Before transfer`)
 #BackgroundW005 <- forFibreCount5 %>%
 #  dplyr::select(Coder,`Before transfer`)
 #BackgroundW006 <- forFibreCount6 %>%
@@ -1342,7 +1350,7 @@ BackgroundW003 <- forFibreCount3 %>%
 #  dplyr::select(Coder,`Before transfer`)
 
 #### Combine all the dataframe ####
-BackgroundFibreCount <- rbind(BackgroundW000,BackgroundW001,BackgroundW002,BackgroundW003) #,BackgroundW004,BackgroundW005,BackgroundW006,BackgroundW007,BackgroundW008,BackgroundW009) #,BackgroundW010)
+BackgroundFibreCount <- rbind(BackgroundW000,BackgroundW001,BackgroundW002,BackgroundW003,BackgroundW004) #,BackgroundW005,BackgroundW006,BackgroundW007,BackgroundW008,BackgroundW009) #,BackgroundW010)
 names(BackgroundFibreCount) <- c("group", "value")
 # write.table(TransferFibreCount, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
@@ -1361,8 +1369,8 @@ TransferW002 <- forFibreCount2 %>%
   dplyr::select(Coder,`After transfer`)
 TransferW003 <- forFibreCount3 %>%
   dplyr::select(Coder,`After transfer`)
-#TransferW004 <- forFibreCount4 %>%
-#  dplyr::select(Coder,`After transfer`)
+TransferW004 <- forFibreCount4 %>%
+  dplyr::select(Coder,`After transfer`)
 #TransferW005 <- forFibreCount5 %>%
 #  dplyr::select(Coder,`After transfer`)
 #TransferW006 <- forFibreCount6 %>%
@@ -1377,7 +1385,7 @@ TransferW003 <- forFibreCount3 %>%
 #  dplyr::select(Coder,`After transfer`)
 
 #### Combine all the dataframe ####
-TransferFibreCount_G4C <- rbind(TransferW000,TransferW001,TransferW002,TransferW003) #,TransferW004,TransferW005,TransferW006,TransferW007,TransferW008,TransferW009) #,TransferW010)
+TransferFibreCount_G4C <- rbind(TransferW000,TransferW001,TransferW002,TransferW003,TransferW004) #,TransferW005,TransferW006,TransferW007,TransferW008,TransferW009) #,TransferW010)
 names(TransferFibreCount_G4C) <- c("group", "value")
 # write.table(TransferFibreCount_G4C, file = "Fibre Count - Transfer.csv", quote = F, sep = ",", row.names = F)
 
