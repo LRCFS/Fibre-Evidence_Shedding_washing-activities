@@ -712,7 +712,7 @@ datatableAtr_G3$Forthesis <- paste(datatableAtr_G3$Average, datatableAtr_G3$SD, 
 
 write.table(TransferFibreCount_G3, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
-#### GRAPH - FIGURE 4-8 ####
+#### GRAPH ####
 pAtr_G3 <- ggplot(TransferFibreCount_G3, aes(x=group, y=value)) +
   geom_boxplot() +
   #scale_x_discrete(labels = every_n_labeler(5)) +
@@ -720,7 +720,7 @@ pAtr_G3 <- ggplot(TransferFibreCount_G3, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,22)+
+  ylim(0,40)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
@@ -1189,7 +1189,7 @@ pAtr_G4B <- ggplot(TransferFibreCount_G4B, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,25)+
+  ylim(0,30)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
@@ -1421,7 +1421,7 @@ pAtr_G4C <- ggplot(TransferFibreCount_G4C, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,25)+
+  ylim(0,30)+
   labs(x="\nWash number", y="Number of Fibre\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
@@ -1439,7 +1439,7 @@ TransferFibreCount_G4B$Coder <-"Garment 4B"
 TransferFibreCount_G4C$Coder <-"Garment 4C"
 G4_TransferFibreCount_Total <- rbind(TransferFibreCount_G4A, TransferFibreCount_G4B, TransferFibreCount_G4C)
 
-pAtr_Total <- ggplot(G4_TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
+pAtr_G4Total <- ggplot(G4_TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
   geom_boxplot() +
   labs(x="\nWash number", y="Number of Fibre\n") +
   scale_fill_brewer(palette = "Reds")+
@@ -1448,8 +1448,25 @@ pAtr_Total <- ggplot(G4_TransferFibreCount_Total, aes(x=group, y=value,fill=Code
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
-show(pAtr_Total)
+show(pAtr_G4Total)
 ggsave("Fibre Count boxplot_ATr_G4.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+
+pAtr_G4Total_2nd <- ggplot(G4_TransferFibreCount_Total, aes(x=group, y=value)) +
+  geom_boxplot() +
+  #scale_x_discrete(labels = every_n_labeler(5)) +
+  stat_summary(fun = mean, colour="darkred",
+               geom="point",position=position_dodge(width=0.75)) +
+  stat_summary(fun = mean, colour="darkred", aes(group=1),
+               geom="line", lwd=1, lty=1) +
+  ylim(0,40)+
+  labs(x="\nWash number", y="Number of Fibre\n") +
+  theme_classic(base_family = "Arial", base_size = 14) +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+show(pAtr_G4Total_2nd)
+ggsave("Fibre Count boxplot_ATr_G4.png", pAtr_G4Total_2nd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
 
 #################################################################################################
@@ -1511,9 +1528,8 @@ ggsave("Fibre Count boxplot_ATr_Total_2nd.png", pAtr_Total_2nd, width = 6, heigh
 # Combined results
 pAtr_combined_pending <- ggarrange(pAtr_PhD+ rremove("ylab") + rremove("xlab"), vjust = 0.8, hjust = 0.8,                                                # First row with scatter plot
                                    ggarrange(pAtr_G1+ rremove("ylab") + rremove("xlab"),
-                                             pAtr_G2+ rremove("ylab") + rremove("xlab"),
-                                             pAtr_G3+ rremove("ylab") + rremove("xlab"),
-                                             ncol = 3, labels = c("B", "C", "D"),vjust = 0.8, hjust = 0.8), # Second row with box and dot plots
+                                             pAtr_G4Total_2nd+ rremove("ylab") + rremove("xlab"),
+                                             ncol = 2, labels = c("B", "C"),vjust = 0.8, hjust = 0.8), # Second row with box and dot plots
                                    nrow = 2,
                                    labels = "A"                                        # Labels of the scatter plot
 ) 
