@@ -1553,6 +1553,30 @@ pSH_G4C
 ggsave("Shedding_G4C_W000-7.png", pSH_G4C, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 #######################
+#### COMBINED DATA ####
+#######################
+DataAreaW000_G4_100 <- rbind(DataAreaW000_G4A_100,DataAreaW000_G4B_100,DataAreaW000_G4C_100)
+DataAreaW000_G4_800 <- rbind(DataAreaW000_G4A_800,DataAreaW000_G4B_800,DataAreaW000_G4C_800)
+DataAreaW000_G4_2000 <- rbind(DataAreaW000_G4A_2000,DataAreaW000_G4B_2000,DataAreaW000_G4C_2000)
+
+DataAreaW001_G4_100 <- rbind(DataAreaW001_G4A_100,DataAreaW001_G4B_100,DataAreaW001_G4C_100)
+DataAreaW001_G4_800 <- rbind(DataAreaW001_G4A_800,DataAreaW001_G4B_800,DataAreaW001_G4C_800)
+DataAreaW001_G4_2000 <- rbind(DataAreaW001_G4A_2000,DataAreaW001_G4B_2000,DataAreaW001_G4C_2000)
+
+DataAreaW003_G4_100 <- rbind(DataAreaW003_G4A_100,DataAreaW003_G4B_100,DataAreaW003_G4C_100)
+DataAreaW003_G4_800 <- rbind(DataAreaW003_G4A_800,DataAreaW003_G4B_800,DataAreaW003_G4C_800)
+DataAreaW003_G4_2000 <- rbind(DataAreaW003_G4A_2000,DataAreaW003_G4B_2000,DataAreaW003_G4C_2000)
+
+DataAreaW005_G4_100 <- rbind(DataAreaW005_G4A_100,DataAreaW005_G4B_100,DataAreaW005_G4C_100)
+DataAreaW005_G4_800 <- rbind(DataAreaW005_G4A_800,DataAreaW005_G4B_800,DataAreaW005_G4C_800)
+DataAreaW005_G4_2000 <- rbind(DataAreaW005_G4A_2000,DataAreaW005_G4B_2000,DataAreaW005_G4C_2000)
+
+DataAreaW007_G4_100 <- rbind(DataAreaW007_G4A_100,DataAreaW007_G4B_100,DataAreaW007_G4C_100)
+DataAreaW007_G4_800 <- rbind(DataAreaW007_G4A_800,DataAreaW007_G4B_800,DataAreaW007_G4C_800)
+DataAreaW007_G4_2000 <- rbind(DataAreaW007_G4A_2000,DataAreaW007_G4B_2000,DataAreaW007_G4C_2000)
+
+
+#######################
 ####   COMBINED    ####
 #######################
 
