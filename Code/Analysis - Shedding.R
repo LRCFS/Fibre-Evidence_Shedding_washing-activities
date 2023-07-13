@@ -4,7 +4,7 @@
 ##################
 #####   G1   #####
 ##################
-Shedding_G1 <- read.csv('./Fibre count Summary/SH_G1_W000-W013_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_G1 <- read.csv('./Fibre count Summary/SH_G1_W000-W015_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
 Shedding_G1$Slice<- gsub(".TIF","",Shedding_G1$Slice)
 Shedding_G1Extended <- data.frame(str_split(Shedding_G1$Slice, "_", simplify=TRUE))
 names(Shedding_G1Extended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
@@ -25,6 +25,7 @@ DataAreaW007_G1 <- Shedding_G1Total[Shedding_G1Total$Wash =='W007',]
 DataAreaW009_G1 <- Shedding_G1Total[Shedding_G1Total$Wash =='W009',]
 DataAreaW011_G1 <- Shedding_G1Total[Shedding_G1Total$Wash =='W011',]
 DataAreaW013_G1 <- Shedding_G1Total[Shedding_G1Total$Wash =='W013',]
+DataAreaW015_G1 <- Shedding_G1Total[Shedding_G1Total$Wash =='W015',]
 
 # split per weight
 DataAreaW000_G1_100 <- DataAreaW000_G1[DataAreaW000_G1$Weight =='100g',]
@@ -82,6 +83,13 @@ DataAreaW013_G1_400 <- DataAreaW013_G1[DataAreaW013_G1$Weight =='400g',]
 DataAreaW013_G1_800 <- DataAreaW013_G1[DataAreaW013_G1$Weight =='800g',]
 DataAreaW013_G1_1000 <- DataAreaW013_G1[DataAreaW013_G1$Weight =='1000g',]
 DataAreaW013_G1_2000 <- DataAreaW013_G1[DataAreaW013_G1$Weight =='2000g',]
+
+DataAreaW015_G1_100 <- DataAreaW015_G1[DataAreaW015_G1$Weight =='100g',]
+DataAreaW015_G1_200 <- DataAreaW015_G1[DataAreaW015_G1$Weight =='200g',]
+DataAreaW015_G1_400 <- DataAreaW015_G1[DataAreaW015_G1$Weight =='400g',]
+DataAreaW015_G1_800 <- DataAreaW015_G1[DataAreaW015_G1$Weight =='800g',]
+DataAreaW015_G1_1000 <- DataAreaW015_G1[DataAreaW015_G1$Weight =='1000g',]
+DataAreaW015_G1_2000 <- DataAreaW015_G1[DataAreaW015_G1$Weight =='2000g',]
 
 # Calculation of mean and SD
 meanDataAreaW000_G1_100<- data.frame(meanArea=round(mean(DataAreaW000_G1_100$Area.mm2),digits =2 ))
@@ -236,6 +244,25 @@ meanDataAreaW013_G1_2000<- data.frame(meanArea=round(mean(DataAreaW013_G1_2000$A
 meanDataAreaW013_G1_2000$SD<- round(sd(DataAreaW013_G1_2000$Area.mm2),digits =2 )
 meanDataAreaW013_G1_2000$Weight <- "2000g"
 
+meanDataAreaW015_G1_100<- data.frame(meanArea=round(mean(DataAreaW015_G1_100$Area.mm2),digits =2 ))
+meanDataAreaW015_G1_100$SD<- round(sd(DataAreaW015_G1_100$Area.mm2),digits =2 )
+meanDataAreaW015_G1_100$Weight <- "100g"
+meanDataAreaW015_G1_200<- data.frame(meanArea=round(mean(DataAreaW015_G1_200$Area.mm2),digits =2 ))
+meanDataAreaW015_G1_200$SD<- round(sd(DataAreaW015_G1_200$Area.mm2),digits =2 )
+meanDataAreaW015_G1_200$Weight <- "200g"
+meanDataAreaW015_G1_400<- data.frame(meanArea=round(mean(DataAreaW015_G1_400$Area.mm2),digits =2 ))
+meanDataAreaW015_G1_400$SD<- round(sd(DataAreaW015_G1_400$Area.mm2),digits =2 )
+meanDataAreaW015_G1_400$Weight <- "400g"
+meanDataAreaW015_G1_800<- data.frame(meanArea=round(mean(DataAreaW015_G1_800$Area.mm2),digits =2 ))
+meanDataAreaW015_G1_800$SD<- round(sd(DataAreaW015_G1_800$Area.mm2),digits =2 )
+meanDataAreaW015_G1_800$Weight <- "800g"
+meanDataAreaW015_G1_1000<- data.frame(meanArea=round(mean(DataAreaW015_G1_1000$Area.mm2),digits =2 ))
+meanDataAreaW015_G1_1000$SD<- round(sd(DataAreaW015_G1_1000$Area.mm2),digits =2 )
+meanDataAreaW015_G1_1000$Weight <- "1000g"
+meanDataAreaW015_G1_2000<- data.frame(meanArea=round(mean(DataAreaW015_G1_2000$Area.mm2),digits =2 ))
+meanDataAreaW015_G1_2000$SD<- round(sd(DataAreaW015_G1_2000$Area.mm2),digits =2 )
+meanDataAreaW015_G1_2000$Weight <- "2000g"
+
 # Combined data sets
 DataW000_G1_total <- rbind(meanDataAreaW000_G1_100,meanDataAreaW000_G1_200,meanDataAreaW000_G1_400,
                            meanDataAreaW000_G1_800,meanDataAreaW000_G1_1000,meanDataAreaW000_G1_2000)
@@ -269,7 +296,11 @@ DataW013_G1_total <- rbind(meanDataAreaW013_G1_100,meanDataAreaW013_G1_200,meanD
                            meanDataAreaW013_G1_800,meanDataAreaW013_G1_1000,meanDataAreaW013_G1_2000)
 DataW013_G1_total$Condition <- "W013_G1"
 
-FibreCount_Shedding_G1 <- rbind(DataW000_G1_total,DataW001_G1_total,DataW003_G1_total,DataW005_G1_total,DataW007_G1_total,DataW009_G1_total,DataW011_G1_total,DataW013_G1_total)
+DataW015_G1_total <- rbind(meanDataAreaW015_G1_100,meanDataAreaW015_G1_200,meanDataAreaW015_G1_400,
+                           meanDataAreaW015_G1_800,meanDataAreaW015_G1_1000,meanDataAreaW015_G1_2000)
+DataW015_G1_total$Condition <- "W015_G1"
+
+FibreCount_Shedding_G1 <- rbind(DataW000_G1_total,DataW001_G1_total,DataW003_G1_total,DataW005_G1_total,DataW007_G1_total,DataW009_G1_total,DataW011_G1_total,DataW013_G1_total,DataW015_G1_total)
 
 write.table(FibreCount_Shedding_G1, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
@@ -294,7 +325,7 @@ pSH_G1 <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g'
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH_G1
-ggsave("Shedding_G1_W000-13.png", pSH_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+ggsave("Shedding_G1_W000-15.png", pSH_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 ##################
 #####   G2   #####
@@ -950,631 +981,267 @@ ggsave("Shedding_G3_W000-15.png", pSH_G3, width = 10, height = 9, units = "in", 
 
 
 ##################
-####   G4A    ####
+####    G4    ####
 ##################
-Shedding_G4A <- read.csv('./Fibre count Summary/SH_G4A_W000-W007_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
-Shedding_G4A$Slice<- gsub(".TIF","",Shedding_G4A$Slice)
-Shedding_G4AExtended <- data.frame(str_split(Shedding_G4A$Slice, "_", simplify=TRUE))
-names(Shedding_G4AExtended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
-Shedding_G4ATotal <- cbind(Shedding_G4AExtended,Area=Shedding_G4A$Total.Area)
+Shedding_G4 <- read.csv('./Fibre count Summary/SH_G4_W000-W011_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_G4$Slice<- gsub(".TIF","",Shedding_G4$Slice)
+Shedding_G4Extended <- data.frame(str_split(Shedding_G4$Slice, "_", simplify=TRUE))
+names(Shedding_G4Extended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
+Shedding_G4Total <- cbind(Shedding_G4Extended,Area=Shedding_G4$Total.Area)
 
 # Convert Area from inch2 to mm2
 # 1 pixel = 1 x10^-5 inch2, so (Area*1)/0.000011 to convert into px
-Shedding_G4ATotal$Area.px <- (Shedding_G4ATotal$Area*1)/0.000011
+Shedding_G4Total$Area.px <- (Shedding_G4Total$Area*1)/0.000011
 # 1 mm = 112 pixels, 1mm2 = 12544 px
-Shedding_G4ATotal$Area.mm2 <- Shedding_G4ATotal$Area.px/12544
+Shedding_G4Total$Area.mm2 <- Shedding_G4Total$Area.px/12544
 
 # Split data per washing condition
-DataAreaW000_G4A <- Shedding_G4ATotal[Shedding_G4ATotal$Wash =='W000',]
-DataAreaW001_G4A <- Shedding_G4ATotal[Shedding_G4ATotal$Wash =='W001',]
-DataAreaW003_G4A <- Shedding_G4ATotal[Shedding_G4ATotal$Wash =='W003',]
-DataAreaW005_G4A <- Shedding_G4ATotal[Shedding_G4ATotal$Wash =='W005',]
-DataAreaW007_G4A <- Shedding_G4ATotal[Shedding_G4ATotal$Wash =='W007',]
+DataAreaW000_G4 <- Shedding_G4Total[Shedding_G4Total$Wash =='W000',]
+DataAreaW001_G4 <- Shedding_G4Total[Shedding_G4Total$Wash =='W001',]
+DataAreaW003_G4 <- Shedding_G4Total[Shedding_G4Total$Wash =='W003',]
+DataAreaW005_G4 <- Shedding_G4Total[Shedding_G4Total$Wash =='W005',]
+DataAreaW007_G4 <- Shedding_G4Total[Shedding_G4Total$Wash =='W007',]
+DataAreaW009_G4 <- Shedding_G4Total[Shedding_G4Total$Wash =='W009',]
+DataAreaW011_G4 <- Shedding_G4Total[Shedding_G4Total$Wash =='W011',]
 
 # split per weight
-DataAreaW000_G4A_100 <- DataAreaW000_G4A[DataAreaW000_G4A$Weight =='100g',]
-DataAreaW000_G4A_200 <- DataAreaW000_G4A[DataAreaW000_G4A$Weight =='200g',]
-DataAreaW000_G4A_400 <- DataAreaW000_G4A[DataAreaW000_G4A$Weight =='400g',]
-DataAreaW000_G4A_800 <- DataAreaW000_G4A[DataAreaW000_G4A$Weight =='800g',]
-DataAreaW000_G4A_1000 <- DataAreaW000_G4A[DataAreaW000_G4A$Weight =='1000g',]
-DataAreaW000_G4A_2000 <- DataAreaW000_G4A[DataAreaW000_G4A$Weight =='2000g',]
+DataAreaW000_G4_100 <- DataAreaW000_G4[DataAreaW000_G4$Weight =='100g',]
+DataAreaW000_G4_200 <- DataAreaW000_G4[DataAreaW000_G4$Weight =='200g',]
+DataAreaW000_G4_400 <- DataAreaW000_G4[DataAreaW000_G4$Weight =='400g',]
+DataAreaW000_G4_800 <- DataAreaW000_G4[DataAreaW000_G4$Weight =='800g',]
+DataAreaW000_G4_1000 <- DataAreaW000_G4[DataAreaW000_G4$Weight =='1000g',]
+DataAreaW000_G4_2000 <- DataAreaW000_G4[DataAreaW000_G4$Weight =='2000g',]
 
-DataAreaW001_G4A_100 <- DataAreaW001_G4A[DataAreaW001_G4A$Weight =='100g',]
-DataAreaW001_G4A_200 <- DataAreaW001_G4A[DataAreaW001_G4A$Weight =='200g',]
-DataAreaW001_G4A_400 <- DataAreaW001_G4A[DataAreaW001_G4A$Weight =='400g',]
-DataAreaW001_G4A_800 <- DataAreaW001_G4A[DataAreaW001_G4A$Weight =='800g',]
-DataAreaW001_G4A_1000 <- DataAreaW001_G4A[DataAreaW001_G4A$Weight =='1000g',]
-DataAreaW001_G4A_2000 <- DataAreaW001_G4A[DataAreaW001_G4A$Weight =='2000g',]
+DataAreaW001_G4_100 <- DataAreaW001_G4[DataAreaW001_G4$Weight =='100g',]
+DataAreaW001_G4_200 <- DataAreaW001_G4[DataAreaW001_G4$Weight =='200g',]
+DataAreaW001_G4_400 <- DataAreaW001_G4[DataAreaW001_G4$Weight =='400g',]
+DataAreaW001_G4_800 <- DataAreaW001_G4[DataAreaW001_G4$Weight =='800g',]
+DataAreaW001_G4_1000 <- DataAreaW001_G4[DataAreaW001_G4$Weight =='1000g',]
+DataAreaW001_G4_2000 <- DataAreaW001_G4[DataAreaW001_G4$Weight =='2000g',]
 
-DataAreaW003_G4A_100 <- DataAreaW003_G4A[DataAreaW003_G4A$Weight =='100g',]
-DataAreaW003_G4A_200 <- DataAreaW003_G4A[DataAreaW003_G4A$Weight =='200g',]
-DataAreaW003_G4A_400 <- DataAreaW003_G4A[DataAreaW003_G4A$Weight =='400g',]
-DataAreaW003_G4A_800 <- DataAreaW003_G4A[DataAreaW003_G4A$Weight =='800g',]
-DataAreaW003_G4A_1000 <- DataAreaW003_G4A[DataAreaW003_G4A$Weight =='1000g',]
-DataAreaW003_G4A_2000 <- DataAreaW003_G4A[DataAreaW003_G4A$Weight =='2000g',]
+DataAreaW003_G4_100 <- DataAreaW003_G4[DataAreaW003_G4$Weight =='100g',]
+DataAreaW003_G4_200 <- DataAreaW003_G4[DataAreaW003_G4$Weight =='200g',]
+DataAreaW003_G4_400 <- DataAreaW003_G4[DataAreaW003_G4$Weight =='400g',]
+DataAreaW003_G4_800 <- DataAreaW003_G4[DataAreaW003_G4$Weight =='800g',]
+DataAreaW003_G4_1000 <- DataAreaW003_G4[DataAreaW003_G4$Weight =='1000g',]
+DataAreaW003_G4_2000 <- DataAreaW003_G4[DataAreaW003_G4$Weight =='2000g',]
 
-DataAreaW005_G4A_100 <- DataAreaW005_G4A[DataAreaW005_G4A$Weight =='100g',]
-DataAreaW005_G4A_200 <- DataAreaW005_G4A[DataAreaW005_G4A$Weight =='200g',]
-DataAreaW005_G4A_400 <- DataAreaW005_G4A[DataAreaW005_G4A$Weight =='400g',]
-DataAreaW005_G4A_800 <- DataAreaW005_G4A[DataAreaW005_G4A$Weight =='800g',]
-DataAreaW005_G4A_1000 <- DataAreaW005_G4A[DataAreaW005_G4A$Weight =='1000g',]
-DataAreaW005_G4A_2000 <- DataAreaW005_G4A[DataAreaW005_G4A$Weight =='2000g',]
+DataAreaW005_G4_100 <- DataAreaW005_G4[DataAreaW005_G4$Weight =='100g',]
+DataAreaW005_G4_200 <- DataAreaW005_G4[DataAreaW005_G4$Weight =='200g',]
+DataAreaW005_G4_400 <- DataAreaW005_G4[DataAreaW005_G4$Weight =='400g',]
+DataAreaW005_G4_800 <- DataAreaW005_G4[DataAreaW005_G4$Weight =='800g',]
+DataAreaW005_G4_1000 <- DataAreaW005_G4[DataAreaW005_G4$Weight =='1000g',]
+DataAreaW005_G4_2000 <- DataAreaW005_G4[DataAreaW005_G4$Weight =='2000g',]
 
-DataAreaW007_G4A_100 <- DataAreaW007_G4A[DataAreaW007_G4A$Weight =='100g',]
-DataAreaW007_G4A_200 <- DataAreaW007_G4A[DataAreaW007_G4A$Weight =='200g',]
-DataAreaW007_G4A_400 <- DataAreaW007_G4A[DataAreaW007_G4A$Weight =='400g',]
-DataAreaW007_G4A_800 <- DataAreaW007_G4A[DataAreaW007_G4A$Weight =='800g',]
-DataAreaW007_G4A_1000 <- DataAreaW007_G4A[DataAreaW007_G4A$Weight =='1000g',]
-DataAreaW007_G4A_2000 <- DataAreaW007_G4A[DataAreaW007_G4A$Weight =='2000g',]
+DataAreaW007_G4_100 <- DataAreaW007_G4[DataAreaW007_G4$Weight =='100g',]
+DataAreaW007_G4_200 <- DataAreaW007_G4[DataAreaW007_G4$Weight =='200g',]
+DataAreaW007_G4_400 <- DataAreaW007_G4[DataAreaW007_G4$Weight =='400g',]
+DataAreaW007_G4_800 <- DataAreaW007_G4[DataAreaW007_G4$Weight =='800g',]
+DataAreaW007_G4_1000 <- DataAreaW007_G4[DataAreaW007_G4$Weight =='1000g',]
+DataAreaW007_G4_2000 <- DataAreaW007_G4[DataAreaW007_G4$Weight =='2000g',]
+
+DataAreaW009_G4_100 <- DataAreaW009_G4[DataAreaW009_G4$Weight =='100g',]
+DataAreaW009_G4_200 <- DataAreaW009_G4[DataAreaW009_G4$Weight =='200g',]
+DataAreaW009_G4_400 <- DataAreaW009_G4[DataAreaW009_G4$Weight =='400g',]
+DataAreaW009_G4_800 <- DataAreaW009_G4[DataAreaW009_G4$Weight =='800g',]
+DataAreaW009_G4_1000 <- DataAreaW009_G4[DataAreaW009_G4$Weight =='1000g',]
+DataAreaW009_G4_2000 <- DataAreaW009_G4[DataAreaW009_G4$Weight =='2000g',]
+
+DataAreaW011_G4_100 <- DataAreaW011_G4[DataAreaW011_G4$Weight =='100g',]
+DataAreaW011_G4_200 <- DataAreaW011_G4[DataAreaW011_G4$Weight =='200g',]
+DataAreaW011_G4_400 <- DataAreaW011_G4[DataAreaW011_G4$Weight =='400g',]
+DataAreaW011_G4_800 <- DataAreaW011_G4[DataAreaW011_G4$Weight =='800g',]
+DataAreaW011_G4_1000 <- DataAreaW011_G4[DataAreaW011_G4$Weight =='1000g',]
+DataAreaW011_G4_2000 <- DataAreaW011_G4[DataAreaW011_G4$Weight =='2000g',]
 
 # Calculation of mean and SD
-meanDataAreaW000_G4A_100<- data.frame(meanArea=round(mean(DataAreaW000_G4A_100$Area.mm2),digits =2 ))
-meanDataAreaW000_G4A_100$SD<- round(sd(DataAreaW000_G4A_100$Area.mm2),digits =2 )
-meanDataAreaW000_G4A_100$Weight <- "100g"
-meanDataAreaW000_G4A_200<- data.frame(meanArea=round(mean(DataAreaW000_G4A_200$Area.mm2),digits =2 ))
-meanDataAreaW000_G4A_200$SD<- round(sd(DataAreaW000_G4A_200$Area.mm2),digits =2 )
-meanDataAreaW000_G4A_200$Weight <- "200g"
-meanDataAreaW000_G4A_400<- data.frame(meanArea=round(mean(DataAreaW000_G4A_400$Area.mm2),digits =2 ))
-meanDataAreaW000_G4A_400$SD<- round(sd(DataAreaW000_G4A_400$Area.mm2),digits =2 )
-meanDataAreaW000_G4A_400$Weight <- "400g"
-meanDataAreaW000_G4A_800<- data.frame(meanArea=round(mean(DataAreaW000_G4A_800$Area.mm2),digits =2 ))
-meanDataAreaW000_G4A_800$SD<- round(sd(DataAreaW000_G4A_800$Area.mm2),digits =2 )
-meanDataAreaW000_G4A_800$Weight <- "800g"
-meanDataAreaW000_G4A_1000<- data.frame(meanArea=round(mean(DataAreaW000_G4A_1000$Area.mm2),digits =2 ))
-meanDataAreaW000_G4A_1000$SD<- round(sd(DataAreaW000_G4A_1000$Area.mm2),digits =2 )
-meanDataAreaW000_G4A_1000$Weight <- "1000g"
-meanDataAreaW000_G4A_2000<- data.frame(meanArea=round(mean(DataAreaW000_G4A_2000$Area.mm2),digits =2 ))
-meanDataAreaW000_G4A_2000$SD<- round(sd(DataAreaW000_G4A_2000$Area.mm2),digits =2 )
-meanDataAreaW000_G4A_2000$Weight <- "2000g"
+meanDataAreaW000_G4_100<- data.frame(meanArea=round(mean(DataAreaW000_G4_100$Area.mm2),digits =2 ))
+meanDataAreaW000_G4_100$SD<- round(sd(DataAreaW000_G4_100$Area.mm2),digits =2 )
+meanDataAreaW000_G4_100$Weight <- "100g"
+meanDataAreaW000_G4_200<- data.frame(meanArea=round(mean(DataAreaW000_G4_200$Area.mm2),digits =2 ))
+meanDataAreaW000_G4_200$SD<- round(sd(DataAreaW000_G4_200$Area.mm2),digits =2 )
+meanDataAreaW000_G4_200$Weight <- "200g"
+meanDataAreaW000_G4_400<- data.frame(meanArea=round(mean(DataAreaW000_G4_400$Area.mm2),digits =2 ))
+meanDataAreaW000_G4_400$SD<- round(sd(DataAreaW000_G4_400$Area.mm2),digits =2 )
+meanDataAreaW000_G4_400$Weight <- "400g"
+meanDataAreaW000_G4_800<- data.frame(meanArea=round(mean(DataAreaW000_G4_800$Area.mm2),digits =2 ))
+meanDataAreaW000_G4_800$SD<- round(sd(DataAreaW000_G4_800$Area.mm2),digits =2 )
+meanDataAreaW000_G4_800$Weight <- "800g"
+meanDataAreaW000_G4_1000<- data.frame(meanArea=round(mean(DataAreaW000_G4_1000$Area.mm2),digits =2 ))
+meanDataAreaW000_G4_1000$SD<- round(sd(DataAreaW000_G4_1000$Area.mm2),digits =2 )
+meanDataAreaW000_G4_1000$Weight <- "1000g"
+meanDataAreaW000_G4_2000<- data.frame(meanArea=round(mean(DataAreaW000_G4_2000$Area.mm2),digits =2 ))
+meanDataAreaW000_G4_2000$SD<- round(sd(DataAreaW000_G4_2000$Area.mm2),digits =2 )
+meanDataAreaW000_G4_2000$Weight <- "2000g"
 
-meanDataAreaW001_G4A_100<- data.frame(meanArea=round(mean(DataAreaW001_G4A_100$Area.mm2),digits =2 ))
-meanDataAreaW001_G4A_100$SD<- round(sd(DataAreaW001_G4A_100$Area.mm2),digits =2 )
-meanDataAreaW001_G4A_100$Weight <- "100g"
-meanDataAreaW001_G4A_200<- data.frame(meanArea=round(mean(DataAreaW001_G4A_200$Area.mm2),digits =2 ))
-meanDataAreaW001_G4A_200$SD<- round(sd(DataAreaW001_G4A_200$Area.mm2),digits =2 )
-meanDataAreaW001_G4A_200$Weight <- "200g"
-meanDataAreaW001_G4A_400<- data.frame(meanArea=round(mean(DataAreaW001_G4A_400$Area.mm2),digits =2 ))
-meanDataAreaW001_G4A_400$SD<- round(sd(DataAreaW001_G4A_400$Area.mm2),digits =2 )
-meanDataAreaW001_G4A_400$Weight <- "400g"
-meanDataAreaW001_G4A_800<- data.frame(meanArea=round(mean(DataAreaW001_G4A_800$Area.mm2),digits =2 ))
-meanDataAreaW001_G4A_800$SD<- round(sd(DataAreaW001_G4A_800$Area.mm2),digits =2 )
-meanDataAreaW001_G4A_800$Weight <- "800g"
-meanDataAreaW001_G4A_1000<- data.frame(meanArea=round(mean(DataAreaW001_G4A_1000$Area.mm2),digits =2 ))
-meanDataAreaW001_G4A_1000$SD<- round(sd(DataAreaW001_G4A_1000$Area.mm2),digits =2 )
-meanDataAreaW001_G4A_1000$Weight <- "1000g"
-meanDataAreaW001_G4A_2000<- data.frame(meanArea=round(mean(DataAreaW001_G4A_2000$Area.mm2),digits =2 ))
-meanDataAreaW001_G4A_2000$SD<- round(sd(DataAreaW001_G4A_2000$Area.mm2),digits =2 )
-meanDataAreaW001_G4A_2000$Weight <- "2000g"
+meanDataAreaW001_G4_100<- data.frame(meanArea=round(mean(DataAreaW001_G4_100$Area.mm2),digits =2 ))
+meanDataAreaW001_G4_100$SD<- round(sd(DataAreaW001_G4_100$Area.mm2),digits =2 )
+meanDataAreaW001_G4_100$Weight <- "100g"
+meanDataAreaW001_G4_200<- data.frame(meanArea=round(mean(DataAreaW001_G4_200$Area.mm2),digits =2 ))
+meanDataAreaW001_G4_200$SD<- round(sd(DataAreaW001_G4_200$Area.mm2),digits =2 )
+meanDataAreaW001_G4_200$Weight <- "200g"
+meanDataAreaW001_G4_400<- data.frame(meanArea=round(mean(DataAreaW001_G4_400$Area.mm2),digits =2 ))
+meanDataAreaW001_G4_400$SD<- round(sd(DataAreaW001_G4_400$Area.mm2),digits =2 )
+meanDataAreaW001_G4_400$Weight <- "400g"
+meanDataAreaW001_G4_800<- data.frame(meanArea=round(mean(DataAreaW001_G4_800$Area.mm2),digits =2 ))
+meanDataAreaW001_G4_800$SD<- round(sd(DataAreaW001_G4_800$Area.mm2),digits =2 )
+meanDataAreaW001_G4_800$Weight <- "800g"
+meanDataAreaW001_G4_1000<- data.frame(meanArea=round(mean(DataAreaW001_G4_1000$Area.mm2),digits =2 ))
+meanDataAreaW001_G4_1000$SD<- round(sd(DataAreaW001_G4_1000$Area.mm2),digits =2 )
+meanDataAreaW001_G4_1000$Weight <- "1000g"
+meanDataAreaW001_G4_2000<- data.frame(meanArea=round(mean(DataAreaW001_G4_2000$Area.mm2),digits =2 ))
+meanDataAreaW001_G4_2000$SD<- round(sd(DataAreaW001_G4_2000$Area.mm2),digits =2 )
+meanDataAreaW001_G4_2000$Weight <- "2000g"
 
-meanDataAreaW003_G4A_100<- data.frame(meanArea=round(mean(DataAreaW003_G4A_100$Area.mm2),digits =2 ))
-meanDataAreaW003_G4A_100$SD<- round(sd(DataAreaW003_G4A_100$Area.mm2),digits =2 )
-meanDataAreaW003_G4A_100$Weight <- "100g"
-meanDataAreaW003_G4A_200<- data.frame(meanArea=round(mean(DataAreaW003_G4A_200$Area.mm2),digits =2 ))
-meanDataAreaW003_G4A_200$SD<- round(sd(DataAreaW003_G4A_200$Area.mm2),digits =2 )
-meanDataAreaW003_G4A_200$Weight <- "200g"
-meanDataAreaW003_G4A_400<- data.frame(meanArea=round(mean(DataAreaW003_G4A_400$Area.mm2),digits =2 ))
-meanDataAreaW003_G4A_400$SD<- round(sd(DataAreaW003_G4A_400$Area.mm2),digits =2 )
-meanDataAreaW003_G4A_400$Weight <- "400g"
-meanDataAreaW003_G4A_800<- data.frame(meanArea=round(mean(DataAreaW003_G4A_800$Area.mm2),digits =2 ))
-meanDataAreaW003_G4A_800$SD<- round(sd(DataAreaW003_G4A_800$Area.mm2),digits =2 )
-meanDataAreaW003_G4A_800$Weight <- "800g"
-meanDataAreaW003_G4A_1000<- data.frame(meanArea=round(mean(DataAreaW003_G4A_1000$Area.mm2),digits =2 ))
-meanDataAreaW003_G4A_1000$SD<- round(sd(DataAreaW003_G4A_1000$Area.mm2),digits =2 )
-meanDataAreaW003_G4A_1000$Weight <- "1000g"
-meanDataAreaW003_G4A_2000<- data.frame(meanArea=round(mean(DataAreaW003_G4A_2000$Area.mm2),digits =2 ))
-meanDataAreaW003_G4A_2000$SD<- round(sd(DataAreaW003_G4A_2000$Area.mm2),digits =2 )
-meanDataAreaW003_G4A_2000$Weight <- "2000g"
+meanDataAreaW003_G4_100<- data.frame(meanArea=round(mean(DataAreaW003_G4_100$Area.mm2),digits =2 ))
+meanDataAreaW003_G4_100$SD<- round(sd(DataAreaW003_G4_100$Area.mm2),digits =2 )
+meanDataAreaW003_G4_100$Weight <- "100g"
+meanDataAreaW003_G4_200<- data.frame(meanArea=round(mean(DataAreaW003_G4_200$Area.mm2),digits =2 ))
+meanDataAreaW003_G4_200$SD<- round(sd(DataAreaW003_G4_200$Area.mm2),digits =2 )
+meanDataAreaW003_G4_200$Weight <- "200g"
+meanDataAreaW003_G4_400<- data.frame(meanArea=round(mean(DataAreaW003_G4_400$Area.mm2),digits =2 ))
+meanDataAreaW003_G4_400$SD<- round(sd(DataAreaW003_G4_400$Area.mm2),digits =2 )
+meanDataAreaW003_G4_400$Weight <- "400g"
+meanDataAreaW003_G4_800<- data.frame(meanArea=round(mean(DataAreaW003_G4_800$Area.mm2),digits =2 ))
+meanDataAreaW003_G4_800$SD<- round(sd(DataAreaW003_G4_800$Area.mm2),digits =2 )
+meanDataAreaW003_G4_800$Weight <- "800g"
+meanDataAreaW003_G4_1000<- data.frame(meanArea=round(mean(DataAreaW003_G4_1000$Area.mm2),digits =2 ))
+meanDataAreaW003_G4_1000$SD<- round(sd(DataAreaW003_G4_1000$Area.mm2),digits =2 )
+meanDataAreaW003_G4_1000$Weight <- "1000g"
+meanDataAreaW003_G4_2000<- data.frame(meanArea=round(mean(DataAreaW003_G4_2000$Area.mm2),digits =2 ))
+meanDataAreaW003_G4_2000$SD<- round(sd(DataAreaW003_G4_2000$Area.mm2),digits =2 )
+meanDataAreaW003_G4_2000$Weight <- "2000g"
 
-meanDataAreaW005_G4A_100<- data.frame(meanArea=round(mean(DataAreaW005_G4A_100$Area.mm2),digits =2 ))
-meanDataAreaW005_G4A_100$SD<- round(sd(DataAreaW005_G4A_100$Area.mm2),digits =2 )
-meanDataAreaW005_G4A_100$Weight <- "100g"
-meanDataAreaW005_G4A_200<- data.frame(meanArea=round(mean(DataAreaW005_G4A_200$Area.mm2),digits =2 ))
-meanDataAreaW005_G4A_200$SD<- round(sd(DataAreaW005_G4A_200$Area.mm2),digits =2 )
-meanDataAreaW005_G4A_200$Weight <- "200g"
-meanDataAreaW005_G4A_400<- data.frame(meanArea=round(mean(DataAreaW005_G4A_400$Area.mm2),digits =2 ))
-meanDataAreaW005_G4A_400$SD<- round(sd(DataAreaW005_G4A_400$Area.mm2),digits =2 )
-meanDataAreaW005_G4A_400$Weight <- "400g"
-meanDataAreaW005_G4A_800<- data.frame(meanArea=round(mean(DataAreaW005_G4A_800$Area.mm2),digits =2 ))
-meanDataAreaW005_G4A_800$SD<- round(sd(DataAreaW005_G4A_800$Area.mm2),digits =2 )
-meanDataAreaW005_G4A_800$Weight <- "800g"
-meanDataAreaW005_G4A_1000<- data.frame(meanArea=round(mean(DataAreaW005_G4A_1000$Area.mm2),digits =2 ))
-meanDataAreaW005_G4A_1000$SD<- round(sd(DataAreaW005_G4A_1000$Area.mm2),digits =2 )
-meanDataAreaW005_G4A_1000$Weight <- "1000g"
-meanDataAreaW005_G4A_2000<- data.frame(meanArea=round(mean(DataAreaW005_G4A_2000$Area.mm2),digits =2 ))
-meanDataAreaW005_G4A_2000$SD<- round(sd(DataAreaW005_G4A_2000$Area.mm2),digits =2 )
-meanDataAreaW005_G4A_2000$Weight <- "2000g"
+meanDataAreaW005_G4_100<- data.frame(meanArea=round(mean(DataAreaW005_G4_100$Area.mm2),digits =2 ))
+meanDataAreaW005_G4_100$SD<- round(sd(DataAreaW005_G4_100$Area.mm2),digits =2 )
+meanDataAreaW005_G4_100$Weight <- "100g"
+meanDataAreaW005_G4_200<- data.frame(meanArea=round(mean(DataAreaW005_G4_200$Area.mm2),digits =2 ))
+meanDataAreaW005_G4_200$SD<- round(sd(DataAreaW005_G4_200$Area.mm2),digits =2 )
+meanDataAreaW005_G4_200$Weight <- "200g"
+meanDataAreaW005_G4_400<- data.frame(meanArea=round(mean(DataAreaW005_G4_400$Area.mm2),digits =2 ))
+meanDataAreaW005_G4_400$SD<- round(sd(DataAreaW005_G4_400$Area.mm2),digits =2 )
+meanDataAreaW005_G4_400$Weight <- "400g"
+meanDataAreaW005_G4_800<- data.frame(meanArea=round(mean(DataAreaW005_G4_800$Area.mm2),digits =2 ))
+meanDataAreaW005_G4_800$SD<- round(sd(DataAreaW005_G4_800$Area.mm2),digits =2 )
+meanDataAreaW005_G4_800$Weight <- "800g"
+meanDataAreaW005_G4_1000<- data.frame(meanArea=round(mean(DataAreaW005_G4_1000$Area.mm2),digits =2 ))
+meanDataAreaW005_G4_1000$SD<- round(sd(DataAreaW005_G4_1000$Area.mm2),digits =2 )
+meanDataAreaW005_G4_1000$Weight <- "1000g"
+meanDataAreaW005_G4_2000<- data.frame(meanArea=round(mean(DataAreaW005_G4_2000$Area.mm2),digits =2 ))
+meanDataAreaW005_G4_2000$SD<- round(sd(DataAreaW005_G4_2000$Area.mm2),digits =2 )
+meanDataAreaW005_G4_2000$Weight <- "2000g"
 
-meanDataAreaW007_G4A_100<- data.frame(meanArea=round(mean(DataAreaW007_G4A_100$Area.mm2),digits =2 ))
-meanDataAreaW007_G4A_100$SD<- round(sd(DataAreaW007_G4A_100$Area.mm2),digits =2 )
-meanDataAreaW007_G4A_100$Weight <- "100g"
-meanDataAreaW007_G4A_200<- data.frame(meanArea=round(mean(DataAreaW007_G4A_200$Area.mm2),digits =2 ))
-meanDataAreaW007_G4A_200$SD<- round(sd(DataAreaW007_G4A_200$Area.mm2),digits =2 )
-meanDataAreaW007_G4A_200$Weight <- "200g"
-meanDataAreaW007_G4A_400<- data.frame(meanArea=round(mean(DataAreaW007_G4A_400$Area.mm2),digits =2 ))
-meanDataAreaW007_G4A_400$SD<- round(sd(DataAreaW007_G4A_400$Area.mm2),digits =2 )
-meanDataAreaW007_G4A_400$Weight <- "400g"
-meanDataAreaW007_G4A_800<- data.frame(meanArea=round(mean(DataAreaW007_G4A_800$Area.mm2),digits =2 ))
-meanDataAreaW007_G4A_800$SD<- round(sd(DataAreaW007_G4A_800$Area.mm2),digits =2 )
-meanDataAreaW007_G4A_800$Weight <- "800g"
-meanDataAreaW007_G4A_1000<- data.frame(meanArea=round(mean(DataAreaW007_G4A_1000$Area.mm2),digits =2 ))
-meanDataAreaW007_G4A_1000$SD<- round(sd(DataAreaW007_G4A_1000$Area.mm2),digits =2 )
-meanDataAreaW007_G4A_1000$Weight <- "1000g"
-meanDataAreaW007_G4A_2000<- data.frame(meanArea=round(mean(DataAreaW007_G4A_2000$Area.mm2),digits =2 ))
-meanDataAreaW007_G4A_2000$SD<- round(sd(DataAreaW007_G4A_2000$Area.mm2),digits =2 )
-meanDataAreaW007_G4A_2000$Weight <- "2000g"
+meanDataAreaW007_G4_100<- data.frame(meanArea=round(mean(DataAreaW007_G4_100$Area.mm2),digits =2 ))
+meanDataAreaW007_G4_100$SD<- round(sd(DataAreaW007_G4_100$Area.mm2),digits =2 )
+meanDataAreaW007_G4_100$Weight <- "100g"
+meanDataAreaW007_G4_200<- data.frame(meanArea=round(mean(DataAreaW007_G4_200$Area.mm2),digits =2 ))
+meanDataAreaW007_G4_200$SD<- round(sd(DataAreaW007_G4_200$Area.mm2),digits =2 )
+meanDataAreaW007_G4_200$Weight <- "200g"
+meanDataAreaW007_G4_400<- data.frame(meanArea=round(mean(DataAreaW007_G4_400$Area.mm2),digits =2 ))
+meanDataAreaW007_G4_400$SD<- round(sd(DataAreaW007_G4_400$Area.mm2),digits =2 )
+meanDataAreaW007_G4_400$Weight <- "400g"
+meanDataAreaW007_G4_800<- data.frame(meanArea=round(mean(DataAreaW007_G4_800$Area.mm2),digits =2 ))
+meanDataAreaW007_G4_800$SD<- round(sd(DataAreaW007_G4_800$Area.mm2),digits =2 )
+meanDataAreaW007_G4_800$Weight <- "800g"
+meanDataAreaW007_G4_1000<- data.frame(meanArea=round(mean(DataAreaW007_G4_1000$Area.mm2),digits =2 ))
+meanDataAreaW007_G4_1000$SD<- round(sd(DataAreaW007_G4_1000$Area.mm2),digits =2 )
+meanDataAreaW007_G4_1000$Weight <- "1000g"
+meanDataAreaW007_G4_2000<- data.frame(meanArea=round(mean(DataAreaW007_G4_2000$Area.mm2),digits =2 ))
+meanDataAreaW007_G4_2000$SD<- round(sd(DataAreaW007_G4_2000$Area.mm2),digits =2 )
+meanDataAreaW007_G4_2000$Weight <- "2000g"
+
+meanDataAreaW009_G4_100<- data.frame(meanArea=round(mean(DataAreaW009_G4_100$Area.mm2),digits =2 ))
+meanDataAreaW009_G4_100$SD<- round(sd(DataAreaW009_G4_100$Area.mm2),digits =2 )
+meanDataAreaW009_G4_100$Weight <- "100g"
+meanDataAreaW009_G4_200<- data.frame(meanArea=round(mean(DataAreaW009_G4_200$Area.mm2),digits =2 ))
+meanDataAreaW009_G4_200$SD<- round(sd(DataAreaW009_G4_200$Area.mm2),digits =2 )
+meanDataAreaW009_G4_200$Weight <- "200g"
+meanDataAreaW009_G4_400<- data.frame(meanArea=round(mean(DataAreaW009_G4_400$Area.mm2),digits =2 ))
+meanDataAreaW009_G4_400$SD<- round(sd(DataAreaW009_G4_400$Area.mm2),digits =2 )
+meanDataAreaW009_G4_400$Weight <- "400g"
+meanDataAreaW009_G4_800<- data.frame(meanArea=round(mean(DataAreaW009_G4_800$Area.mm2),digits =2 ))
+meanDataAreaW009_G4_800$SD<- round(sd(DataAreaW009_G4_800$Area.mm2),digits =2 )
+meanDataAreaW009_G4_800$Weight <- "800g"
+meanDataAreaW009_G4_1000<- data.frame(meanArea=round(mean(DataAreaW009_G4_1000$Area.mm2),digits =2 ))
+meanDataAreaW009_G4_1000$SD<- round(sd(DataAreaW009_G4_1000$Area.mm2),digits =2 )
+meanDataAreaW009_G4_1000$Weight <- "1000g"
+meanDataAreaW009_G4_2000<- data.frame(meanArea=round(mean(DataAreaW009_G4_2000$Area.mm2),digits =2 ))
+meanDataAreaW009_G4_2000$SD<- round(sd(DataAreaW009_G4_2000$Area.mm2),digits =2 )
+meanDataAreaW009_G4_2000$Weight <- "2000g"
+
+meanDataAreaW011_G4_100<- data.frame(meanArea=round(mean(DataAreaW011_G4_100$Area.mm2),digits =2 ))
+meanDataAreaW011_G4_100$SD<- round(sd(DataAreaW011_G4_100$Area.mm2),digits =2 )
+meanDataAreaW011_G4_100$Weight <- "100g"
+meanDataAreaW011_G4_200<- data.frame(meanArea=round(mean(DataAreaW011_G4_200$Area.mm2),digits =2 ))
+meanDataAreaW011_G4_200$SD<- round(sd(DataAreaW011_G4_200$Area.mm2),digits =2 )
+meanDataAreaW011_G4_200$Weight <- "200g"
+meanDataAreaW011_G4_400<- data.frame(meanArea=round(mean(DataAreaW011_G4_400$Area.mm2),digits =2 ))
+meanDataAreaW011_G4_400$SD<- round(sd(DataAreaW011_G4_400$Area.mm2),digits =2 )
+meanDataAreaW011_G4_400$Weight <- "400g"
+meanDataAreaW011_G4_800<- data.frame(meanArea=round(mean(DataAreaW011_G4_800$Area.mm2),digits =2 ))
+meanDataAreaW011_G4_800$SD<- round(sd(DataAreaW011_G4_800$Area.mm2),digits =2 )
+meanDataAreaW011_G4_800$Weight <- "800g"
+meanDataAreaW011_G4_1000<- data.frame(meanArea=round(mean(DataAreaW011_G4_1000$Area.mm2),digits =2 ))
+meanDataAreaW011_G4_1000$SD<- round(sd(DataAreaW011_G4_1000$Area.mm2),digits =2 )
+meanDataAreaW011_G4_1000$Weight <- "1000g"
+meanDataAreaW011_G4_2000<- data.frame(meanArea=round(mean(DataAreaW011_G4_2000$Area.mm2),digits =2 ))
+meanDataAreaW011_G4_2000$SD<- round(sd(DataAreaW011_G4_2000$Area.mm2),digits =2 )
+meanDataAreaW011_G4_2000$Weight <- "2000g"
 
 # Combined data sets
-DataW000_G4A_total <- rbind(meanDataAreaW000_G4A_100,meanDataAreaW000_G4A_200,meanDataAreaW000_G4A_400,
-                            meanDataAreaW000_G4A_800,meanDataAreaW000_G4A_1000,meanDataAreaW000_G4A_2000)
-DataW000_G4A_total$Condition <- "W000_G4A"
+DataW000_G4_total <- rbind(meanDataAreaW000_G4_100,meanDataAreaW000_G4_200,meanDataAreaW000_G4_400,
+                           meanDataAreaW000_G4_800,meanDataAreaW000_G4_1000,meanDataAreaW000_G4_2000)
+DataW000_G4_total$Condition <- "W000_G4"
 
-DataW001_G4A_total <- rbind(meanDataAreaW001_G4A_100,meanDataAreaW001_G4A_200,meanDataAreaW001_G4A_400,
-                            meanDataAreaW001_G4A_800,meanDataAreaW001_G4A_1000,meanDataAreaW001_G4A_2000)
-DataW001_G4A_total$Condition <- "W001_G4A"
+DataW001_G4_total <- rbind(meanDataAreaW001_G4_100,meanDataAreaW001_G4_200,meanDataAreaW001_G4_400,
+                           meanDataAreaW001_G4_800,meanDataAreaW001_G4_1000,meanDataAreaW001_G4_2000)
+DataW001_G4_total$Condition <- "W001_G4"
 
-DataW003_G4A_total <- rbind(meanDataAreaW003_G4A_100,meanDataAreaW003_G4A_200,meanDataAreaW003_G4A_400,
-                            meanDataAreaW003_G4A_800,meanDataAreaW003_G4A_1000,meanDataAreaW003_G4A_2000)
-DataW003_G4A_total$Condition <- "W003_G4A"
+DataW003_G4_total <- rbind(meanDataAreaW003_G4_100,meanDataAreaW003_G4_200,meanDataAreaW003_G4_400,
+                           meanDataAreaW003_G4_800,meanDataAreaW003_G4_1000,meanDataAreaW003_G4_2000)
+DataW003_G4_total$Condition <- "W003_G4"
 
-DataW005_G4A_total <- rbind(meanDataAreaW005_G4A_100,meanDataAreaW005_G4A_200,meanDataAreaW005_G4A_400,
-                            meanDataAreaW005_G4A_800,meanDataAreaW005_G4A_1000,meanDataAreaW005_G4A_2000)
-DataW005_G4A_total$Condition <- "W005_G4A"
+DataW005_G4_total <- rbind(meanDataAreaW005_G4_100,meanDataAreaW005_G4_200,meanDataAreaW005_G4_400,
+                           meanDataAreaW005_G4_800,meanDataAreaW005_G4_1000,meanDataAreaW005_G4_2000)
+DataW005_G4_total$Condition <- "W005_G4"
 
-DataW007_G4A_total <- rbind(meanDataAreaW007_G4A_100,meanDataAreaW007_G4A_200,meanDataAreaW007_G4A_400,
-                            meanDataAreaW007_G4A_800,meanDataAreaW007_G4A_1000,meanDataAreaW007_G4A_2000)
-DataW007_G4A_total$Condition <- "W007_G4A"
+DataW007_G4_total <- rbind(meanDataAreaW007_G4_100,meanDataAreaW007_G4_200,meanDataAreaW007_G4_400,
+                           meanDataAreaW007_G4_800,meanDataAreaW007_G4_1000,meanDataAreaW007_G4_2000)
+DataW007_G4_total$Condition <- "W007_G4"
 
-FibreCount_Shedding_G4A <- rbind(DataW000_G4A_total,DataW001_G4A_total,DataW003_G4A_total,DataW005_G4A_total,DataW007_G4A_total)
+DataW009_G4_total <- rbind(meanDataAreaW009_G4_100,meanDataAreaW009_G4_200,meanDataAreaW009_G4_400,
+                           meanDataAreaW009_G4_800,meanDataAreaW009_G4_1000,meanDataAreaW009_G4_2000)
+DataW009_G4_total$Condition <- "W009_G4"
 
-write.table(FibreCount_Shedding_G4A, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
+DataW011_G4_total <- rbind(meanDataAreaW011_G4_100,meanDataAreaW011_G4_200,meanDataAreaW011_G4_400,
+                           meanDataAreaW011_G4_800,meanDataAreaW011_G4_1000,meanDataAreaW011_G4_2000)
+DataW011_G4_total$Condition <- "W011_G4"
+
+FibreCount_Shedding_G4 <- rbind(DataW000_G4_total,DataW001_G4_total,DataW003_G4_total,DataW005_G4_total,DataW007_G4_total,DataW009_G4_total,DataW011_G4_total)
+
+write.table(FibreCount_Shedding_G4, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
 # calculation of the percentage difference between washed and unwashed
 y = rep(c(125, 150, 175, 200, 225),2)
 x = rep(c(1:5), 2)
 
 # plot
-pSH_G4A <- ggplot(FibreCount_Shedding_G4A, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
-                                          y= meanArea, fill=Condition))+
+pSH_G4 <- ggplot(FibreCount_Shedding_G4, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                             y= meanArea, fill=Condition))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
   geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
   ylim(0,520)+
-  scale_fill_manual(values = brewer.pal(9, "Paired")[1:9])+
+  scale_fill_manual(values = brewer.pal(9, "YlOrBr")[1:9])+
   theme(legend.title = element_blank(),
         strip.background.x = element_rect(colour = "grey", fill = "white"),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
-pSH_G4A
-ggsave("Shedding_G4A_W000-7.png", pSH_G4A, width = 10, height = 9, units = "in", dpi=150, path = "Results")
-
-##################
-####   G4B    ####
-##################
-Shedding_G4B <- read.csv('./Fibre count Summary/SH_G4B_W000-W007_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
-Shedding_G4B$Slice<- gsub(".TIF","",Shedding_G4B$Slice)
-Shedding_G4BExtended <- data.frame(str_split(Shedding_G4B$Slice, "_", simplify=TRUE))
-names(Shedding_G4BExtended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
-Shedding_G4BTotal <- cbind(Shedding_G4BExtended,Area=Shedding_G4B$Total.Area)
-
-# Convert Area from inch2 to mm2
-# 1 pixel = 1 x10^-5 inch2, so (Area*1)/0.000011 to convert into px
-Shedding_G4BTotal$Area.px <- (Shedding_G4BTotal$Area*1)/0.000011
-# 1 mm = 112 pixels, 1mm2 = 12544 px
-Shedding_G4BTotal$Area.mm2 <- Shedding_G4BTotal$Area.px/12544
-
-# Split data per washing condition
-DataAreaW000_G4B <- Shedding_G4BTotal[Shedding_G4BTotal$Wash =='W000',]
-DataAreaW001_G4B <- Shedding_G4BTotal[Shedding_G4BTotal$Wash =='W001',]
-DataAreaW003_G4B <- Shedding_G4BTotal[Shedding_G4BTotal$Wash =='W003',]
-DataAreaW005_G4B <- Shedding_G4BTotal[Shedding_G4BTotal$Wash =='W005',]
-DataAreaW007_G4B <- Shedding_G4BTotal[Shedding_G4BTotal$Wash =='W007',]
-
-# split per weight
-DataAreaW000_G4B_100 <- DataAreaW000_G4B[DataAreaW000_G4B$Weight =='100g',]
-DataAreaW000_G4B_200 <- DataAreaW000_G4B[DataAreaW000_G4B$Weight =='200g',]
-DataAreaW000_G4B_400 <- DataAreaW000_G4B[DataAreaW000_G4B$Weight =='400g',]
-DataAreaW000_G4B_800 <- DataAreaW000_G4B[DataAreaW000_G4B$Weight =='800g',]
-DataAreaW000_G4B_1000 <- DataAreaW000_G4B[DataAreaW000_G4B$Weight =='1000g',]
-DataAreaW000_G4B_2000 <- DataAreaW000_G4B[DataAreaW000_G4B$Weight =='2000g',]
-
-DataAreaW001_G4B_100 <- DataAreaW001_G4B[DataAreaW001_G4B$Weight =='100g',]
-DataAreaW001_G4B_200 <- DataAreaW001_G4B[DataAreaW001_G4B$Weight =='200g',]
-DataAreaW001_G4B_400 <- DataAreaW001_G4B[DataAreaW001_G4B$Weight =='400g',]
-DataAreaW001_G4B_800 <- DataAreaW001_G4B[DataAreaW001_G4B$Weight =='800g',]
-DataAreaW001_G4B_1000 <- DataAreaW001_G4B[DataAreaW001_G4B$Weight =='1000g',]
-DataAreaW001_G4B_2000 <- DataAreaW001_G4B[DataAreaW001_G4B$Weight =='2000g',]
-
-DataAreaW003_G4B_100 <- DataAreaW003_G4B[DataAreaW003_G4B$Weight =='100g',]
-DataAreaW003_G4B_200 <- DataAreaW003_G4B[DataAreaW003_G4B$Weight =='200g',]
-DataAreaW003_G4B_400 <- DataAreaW003_G4B[DataAreaW003_G4B$Weight =='400g',]
-DataAreaW003_G4B_800 <- DataAreaW003_G4B[DataAreaW003_G4B$Weight =='800g',]
-DataAreaW003_G4B_1000 <- DataAreaW003_G4B[DataAreaW003_G4B$Weight =='1000g',]
-DataAreaW003_G4B_2000 <- DataAreaW003_G4B[DataAreaW003_G4B$Weight =='2000g',]
-
-DataAreaW005_G4B_100 <- DataAreaW005_G4B[DataAreaW005_G4B$Weight =='100g',]
-DataAreaW005_G4B_200 <- DataAreaW005_G4B[DataAreaW005_G4B$Weight =='200g',]
-DataAreaW005_G4B_400 <- DataAreaW005_G4B[DataAreaW005_G4B$Weight =='400g',]
-DataAreaW005_G4B_800 <- DataAreaW005_G4B[DataAreaW005_G4B$Weight =='800g',]
-DataAreaW005_G4B_1000 <- DataAreaW005_G4B[DataAreaW005_G4B$Weight =='1000g',]
-DataAreaW005_G4B_2000 <- DataAreaW005_G4B[DataAreaW005_G4B$Weight =='2000g',]
-
-DataAreaW007_G4B_100 <- DataAreaW007_G4B[DataAreaW007_G4B$Weight =='100g',]
-DataAreaW007_G4B_200 <- DataAreaW007_G4B[DataAreaW007_G4B$Weight =='200g',]
-DataAreaW007_G4B_400 <- DataAreaW007_G4B[DataAreaW007_G4B$Weight =='400g',]
-DataAreaW007_G4B_800 <- DataAreaW007_G4B[DataAreaW007_G4B$Weight =='800g',]
-DataAreaW007_G4B_1000 <- DataAreaW007_G4B[DataAreaW007_G4B$Weight =='1000g',]
-DataAreaW007_G4B_2000 <- DataAreaW007_G4B[DataAreaW007_G4B$Weight =='2000g',]
-
-# Calculation of mean and SD
-meanDataAreaW000_G4B_100<- data.frame(meanArea=round(mean(DataAreaW000_G4B_100$Area.mm2),digits =2 ))
-meanDataAreaW000_G4B_100$SD<- round(sd(DataAreaW000_G4B_100$Area.mm2),digits =2 )
-meanDataAreaW000_G4B_100$Weight <- "100g"
-meanDataAreaW000_G4B_200<- data.frame(meanArea=round(mean(DataAreaW000_G4B_200$Area.mm2),digits =2 ))
-meanDataAreaW000_G4B_200$SD<- round(sd(DataAreaW000_G4B_200$Area.mm2),digits =2 )
-meanDataAreaW000_G4B_200$Weight <- "200g"
-meanDataAreaW000_G4B_400<- data.frame(meanArea=round(mean(DataAreaW000_G4B_400$Area.mm2),digits =2 ))
-meanDataAreaW000_G4B_400$SD<- round(sd(DataAreaW000_G4B_400$Area.mm2),digits =2 )
-meanDataAreaW000_G4B_400$Weight <- "400g"
-meanDataAreaW000_G4B_800<- data.frame(meanArea=round(mean(DataAreaW000_G4B_800$Area.mm2),digits =2 ))
-meanDataAreaW000_G4B_800$SD<- round(sd(DataAreaW000_G4B_800$Area.mm2),digits =2 )
-meanDataAreaW000_G4B_800$Weight <- "800g"
-meanDataAreaW000_G4B_1000<- data.frame(meanArea=round(mean(DataAreaW000_G4B_1000$Area.mm2),digits =2 ))
-meanDataAreaW000_G4B_1000$SD<- round(sd(DataAreaW000_G4B_1000$Area.mm2),digits =2 )
-meanDataAreaW000_G4B_1000$Weight <- "1000g"
-meanDataAreaW000_G4B_2000<- data.frame(meanArea=round(mean(DataAreaW000_G4B_2000$Area.mm2),digits =2 ))
-meanDataAreaW000_G4B_2000$SD<- round(sd(DataAreaW000_G4B_2000$Area.mm2),digits =2 )
-meanDataAreaW000_G4B_2000$Weight <- "2000g"
-
-meanDataAreaW001_G4B_100<- data.frame(meanArea=round(mean(DataAreaW001_G4B_100$Area.mm2),digits =2 ))
-meanDataAreaW001_G4B_100$SD<- round(sd(DataAreaW001_G4B_100$Area.mm2),digits =2 )
-meanDataAreaW001_G4B_100$Weight <- "100g"
-meanDataAreaW001_G4B_200<- data.frame(meanArea=round(mean(DataAreaW001_G4B_200$Area.mm2),digits =2 ))
-meanDataAreaW001_G4B_200$SD<- round(sd(DataAreaW001_G4B_200$Area.mm2),digits =2 )
-meanDataAreaW001_G4B_200$Weight <- "200g"
-meanDataAreaW001_G4B_400<- data.frame(meanArea=round(mean(DataAreaW001_G4B_400$Area.mm2),digits =2 ))
-meanDataAreaW001_G4B_400$SD<- round(sd(DataAreaW001_G4B_400$Area.mm2),digits =2 )
-meanDataAreaW001_G4B_400$Weight <- "400g"
-meanDataAreaW001_G4B_800<- data.frame(meanArea=round(mean(DataAreaW001_G4B_800$Area.mm2),digits =2 ))
-meanDataAreaW001_G4B_800$SD<- round(sd(DataAreaW001_G4B_800$Area.mm2),digits =2 )
-meanDataAreaW001_G4B_800$Weight <- "800g"
-meanDataAreaW001_G4B_1000<- data.frame(meanArea=round(mean(DataAreaW001_G4B_1000$Area.mm2),digits =2 ))
-meanDataAreaW001_G4B_1000$SD<- round(sd(DataAreaW001_G4B_1000$Area.mm2),digits =2 )
-meanDataAreaW001_G4B_1000$Weight <- "1000g"
-meanDataAreaW001_G4B_2000<- data.frame(meanArea=round(mean(DataAreaW001_G4B_2000$Area.mm2),digits =2 ))
-meanDataAreaW001_G4B_2000$SD<- round(sd(DataAreaW001_G4B_2000$Area.mm2),digits =2 )
-meanDataAreaW001_G4B_2000$Weight <- "2000g"
-
-meanDataAreaW003_G4B_100<- data.frame(meanArea=round(mean(DataAreaW003_G4B_100$Area.mm2),digits =2 ))
-meanDataAreaW003_G4B_100$SD<- round(sd(DataAreaW003_G4B_100$Area.mm2),digits =2 )
-meanDataAreaW003_G4B_100$Weight <- "100g"
-meanDataAreaW003_G4B_200<- data.frame(meanArea=round(mean(DataAreaW003_G4B_200$Area.mm2),digits =2 ))
-meanDataAreaW003_G4B_200$SD<- round(sd(DataAreaW003_G4B_200$Area.mm2),digits =2 )
-meanDataAreaW003_G4B_200$Weight <- "200g"
-meanDataAreaW003_G4B_400<- data.frame(meanArea=round(mean(DataAreaW003_G4B_400$Area.mm2),digits =2 ))
-meanDataAreaW003_G4B_400$SD<- round(sd(DataAreaW003_G4B_400$Area.mm2),digits =2 )
-meanDataAreaW003_G4B_400$Weight <- "400g"
-meanDataAreaW003_G4B_800<- data.frame(meanArea=round(mean(DataAreaW003_G4B_800$Area.mm2),digits =2 ))
-meanDataAreaW003_G4B_800$SD<- round(sd(DataAreaW003_G4B_800$Area.mm2),digits =2 )
-meanDataAreaW003_G4B_800$Weight <- "800g"
-meanDataAreaW003_G4B_1000<- data.frame(meanArea=round(mean(DataAreaW003_G4B_1000$Area.mm2),digits =2 ))
-meanDataAreaW003_G4B_1000$SD<- round(sd(DataAreaW003_G4B_1000$Area.mm2),digits =2 )
-meanDataAreaW003_G4B_1000$Weight <- "1000g"
-meanDataAreaW003_G4B_2000<- data.frame(meanArea=round(mean(DataAreaW003_G4B_2000$Area.mm2),digits =2 ))
-meanDataAreaW003_G4B_2000$SD<- round(sd(DataAreaW003_G4B_2000$Area.mm2),digits =2 )
-meanDataAreaW003_G4B_2000$Weight <- "2000g"
-
-meanDataAreaW005_G4B_100<- data.frame(meanArea=round(mean(DataAreaW005_G4B_100$Area.mm2),digits =2 ))
-meanDataAreaW005_G4B_100$SD<- round(sd(DataAreaW005_G4B_100$Area.mm2),digits =2 )
-meanDataAreaW005_G4B_100$Weight <- "100g"
-meanDataAreaW005_G4B_200<- data.frame(meanArea=round(mean(DataAreaW005_G4B_200$Area.mm2),digits =2 ))
-meanDataAreaW005_G4B_200$SD<- round(sd(DataAreaW005_G4B_200$Area.mm2),digits =2 )
-meanDataAreaW005_G4B_200$Weight <- "200g"
-meanDataAreaW005_G4B_400<- data.frame(meanArea=round(mean(DataAreaW005_G4B_400$Area.mm2),digits =2 ))
-meanDataAreaW005_G4B_400$SD<- round(sd(DataAreaW005_G4B_400$Area.mm2),digits =2 )
-meanDataAreaW005_G4B_400$Weight <- "400g"
-meanDataAreaW005_G4B_800<- data.frame(meanArea=round(mean(DataAreaW005_G4B_800$Area.mm2),digits =2 ))
-meanDataAreaW005_G4B_800$SD<- round(sd(DataAreaW005_G4B_800$Area.mm2),digits =2 )
-meanDataAreaW005_G4B_800$Weight <- "800g"
-meanDataAreaW005_G4B_1000<- data.frame(meanArea=round(mean(DataAreaW005_G4B_1000$Area.mm2),digits =2 ))
-meanDataAreaW005_G4B_1000$SD<- round(sd(DataAreaW005_G4B_1000$Area.mm2),digits =2 )
-meanDataAreaW005_G4B_1000$Weight <- "1000g"
-meanDataAreaW005_G4B_2000<- data.frame(meanArea=round(mean(DataAreaW005_G4B_2000$Area.mm2),digits =2 ))
-meanDataAreaW005_G4B_2000$SD<- round(sd(DataAreaW005_G4B_2000$Area.mm2),digits =2 )
-meanDataAreaW005_G4B_2000$Weight <- "2000g"
-
-meanDataAreaW007_G4B_100<- data.frame(meanArea=round(mean(DataAreaW007_G4B_100$Area.mm2),digits =2 ))
-meanDataAreaW007_G4B_100$SD<- round(sd(DataAreaW007_G4B_100$Area.mm2),digits =2 )
-meanDataAreaW007_G4B_100$Weight <- "100g"
-meanDataAreaW007_G4B_200<- data.frame(meanArea=round(mean(DataAreaW007_G4B_200$Area.mm2),digits =2 ))
-meanDataAreaW007_G4B_200$SD<- round(sd(DataAreaW007_G4B_200$Area.mm2),digits =2 )
-meanDataAreaW007_G4B_200$Weight <- "200g"
-meanDataAreaW007_G4B_400<- data.frame(meanArea=round(mean(DataAreaW007_G4B_400$Area.mm2),digits =2 ))
-meanDataAreaW007_G4B_400$SD<- round(sd(DataAreaW007_G4B_400$Area.mm2),digits =2 )
-meanDataAreaW007_G4B_400$Weight <- "400g"
-meanDataAreaW007_G4B_800<- data.frame(meanArea=round(mean(DataAreaW007_G4B_800$Area.mm2),digits =2 ))
-meanDataAreaW007_G4B_800$SD<- round(sd(DataAreaW007_G4B_800$Area.mm2),digits =2 )
-meanDataAreaW007_G4B_800$Weight <- "800g"
-meanDataAreaW007_G4B_1000<- data.frame(meanArea=round(mean(DataAreaW007_G4B_1000$Area.mm2),digits =2 ))
-meanDataAreaW007_G4B_1000$SD<- round(sd(DataAreaW007_G4B_1000$Area.mm2),digits =2 )
-meanDataAreaW007_G4B_1000$Weight <- "1000g"
-meanDataAreaW007_G4B_2000<- data.frame(meanArea=round(mean(DataAreaW007_G4B_2000$Area.mm2),digits =2 ))
-meanDataAreaW007_G4B_2000$SD<- round(sd(DataAreaW007_G4B_2000$Area.mm2),digits =2 )
-meanDataAreaW007_G4B_2000$Weight <- "2000g"
-
-# Combined data sets
-DataW000_G4B_total <- rbind(meanDataAreaW000_G4B_100,meanDataAreaW000_G4B_200,meanDataAreaW000_G4B_400,
-                            meanDataAreaW000_G4B_800,meanDataAreaW000_G4B_1000,meanDataAreaW000_G4B_2000)
-DataW000_G4B_total$Condition <- "W000_G4B"
-
-DataW001_G4B_total <- rbind(meanDataAreaW001_G4B_100,meanDataAreaW001_G4B_200,meanDataAreaW001_G4B_400,
-                            meanDataAreaW001_G4B_800,meanDataAreaW001_G4B_1000,meanDataAreaW001_G4B_2000)
-DataW001_G4B_total$Condition <- "W001_G4B"
-
-DataW003_G4B_total <- rbind(meanDataAreaW003_G4B_100,meanDataAreaW003_G4B_200,meanDataAreaW003_G4B_400,
-                            meanDataAreaW003_G4B_800,meanDataAreaW003_G4B_1000,meanDataAreaW003_G4B_2000)
-DataW003_G4B_total$Condition <- "W003_G4B"
-
-DataW005_G4B_total <- rbind(meanDataAreaW005_G4B_100,meanDataAreaW005_G4B_200,meanDataAreaW005_G4B_400,
-                            meanDataAreaW005_G4B_800,meanDataAreaW005_G4B_1000,meanDataAreaW005_G4B_2000)
-DataW005_G4B_total$Condition <- "W005_G4B"
-
-DataW007_G4B_total <- rbind(meanDataAreaW007_G4B_100,meanDataAreaW007_G4B_200,meanDataAreaW007_G4B_400,
-                            meanDataAreaW007_G4B_800,meanDataAreaW007_G4B_1000,meanDataAreaW007_G4B_2000)
-DataW007_G4B_total$Condition <- "W007_G4B"
-
-FibreCount_Shedding_G4B <- rbind(DataW000_G4B_total,DataW001_G4B_total,DataW003_G4B_total,DataW005_G4B_total,DataW007_G4B_total)
-
-write.table(FibreCount_Shedding_G4B, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
-
-# calculation of the percentage difference between washed and unwashed
-y = rep(c(125, 150, 175, 200, 225),2)
-x = rep(c(1:5), 2)
-
-# plot
-pSH_G4B <- ggplot(FibreCount_Shedding_G4B, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
-                                               y= meanArea, fill=Condition))+
-  geom_bar(stat="identity", position=position_dodge(),colour="black")+
-  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
-  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
-  theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,500)+
-  scale_fill_manual(values = brewer.pal(9, "Paired")[1:9])+
-  theme(legend.title = element_blank(),
-        strip.background.x = element_rect(colour = "grey", fill = "white"),
-        legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
-  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
-pSH_G4B
-ggsave("Shedding_G4B_W000-7.png", pSH_G4B, width = 10, height = 9, units = "in", dpi=150, path = "Results")
-
-##################
-####   G4C    ####
-##################
-Shedding_G4C <- read.csv('./Fibre count Summary/SH_G4C_W000-W007_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
-Shedding_G4C$Slice<- gsub(".TIF","",Shedding_G4C$Slice)
-Shedding_G4CExtended <- data.frame(str_split(Shedding_G4C$Slice, "_", simplify=TRUE))
-names(Shedding_G4CExtended) <- c("Project","Wash","Garment","Weight","Repeat","condition")
-Shedding_G4CTotal <- cbind(Shedding_G4CExtended,Area=Shedding_G4C$Total.Area)
-
-# Convert Area from inch2 to mm2
-# 1 pixel = 1 x10^-5 inch2, so (Area*1)/0.000011 to convert into px
-Shedding_G4CTotal$Area.px <- (Shedding_G4CTotal$Area*1)/0.000011
-# 1 mm = 112 pixels, 1mm2 = 12544 px
-Shedding_G4CTotal$Area.mm2 <- Shedding_G4CTotal$Area.px/12544
-
-# Split data per washing condition
-DataAreaW000_G4C <- Shedding_G4CTotal[Shedding_G4CTotal$Wash =='W000',]
-DataAreaW001_G4C <- Shedding_G4CTotal[Shedding_G4CTotal$Wash =='W001',]
-DataAreaW003_G4C <- Shedding_G4CTotal[Shedding_G4CTotal$Wash =='W003',]
-DataAreaW005_G4C <- Shedding_G4CTotal[Shedding_G4CTotal$Wash =='W005',]
-DataAreaW007_G4C <- Shedding_G4CTotal[Shedding_G4CTotal$Wash =='W007',]
-
-# split per weight
-DataAreaW000_G4C_100 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='100g',]
-DataAreaW000_G4C_200 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='200g',]
-DataAreaW000_G4C_400 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='400g',]
-DataAreaW000_G4C_800 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='800g',]
-DataAreaW000_G4C_1000 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='1000g',]
-DataAreaW000_G4C_2000 <- DataAreaW000_G4C[DataAreaW000_G4C$Weight =='2000g',]
-
-DataAreaW001_G4C_100 <- DataAreaW001_G4C[DataAreaW001_G4C$Weight =='100g',]
-DataAreaW001_G4C_200 <- DataAreaW001_G4C[DataAreaW001_G4C$Weight =='200g',]
-DataAreaW001_G4C_400 <- DataAreaW001_G4C[DataAreaW001_G4C$Weight =='400g',]
-DataAreaW001_G4C_800 <- DataAreaW001_G4C[DataAreaW001_G4C$Weight =='800g',]
-DataAreaW001_G4C_1000 <- DataAreaW001_G4C[DataAreaW001_G4C$Weight =='1000g',]
-DataAreaW001_G4C_2000 <- DataAreaW001_G4C[DataAreaW001_G4C$Weight =='2000g',]
-
-DataAreaW003_G4C_100 <- DataAreaW003_G4C[DataAreaW003_G4C$Weight =='100g',]
-DataAreaW003_G4C_200 <- DataAreaW003_G4C[DataAreaW003_G4C$Weight =='200g',]
-DataAreaW003_G4C_400 <- DataAreaW003_G4C[DataAreaW003_G4C$Weight =='400g',]
-DataAreaW003_G4C_800 <- DataAreaW003_G4C[DataAreaW003_G4C$Weight =='800g',]
-DataAreaW003_G4C_1000 <- DataAreaW003_G4C[DataAreaW003_G4C$Weight =='1000g',]
-DataAreaW003_G4C_2000 <- DataAreaW003_G4C[DataAreaW003_G4C$Weight =='2000g',]
-
-DataAreaW005_G4C_100 <- DataAreaW005_G4C[DataAreaW005_G4C$Weight =='100g',]
-DataAreaW005_G4C_200 <- DataAreaW005_G4C[DataAreaW005_G4C$Weight =='200g',]
-DataAreaW005_G4C_400 <- DataAreaW005_G4C[DataAreaW005_G4C$Weight =='400g',]
-DataAreaW005_G4C_800 <- DataAreaW005_G4C[DataAreaW005_G4C$Weight =='800g',]
-DataAreaW005_G4C_1000 <- DataAreaW005_G4C[DataAreaW005_G4C$Weight =='1000g',]
-DataAreaW005_G4C_2000 <- DataAreaW005_G4C[DataAreaW005_G4C$Weight =='2000g',]
-
-DataAreaW007_G4C_100 <- DataAreaW007_G4C[DataAreaW007_G4C$Weight =='100g',]
-DataAreaW007_G4C_200 <- DataAreaW007_G4C[DataAreaW007_G4C$Weight =='200g',]
-DataAreaW007_G4C_400 <- DataAreaW007_G4C[DataAreaW007_G4C$Weight =='400g',]
-DataAreaW007_G4C_800 <- DataAreaW007_G4C[DataAreaW007_G4C$Weight =='800g',]
-DataAreaW007_G4C_1000 <- DataAreaW007_G4C[DataAreaW007_G4C$Weight =='1000g',]
-DataAreaW007_G4C_2000 <- DataAreaW007_G4C[DataAreaW007_G4C$Weight =='2000g',]
-
-# Calculation of mean and SD
-meanDataAreaW000_G4C_100<- data.frame(meanArea=round(mean(DataAreaW000_G4C_100$Area.mm2),digits =2 ))
-meanDataAreaW000_G4C_100$SD<- round(sd(DataAreaW000_G4C_100$Area.mm2),digits =2 )
-meanDataAreaW000_G4C_100$Weight <- "100g"
-meanDataAreaW000_G4C_200<- data.frame(meanArea=round(mean(DataAreaW000_G4C_200$Area.mm2),digits =2 ))
-meanDataAreaW000_G4C_200$SD<- round(sd(DataAreaW000_G4C_200$Area.mm2),digits =2 )
-meanDataAreaW000_G4C_200$Weight <- "200g"
-meanDataAreaW000_G4C_400<- data.frame(meanArea=round(mean(DataAreaW000_G4C_400$Area.mm2),digits =2 ))
-meanDataAreaW000_G4C_400$SD<- round(sd(DataAreaW000_G4C_400$Area.mm2),digits =2 )
-meanDataAreaW000_G4C_400$Weight <- "400g"
-meanDataAreaW000_G4C_800<- data.frame(meanArea=round(mean(DataAreaW000_G4C_800$Area.mm2),digits =2 ))
-meanDataAreaW000_G4C_800$SD<- round(sd(DataAreaW000_G4C_800$Area.mm2),digits =2 )
-meanDataAreaW000_G4C_800$Weight <- "800g"
-meanDataAreaW000_G4C_1000<- data.frame(meanArea=round(mean(DataAreaW000_G4C_1000$Area.mm2),digits =2 ))
-meanDataAreaW000_G4C_1000$SD<- round(sd(DataAreaW000_G4C_1000$Area.mm2),digits =2 )
-meanDataAreaW000_G4C_1000$Weight <- "1000g"
-meanDataAreaW000_G4C_2000<- data.frame(meanArea=round(mean(DataAreaW000_G4C_2000$Area.mm2),digits =2 ))
-meanDataAreaW000_G4C_2000$SD<- round(sd(DataAreaW000_G4C_2000$Area.mm2),digits =2 )
-meanDataAreaW000_G4C_2000$Weight <- "2000g"
-
-meanDataAreaW001_G4C_100<- data.frame(meanArea=round(mean(DataAreaW001_G4C_100$Area.mm2),digits =2 ))
-meanDataAreaW001_G4C_100$SD<- round(sd(DataAreaW001_G4C_100$Area.mm2),digits =2 )
-meanDataAreaW001_G4C_100$Weight <- "100g"
-meanDataAreaW001_G4C_200<- data.frame(meanArea=round(mean(DataAreaW001_G4C_200$Area.mm2),digits =2 ))
-meanDataAreaW001_G4C_200$SD<- round(sd(DataAreaW001_G4C_200$Area.mm2),digits =2 )
-meanDataAreaW001_G4C_200$Weight <- "200g"
-meanDataAreaW001_G4C_400<- data.frame(meanArea=round(mean(DataAreaW001_G4C_400$Area.mm2),digits =2 ))
-meanDataAreaW001_G4C_400$SD<- round(sd(DataAreaW001_G4C_400$Area.mm2),digits =2 )
-meanDataAreaW001_G4C_400$Weight <- "400g"
-meanDataAreaW001_G4C_800<- data.frame(meanArea=round(mean(DataAreaW001_G4C_800$Area.mm2),digits =2 ))
-meanDataAreaW001_G4C_800$SD<- round(sd(DataAreaW001_G4C_800$Area.mm2),digits =2 )
-meanDataAreaW001_G4C_800$Weight <- "800g"
-meanDataAreaW001_G4C_1000<- data.frame(meanArea=round(mean(DataAreaW001_G4C_1000$Area.mm2),digits =2 ))
-meanDataAreaW001_G4C_1000$SD<- round(sd(DataAreaW001_G4C_1000$Area.mm2),digits =2 )
-meanDataAreaW001_G4C_1000$Weight <- "1000g"
-meanDataAreaW001_G4C_2000<- data.frame(meanArea=round(mean(DataAreaW001_G4C_2000$Area.mm2),digits =2 ))
-meanDataAreaW001_G4C_2000$SD<- round(sd(DataAreaW001_G4C_2000$Area.mm2),digits =2 )
-meanDataAreaW001_G4C_2000$Weight <- "2000g"
-
-meanDataAreaW003_G4C_100<- data.frame(meanArea=round(mean(DataAreaW003_G4C_100$Area.mm2),digits =2 ))
-meanDataAreaW003_G4C_100$SD<- round(sd(DataAreaW003_G4C_100$Area.mm2),digits =2 )
-meanDataAreaW003_G4C_100$Weight <- "100g"
-meanDataAreaW003_G4C_200<- data.frame(meanArea=round(mean(DataAreaW003_G4C_200$Area.mm2),digits =2 ))
-meanDataAreaW003_G4C_200$SD<- round(sd(DataAreaW003_G4C_200$Area.mm2),digits =2 )
-meanDataAreaW003_G4C_200$Weight <- "200g"
-meanDataAreaW003_G4C_400<- data.frame(meanArea=round(mean(DataAreaW003_G4C_400$Area.mm2),digits =2 ))
-meanDataAreaW003_G4C_400$SD<- round(sd(DataAreaW003_G4C_400$Area.mm2),digits =2 )
-meanDataAreaW003_G4C_400$Weight <- "400g"
-meanDataAreaW003_G4C_800<- data.frame(meanArea=round(mean(DataAreaW003_G4C_800$Area.mm2),digits =2 ))
-meanDataAreaW003_G4C_800$SD<- round(sd(DataAreaW003_G4C_800$Area.mm2),digits =2 )
-meanDataAreaW003_G4C_800$Weight <- "800g"
-meanDataAreaW003_G4C_1000<- data.frame(meanArea=round(mean(DataAreaW003_G4C_1000$Area.mm2),digits =2 ))
-meanDataAreaW003_G4C_1000$SD<- round(sd(DataAreaW003_G4C_1000$Area.mm2),digits =2 )
-meanDataAreaW003_G4C_1000$Weight <- "1000g"
-meanDataAreaW003_G4C_2000<- data.frame(meanArea=round(mean(DataAreaW003_G4C_2000$Area.mm2),digits =2 ))
-meanDataAreaW003_G4C_2000$SD<- round(sd(DataAreaW003_G4C_2000$Area.mm2),digits =2 )
-meanDataAreaW003_G4C_2000$Weight <- "2000g"
-
-meanDataAreaW005_G4C_100<- data.frame(meanArea=round(mean(DataAreaW005_G4C_100$Area.mm2),digits =2 ))
-meanDataAreaW005_G4C_100$SD<- round(sd(DataAreaW005_G4C_100$Area.mm2),digits =2 )
-meanDataAreaW005_G4C_100$Weight <- "100g"
-meanDataAreaW005_G4C_200<- data.frame(meanArea=round(mean(DataAreaW005_G4C_200$Area.mm2),digits =2 ))
-meanDataAreaW005_G4C_200$SD<- round(sd(DataAreaW005_G4C_200$Area.mm2),digits =2 )
-meanDataAreaW005_G4C_200$Weight <- "200g"
-meanDataAreaW005_G4C_400<- data.frame(meanArea=round(mean(DataAreaW005_G4C_400$Area.mm2),digits =2 ))
-meanDataAreaW005_G4C_400$SD<- round(sd(DataAreaW005_G4C_400$Area.mm2),digits =2 )
-meanDataAreaW005_G4C_400$Weight <- "400g"
-meanDataAreaW005_G4C_800<- data.frame(meanArea=round(mean(DataAreaW005_G4C_800$Area.mm2),digits =2 ))
-meanDataAreaW005_G4C_800$SD<- round(sd(DataAreaW005_G4C_800$Area.mm2),digits =2 )
-meanDataAreaW005_G4C_800$Weight <- "800g"
-meanDataAreaW005_G4C_1000<- data.frame(meanArea=round(mean(DataAreaW005_G4C_1000$Area.mm2),digits =2 ))
-meanDataAreaW005_G4C_1000$SD<- round(sd(DataAreaW005_G4C_1000$Area.mm2),digits =2 )
-meanDataAreaW005_G4C_1000$Weight <- "1000g"
-meanDataAreaW005_G4C_2000<- data.frame(meanArea=round(mean(DataAreaW005_G4C_2000$Area.mm2),digits =2 ))
-meanDataAreaW005_G4C_2000$SD<- round(sd(DataAreaW005_G4C_2000$Area.mm2),digits =2 )
-meanDataAreaW005_G4C_2000$Weight <- "2000g"
-
-meanDataAreaW007_G4C_100<- data.frame(meanArea=round(mean(DataAreaW007_G4C_100$Area.mm2),digits =2 ))
-meanDataAreaW007_G4C_100$SD<- round(sd(DataAreaW007_G4C_100$Area.mm2),digits =2 )
-meanDataAreaW007_G4C_100$Weight <- "100g"
-meanDataAreaW007_G4C_200<- data.frame(meanArea=round(mean(DataAreaW007_G4C_200$Area.mm2),digits =2 ))
-meanDataAreaW007_G4C_200$SD<- round(sd(DataAreaW007_G4C_200$Area.mm2),digits =2 )
-meanDataAreaW007_G4C_200$Weight <- "200g"
-meanDataAreaW007_G4C_400<- data.frame(meanArea=round(mean(DataAreaW007_G4C_400$Area.mm2),digits =2 ))
-meanDataAreaW007_G4C_400$SD<- round(sd(DataAreaW007_G4C_400$Area.mm2),digits =2 )
-meanDataAreaW007_G4C_400$Weight <- "400g"
-meanDataAreaW007_G4C_800<- data.frame(meanArea=round(mean(DataAreaW007_G4C_800$Area.mm2),digits =2 ))
-meanDataAreaW007_G4C_800$SD<- round(sd(DataAreaW007_G4C_800$Area.mm2),digits =2 )
-meanDataAreaW007_G4C_800$Weight <- "800g"
-meanDataAreaW007_G4C_1000<- data.frame(meanArea=round(mean(DataAreaW007_G4C_1000$Area.mm2),digits =2 ))
-meanDataAreaW007_G4C_1000$SD<- round(sd(DataAreaW007_G4C_1000$Area.mm2),digits =2 )
-meanDataAreaW007_G4C_1000$Weight <- "1000g"
-meanDataAreaW007_G4C_2000<- data.frame(meanArea=round(mean(DataAreaW007_G4C_2000$Area.mm2),digits =2 ))
-meanDataAreaW007_G4C_2000$SD<- round(sd(DataAreaW007_G4C_2000$Area.mm2),digits =2 )
-meanDataAreaW007_G4C_2000$Weight <- "2000g"
-
-# Combined data sets
-DataW000_G4C_total <- rbind(meanDataAreaW000_G4C_100,meanDataAreaW000_G4C_200,meanDataAreaW000_G4C_400,
-                            meanDataAreaW000_G4C_800,meanDataAreaW000_G4C_1000,meanDataAreaW000_G4C_2000)
-DataW000_G4C_total$Condition <- "W000_G4C"
-
-DataW001_G4C_total <- rbind(meanDataAreaW001_G4C_100,meanDataAreaW001_G4C_200,meanDataAreaW001_G4C_400,
-                            meanDataAreaW001_G4C_800,meanDataAreaW001_G4C_1000,meanDataAreaW001_G4C_2000)
-DataW001_G4C_total$Condition <- "W001_G4C"
-
-DataW003_G4C_total <- rbind(meanDataAreaW003_G4C_100,meanDataAreaW003_G4C_200,meanDataAreaW003_G4C_400,
-                            meanDataAreaW003_G4C_800,meanDataAreaW003_G4C_1000,meanDataAreaW003_G4C_2000)
-DataW003_G4C_total$Condition <- "W003_G4C"
-
-DataW005_G4C_total <- rbind(meanDataAreaW005_G4C_100,meanDataAreaW005_G4C_200,meanDataAreaW005_G4C_400,
-                            meanDataAreaW005_G4C_800,meanDataAreaW005_G4C_1000,meanDataAreaW005_G4C_2000)
-DataW005_G4C_total$Condition <- "W005_G4C"
-
-DataW007_G4C_total <- rbind(meanDataAreaW007_G4C_100,meanDataAreaW007_G4C_200,meanDataAreaW007_G4C_400,
-                            meanDataAreaW007_G4C_800,meanDataAreaW007_G4C_1000,meanDataAreaW007_G4C_2000)
-DataW007_G4C_total$Condition <- "W007_G4C"
-
-FibreCount_Shedding_G4C <- rbind(DataW000_G4C_total,DataW001_G4C_total,DataW003_G4C_total,DataW005_G4C_total,DataW007_G4C_total)
-
-write.table(FibreCount_Shedding_G4C, file = "Shedding_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
-
-# calculation of the percentage difference between washed and unwashed
-y = rep(c(125, 150, 175, 200, 225),2)
-x = rep(c(1:5), 2)
-
-# plot
-pSH_G4C <- ggplot(FibreCount_Shedding_G4C, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
-                                               y= meanArea, fill=Condition))+
-  geom_bar(stat="identity", position=position_dodge(),colour="black")+
-  geom_text(aes(label = meanArea), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
-  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
-  theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,630)+
-  scale_fill_manual(values = brewer.pal(9, "Paired")[1:9])+
-  theme(legend.title = element_blank(),
-        strip.background.x = element_rect(colour = "grey", fill = "white"),
-        legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
-  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
-pSH_G4C
-ggsave("Shedding_G4C_W000-7.png", pSH_G4C, width = 10, height = 9, units = "in", dpi=150, path = "Results")
-
-#######################
-#### COMBINED DATA ####
-#######################
-DataAreaW000_G4_100 <- rbind(DataAreaW000_G4A_100,DataAreaW000_G4B_100,DataAreaW000_G4C_100)
-DataAreaW000_G4_800 <- rbind(DataAreaW000_G4A_800,DataAreaW000_G4B_800,DataAreaW000_G4C_800)
-DataAreaW000_G4_2000 <- rbind(DataAreaW000_G4A_2000,DataAreaW000_G4B_2000,DataAreaW000_G4C_2000)
-
-DataAreaW001_G4_100 <- rbind(DataAreaW001_G4A_100,DataAreaW001_G4B_100,DataAreaW001_G4C_100)
-DataAreaW001_G4_800 <- rbind(DataAreaW001_G4A_800,DataAreaW001_G4B_800,DataAreaW001_G4C_800)
-DataAreaW001_G4_2000 <- rbind(DataAreaW001_G4A_2000,DataAreaW001_G4B_2000,DataAreaW001_G4C_2000)
-
-DataAreaW003_G4_100 <- rbind(DataAreaW003_G4A_100,DataAreaW003_G4B_100,DataAreaW003_G4C_100)
-DataAreaW003_G4_800 <- rbind(DataAreaW003_G4A_800,DataAreaW003_G4B_800,DataAreaW003_G4C_800)
-DataAreaW003_G4_2000 <- rbind(DataAreaW003_G4A_2000,DataAreaW003_G4B_2000,DataAreaW003_G4C_2000)
-
-DataAreaW005_G4_100 <- rbind(DataAreaW005_G4A_100,DataAreaW005_G4B_100,DataAreaW005_G4C_100)
-DataAreaW005_G4_800 <- rbind(DataAreaW005_G4A_800,DataAreaW005_G4B_800,DataAreaW005_G4C_800)
-DataAreaW005_G4_2000 <- rbind(DataAreaW005_G4A_2000,DataAreaW005_G4B_2000,DataAreaW005_G4C_2000)
-
-DataAreaW007_G4_100 <- rbind(DataAreaW007_G4A_100,DataAreaW007_G4B_100,DataAreaW007_G4C_100)
-DataAreaW007_G4_800 <- rbind(DataAreaW007_G4A_800,DataAreaW007_G4B_800,DataAreaW007_G4C_800)
-DataAreaW007_G4_2000 <- rbind(DataAreaW007_G4A_2000,DataAreaW007_G4B_2000,DataAreaW007_G4C_2000)
-
+pSH_G4
+ggsave("Shedding_G4_W000-11.png", pSH_G4, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 #######################
 ####   COMBINED    ####
