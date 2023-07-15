@@ -327,6 +327,23 @@ pSH_G1 <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g'
 pSH_G1
 ggsave("Shedding_G1_W000-15.png", pSH_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
+# plot - no label
+pSH_G1 <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                             y= meanArea, fill=Condition))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,480)+
+  scale_fill_manual(values = brewer.pal(9, "Greys")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "Greys", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSH_G1
+ggsave("Shedding_G1_W000-15_No Mean Label.png", pSH_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
 ##################
 #####   G2   #####
 ##################
@@ -652,6 +669,23 @@ pSH_G2 <- ggplot(FibreCount_Shedding_G2, aes(x = factor(Weight, level = c('100g'
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH_G2
 ggsave("Shedding_G2_W000-15.png", pSH_G2, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
+# plot - no label
+pSH_G2 <- ggplot(FibreCount_Shedding_G2, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                             y= meanArea, fill=Condition))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,375)+
+  scale_fill_manual(values = brewer.pal(9, "Blues")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSH_G2
+ggsave("Shedding_G2_W000-15_No Mean Label.png", pSH_G2, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 ##################
 #####   G3   #####
@@ -979,6 +1013,23 @@ pSH_G3 <- ggplot(FibreCount_Shedding_G3, aes(x = factor(Weight, level = c('100g'
 pSH_G3
 ggsave("Shedding_G3_W000-15.png", pSH_G3, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
+# plot - no label
+pSH_G3 <- ggplot(FibreCount_Shedding_G3, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                             y= meanArea, fill=Condition))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,400)+
+  scale_fill_manual(values = brewer.pal(9, "Reds")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSH_G3
+ggsave("Shedding_G3_W000-15_No Mean Label.png", pSH_G3, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
 
 ##################
 ####    G4    ####
@@ -1242,6 +1293,24 @@ pSH_G4 <- ggplot(FibreCount_Shedding_G4, aes(x = factor(Weight, level = c('100g'
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pSH_G4
 ggsave("Shedding_G4_W000-11.png", pSH_G4, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
+# plot - no label
+pSH_G4 <- ggplot(FibreCount_Shedding_G4, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+                                             y= meanArea, fill=Condition))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,540)+
+  scale_fill_manual(values = brewer.pal(9, "YlOrBr")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
+pSH_G4
+ggsave("Shedding_G4_W000-11_No Mean Label.png", pSH_G4, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
 
 #######################
 ####   COMBINED    ####
