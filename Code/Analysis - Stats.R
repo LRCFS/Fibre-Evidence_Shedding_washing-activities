@@ -1,122 +1,140 @@
 ################################################
 ######       COMPARISON OF WEIGHTS        ######
 ################################################
+G1_W000_SH_Combined <- rbind(DataAreaW000_G1_100,DataAreaW000_G1_800,DataAreaW000_G1_2000)
+G1_W001_SH_Combined <- rbind(DataAreaW001_G1_100,DataAreaW001_G1_800,DataAreaW001_G1_2000)
+G1_W007_SH_Combined <- rbind(DataAreaW007_G1_100,DataAreaW007_G1_800,DataAreaW007_G1_2000)
+G1_W015_SH_Combined <- rbind(DataAreaW015_G1_100,DataAreaW015_G1_800,DataAreaW015_G1_2000)
 
 # W000_G1 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW000_G1)
+kruskal.test(Area.mm2 ~ Weight, data = G1_W000_SH_Combined)
 
 # W000_G1 Dunn's Test with Bonferroni correction for p-values
-G1_W000_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW000_G1, method="bonferroni")
+G1_W000_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G1_W000_SH_Combined, method="bonferroni")
 write.table(G1_W000_Weight_Dunn$res, file = "Statistics/G1_W000_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W001_G1 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW001_G1)
+kruskal.test(Area.mm2 ~ Weight, data = G1_W001_SH_Combined)
 
 # W001_G1 Dunn's Test with Bonferroni correction for p-values
-G1_W001_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW001_G1, method="bonferroni")
+G1_W001_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G1_W001_SH_Combined, method="bonferroni")
 write.table(G1_W001_Weight_Dunn$res, file = "Statistics/G1_W001_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W007_G1 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW007_G1)
+kruskal.test(Area.mm2 ~ Weight, data = G1_W007_SH_Combined)
 
 # W007_G1 Dunn's Test with Bonferroni correction for p-values
-G1_W007_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW007_G1, method="bonferroni")
+G1_W007_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G1_W007_SH_Combined, method="bonferroni")
 write.table(G1_W007_Weight_Dunn$res, file = "Statistics/G1_W007_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W015_G1 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW015_G1)
+kruskal.test(Area.mm2 ~ Weight, data = G1_W015_SH_Combined)
 
 # W015_G1 Dunn's Test with Bonferroni correction for p-values
-G1_W015_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW015_G1, method="bonferroni")
+G1_W015_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G1_W015_SH_Combined, method="bonferroni")
 write.table(G1_W015_Weight_Dunn$res, file = "Statistics/G1_W015_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 
+G2_W000_SH_Combined <- rbind(DataAreaW000_G2_100,DataAreaW000_G2_800,DataAreaW000_G2_2000)
+G2_W001_SH_Combined <- rbind(DataAreaW001_G2_100,DataAreaW001_G2_800,DataAreaW001_G2_2000)
+G2_W007_SH_Combined <- rbind(DataAreaW007_G2_100,DataAreaW007_G2_800,DataAreaW007_G2_2000)
+G2_W015_SH_Combined <- rbind(DataAreaW015_G2_100,DataAreaW015_G2_800,DataAreaW015_G2_2000)
+
 # W000_G2 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW000_G2)
+kruskal.test(Area.mm2 ~ Weight, data = G2_W000_SH_Combined)
 
 # W000_G2 Dunn's Test with Bonferroni correction for p-values
-G2_W000_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW000_G2, method="bonferroni")
+G2_W000_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G2_W000_SH_Combined, method="bonferroni")
 write.table(G2_W000_Weight_Dunn$res, file = "Statistics/G2_W000_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W001_G2 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW001_G2)
+kruskal.test(Area.mm2 ~ Weight, data = G2_W001_SH_Combined)
 
 # W001_G2 Dunn's Test with Bonferroni correction for p-values
-G2_W001_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW001_G2, method="bonferroni")
+G2_W001_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G2_W001_SH_Combined, method="bonferroni")
 write.table(G2_W001_Weight_Dunn$res, file = "Statistics/G2_W001_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W007_G2 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW007_G2)
+kruskal.test(Area.mm2 ~ Weight, data = G2_W007_SH_Combined)
 
 # W007_G2 Dunn's Test with Bonferroni correction for p-values
-G2_W007_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW007_G2, method="bonferroni")
+G2_W007_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G2_W007_SH_Combined, method="bonferroni")
 write.table(G2_W007_Weight_Dunn$res, file = "Statistics/G2_W007_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W015_G2 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW015_G2)
+kruskal.test(Area.mm2 ~ Weight, data = G2_W015_SH_Combined)
 
 # W015_G2 Dunn's Test with Bonferroni correction for p-values
-G2_W015_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW015_G2, method="bonferroni")
+G2_W015_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G2_W015_SH_Combined, method="bonferroni")
 write.table(G2_W015_Weight_Dunn$res, file = "Statistics/G2_W015_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 
+G3_W000_SH_Combined <- rbind(DataAreaW000_G3_100,DataAreaW000_G3_800,DataAreaW000_G3_2000)
+G3_W001_SH_Combined <- rbind(DataAreaW001_G3_100,DataAreaW001_G3_800,DataAreaW001_G3_2000)
+G3_W007_SH_Combined <- rbind(DataAreaW007_G3_100,DataAreaW007_G3_800,DataAreaW007_G3_2000)
+G3_W015_SH_Combined <- rbind(DataAreaW015_G3_100,DataAreaW015_G3_800,DataAreaW015_G3_2000)
+
 # W000_G3 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW000_G3)
+kruskal.test(Area.mm2 ~ Weight, data = G3_W000_SH_Combined)
 
 # W000_G3 Dunn's Test with Bonferroni correction for p-values
-G3_W000_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW000_G3, method="bonferroni")
+G3_W000_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G3_W000_SH_Combined, method="bonferroni")
 write.table(G3_W000_Weight_Dunn$res, file = "Statistics/G3_W000_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W001_G3 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW001_G3)
+kruskal.test(Area.mm2 ~ Weight, data = G3_W001_SH_Combined)
 
 # W001_G3 Dunn's Test with Bonferroni correction for p-values
-G3_W001_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW001_G3, method="bonferroni")
+G3_W001_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G3_W001_SH_Combined, method="bonferroni")
 write.table(G3_W001_Weight_Dunn$res, file = "Statistics/G3_W001_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W007_G3 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW007_G3)
+kruskal.test(Area.mm2 ~ Weight, data = G3_W007_SH_Combined)
 
 # W007_G3 Dunn's Test with Bonferroni correction for p-values
-G3_W007_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW007_G3, method="bonferroni")
+G3_W007_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G3_W007_SH_Combined, method="bonferroni")
 write.table(G3_W007_Weight_Dunn$res, file = "Statistics/G3_W007_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W015_G3 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW015_G3)
+kruskal.test(Area.mm2 ~ Weight, data = G3_W015_SH_Combined)
 
 # W015_G3 Dunn's Test with Bonferroni correction for p-values
-G3_W015_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW015_G3, method="bonferroni")
+G3_W015_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G3_W015_SH_Combined, method="bonferroni")
 write.table(G3_W015_Weight_Dunn$res, file = "Statistics/G3_W015_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 
+G4_W000_SH_Combined <- rbind(DataAreaW000_G4_100,DataAreaW000_G4_800,DataAreaW000_G4_2000)
+G4_W001_SH_Combined <- rbind(DataAreaW001_G4_100,DataAreaW001_G4_800,DataAreaW001_G4_2000)
+G4_W007_SH_Combined <- rbind(DataAreaW007_G4_100,DataAreaW007_G4_800,DataAreaW007_G4_2000)
+G4_W015_SH_Combined <- rbind(DataAreaW015_G4_100,DataAreaW015_G4_800,DataAreaW015_G4_2000)
+
 # W000_G4 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW000_G4)
+kruskal.test(Area.mm2 ~ Weight, data = G4_W000_SH_Combined)
 
 # W000_G4 Dunn's Test with Bonferroni correction for p-values
-G4_W000_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW000_G4, method="bonferroni")
+G4_W000_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G4_W000_SH_Combined, method="bonferroni")
 write.table(G4_W000_Weight_Dunn$res, file = "Statistics/G4_W000_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W001_G4 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW001_G4)
+kruskal.test(Area.mm2 ~ Weight, data = G4_W001_SH_Combined)
 
 # W001_G4 Dunn's Test with Bonferroni correction for p-values
-G4_W001_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW001_G4, method="bonferroni")
+G4_W001_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G4_W001_SH_Combined, method="bonferroni")
 write.table(G4_W001_Weight_Dunn$res, file = "Statistics/G4_W001_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W007_G4 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW007_G4)
+kruskal.test(Area.mm2 ~ Weight, data = G4_W007_SH_Combined)
 
 # W007_G4 Dunn's Test with Bonferroni correction for p-values
-G4_W007_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW007_G4, method="bonferroni")
+G4_W007_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G4_W007_SH_Combined, method="bonferroni")
 write.table(G4_W007_Weight_Dunn$res, file = "Statistics/G4_W007_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
 
 # W015_G4 Kruskal-Wallis Test
-kruskal.test(Area.mm2 ~ Weight, data = DataAreaW015_G4)
+kruskal.test(Area.mm2 ~ Weight, data = G4_W015_SH_Combined)
 
 # W015_G4 Dunn's Test with Bonferroni correction for p-values
-G4_W015_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=DataAreaW015_G4, method="bonferroni")
+G4_W015_Weight_Dunn <- dunnTest(Area.mm2 ~ Weight, data=G4_W015_SH_Combined, method="bonferroni")
 write.table(G4_W015_Weight_Dunn$res, file = "Statistics/G4_W015_Weight_Dunn Test.csv", quote = F, sep = ",", row.names = F)
-
 
 ######################################################################
 ######       COMPARISON OF WASHING CONDITIONS - SHEDDING        ######
@@ -176,3 +194,74 @@ write.table(Transfer_W007_WashingCondition_Dunn$res, file = "Statistics/Transfer
 kruskal.test(value ~ Garment, data = W015_Transfer_Combined)
 Transfer_W015_WashingCondition_Dunn <- dunnTest(value ~ Garment, data=W015_Transfer_Combined, method="bonferroni")
 write.table(Transfer_W015_WashingCondition_Dunn$res, file = "Statistics/Transfer_W015_Washing Condition_Dunn Test.csv", quote = F, sep = ",", row.names = F)
+
+##############################################################################
+######       RATIO OF SHEDDING FIBRE AREA TO TRANSFER FIBRE AREA        ######
+##############################################################################
+FC_Shedding_800g_G1 <- rbind(meanDataAreaW000_G1_800,meanDataAreaW001_G1_800,meanDataAreaW003_G1_800,meanDataAreaW005_G1_800,meanDataAreaW007_G1_800,meanDataAreaW009_G1_800,meanDataAreaW011_G1_800,meanDataAreaW013_G1_800,meanDataAreaW015_G1_800)
+Wash = c("W000","W001","W003","W005","W007","W009","W011","W013","W015")
+FC_Shedding_800g_G1$Wash <- Wash
+
+Ratio <- round(FC_Shedding_800g_G1$meanArea/FibreCount_TransferArea_G1$meanArea, 2)
+TotalFibreArea_Ratio_G1 <- data.frame(Ratio)
+TotalFibreArea_Ratio_G1$Wash <- Wash
+Condition = c("W000_G1","W001_G1","W003_G1","W005_G1","W007_G1","W009_G1","W011_G1","W013_G1","W015_G1")
+TotalFibreArea_Ratio_G1$Condition <- Condition
+
+write.table(TotalFibreArea_Ratio_G1, file = "Statistics/TotalFibreArea_Ratio_G1.csv", quote = F, sep = ",", row.names = F)
+
+# plot
+pRT_G1 <- ggplot(TotalFibreArea_Ratio, aes(x = factor(Wash, level = c('W000','W001','W003','W005','W007','W009','W011','W013','W015')),
+                                                 y= Ratio, fill=Condition))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  geom_text(aes(label = Ratio), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
+  labs(x="\nWash", y="Shedding total fibre area (mm\u00b2)/Transfer total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,700)+
+  scale_fill_manual(values = brewer.pal(9, "Purples")[1:9])+
+  theme(legend.title = element_blank(),
+        strip.background.x = element_rect(colour = "grey", fill = "white"),
+        legend.position = "bottom",
+        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+pRT_G1
+ggsave("TotalFibreArea_Ratio_G1_W000-15.png", pRT_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+
+
+FC_Shedding_800g_G2 <- rbind(meanDataAreaW000_G2_800,meanDataAreaW001_G2_800,meanDataAreaW003_G2_800,meanDataAreaW005_G2_800,meanDataAreaW007_G2_800,meanDataAreaW009_G2_800,meanDataAreaW011_G2_800,meanDataAreaW013_G2_800,meanDataAreaW015_G2_800)
+Wash = c("W000","W001","W003","W005","W007","W009","W011","W013","W015")
+FC_Shedding_800g_G2$Wash <- Wash
+
+Ratio_G2 <- round(FC_Shedding_800g_G2$meanArea/FibreCount_TransferArea_G2$meanArea, 2)
+TotalFibreArea_Ratio_G2 <- data.frame(Ratio_G2)
+TotalFibreArea_Ratio_G2$Wash <- Wash
+Condition = c("W000_G2","W001_G2","W003_G2","W005_G2","W007_G2","W009_G2","W011_G2","W013_G2","W015_G2")
+TotalFibreArea_Ratio_G2$Condition <- Condition
+
+write.table(TotalFibreArea_Ratio_G2, file = "Statistics/TotalFibreArea_Ratio_G2.csv", quote = F, sep = ",", row.names = F)
+
+
+FC_Shedding_800g_G3 <- rbind(meanDataAreaW000_G3_800,meanDataAreaW001_G3_800,meanDataAreaW003_G3_800,meanDataAreaW005_G3_800,meanDataAreaW007_G3_800,meanDataAreaW009_G3_800,meanDataAreaW011_G3_800,meanDataAreaW013_G3_800,meanDataAreaW015_G3_800)
+Wash = c("W000","W001","W003","W005","W007","W009","W011","W013","W015")
+FC_Shedding_800g_G3$Wash <- Wash
+
+Ratio_G3 <- round(FC_Shedding_800g_G3$meanArea/FibreCount_TransferArea_G3$meanArea, 2)
+TotalFibreArea_Ratio_G3 <- data.frame(Ratio_G3)
+TotalFibreArea_Ratio_G3$Wash <- Wash
+Condition = c("W000_G3","W001_G3","W003_G3","W005_G3","W007_G3","W009_G3","W011_G3","W013_G3","W015_G3")
+TotalFibreArea_Ratio_G3$Condition <- Condition
+
+write.table(TotalFibreArea_Ratio_G3, file = "Statistics/TotalFibreArea_Ratio_G3.csv", quote = F, sep = ",", row.names = F)
+
+
+FC_Shedding_800g_G4 <- rbind(meanDataAreaW000_G4_800,meanDataAreaW001_G4_800,meanDataAreaW003_G4_800,meanDataAreaW005_G4_800,meanDataAreaW007_G4_800,meanDataAreaW009_G4_800,meanDataAreaW011_G4_800) #,meanDataAreaW013_G4_800,meanDataAreaW015_G4_800)
+Wash = c("W000","W001","W003","W005","W007","W009","W011") #,"W013","W015")
+FC_Shedding_800g_G4$Wash <- Wash
+
+Ratio_G4 <- round(FC_Shedding_800g_G4$meanArea/FibreCount_TransferArea_G4$meanArea, 2)
+TotalFibreArea_Ratio_G4 <- data.frame(Ratio_G4)
+TotalFibreArea_Ratio_G4$Wash <- Wash
+Condition = c("W000_G4","W001_G4","W003_G4","W005_G4","W007_G4","W009_G4","W011_G4") #,"W013_G4","W015_G4")
+TotalFibreArea_Ratio_G4$Condition <- Condition
+
+write.table(TotalFibreArea_Ratio_G4, file = "Statistics/TotalFibreArea_Ratio_G4.csv", quote = F, sep = ",", row.names = F)
