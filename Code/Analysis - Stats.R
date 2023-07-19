@@ -198,70 +198,83 @@ write.table(Transfer_W015_WashingCondition_Dunn$res, file = "Statistics/Transfer
 ##############################################################################
 ######       RATIO OF SHEDDING FIBRE AREA TO TRANSFER FIBRE AREA        ######
 ##############################################################################
+### G1 ###
 FC_Shedding_800g_G1 <- rbind(meanDataAreaW000_G1_800,meanDataAreaW001_G1_800,meanDataAreaW003_G1_800,meanDataAreaW005_G1_800,meanDataAreaW007_G1_800,meanDataAreaW009_G1_800,meanDataAreaW011_G1_800,meanDataAreaW013_G1_800,meanDataAreaW015_G1_800)
 Wash = c("W000","W001","W003","W005","W007","W009","W011","W013","W015")
-FC_Shedding_800g_G1$Wash <- Wash
+SHTR_G1 <- data.frame(Wash)
+SHTR_G1$Shedding <- FC_Shedding_800g_G1$meanArea
+SHTR_G1$Transfer <- FibreCount_TransferArea_G1$meanArea
 
-Ratio <- round(FC_Shedding_800g_G1$meanArea/FibreCount_TransferArea_G1$meanArea, 2)
-TotalFibreArea_Ratio_G1 <- data.frame(Ratio)
-TotalFibreArea_Ratio_G1$Wash <- Wash
-Condition = c("W000_G1","W001_G1","W003_G1","W005_G1","W007_G1","W009_G1","W011_G1","W013_G1","W015_G1")
-TotalFibreArea_Ratio_G1$Condition <- Condition
+# Scatter Plot
+pSHTR_G1 <- ggplot(SHTR_G1, aes(x = Shedding, y = Transfer)) +
+  geom_point(size = 3) +
+  labs(x = "Shedding average fibre area (mm\u00b2)", y = "Transfer average fibre area (mm\u00b2)") +
+  geom_smooth(method=lm, se=FALSE)
+pSHTR_G1
+ggsave("SheddingTransfer_G1.png", pSHTR_G1, width = 10, height = 9, units = "in", dpi=150, path = "Statistics")
 
-write.table(TotalFibreArea_Ratio_G1, file = "Statistics/TotalFibreArea_Ratio_G1.csv", quote = F, sep = ",", row.names = F)
-
-# plot
-pRT_G1 <- ggplot(TotalFibreArea_Ratio, aes(x = factor(Wash, level = c('W000','W001','W003','W005','W007','W009','W011','W013','W015')),
-                                                 y= Ratio, fill=Condition))+
-  geom_bar(stat="identity", position=position_dodge(),colour="black")+
-  geom_text(aes(label = Ratio), hjust=0.5,vjust = -5.5,position = position_dodge(.9))+
-  labs(x="\nWash", y="Shedding total fibre area (mm\u00b2)/Transfer total fibre area (mm\u00b2)\n") +
-  theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,700)+
-  scale_fill_manual(values = brewer.pal(9, "Purples")[1:9])+
-  theme(legend.title = element_blank(),
-        strip.background.x = element_rect(colour = "grey", fill = "white"),
-        legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
-pRT_G1
-ggsave("TotalFibreArea_Ratio_G1_W000-15.png", pRT_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+# Correlation Analysis
+correlation <- cor(SHTR_G1$Shedding, SHTR_G1$Transfer)
+print(paste("Correlation Coefficient:", correlation))
 
 
+### G2 ###
 FC_Shedding_800g_G2 <- rbind(meanDataAreaW000_G2_800,meanDataAreaW001_G2_800,meanDataAreaW003_G2_800,meanDataAreaW005_G2_800,meanDataAreaW007_G2_800,meanDataAreaW009_G2_800,meanDataAreaW011_G2_800,meanDataAreaW013_G2_800,meanDataAreaW015_G2_800)
 Wash = c("W000","W001","W003","W005","W007","W009","W011","W013","W015")
-FC_Shedding_800g_G2$Wash <- Wash
+SHTR_G2_df <- data.frame(Wash)
+SHTR_G2_df$Shedding <- FC_Shedding_800g_G2$meanArea
+SHTR_G2_df$Transfer <- FibreCount_TransferArea_G2$meanArea
+SHTR_G2 <- SHTR_G2_df[-7,]
 
-Ratio_G2 <- round(FC_Shedding_800g_G2$meanArea/FibreCount_TransferArea_G2$meanArea, 2)
-TotalFibreArea_Ratio_G2 <- data.frame(Ratio_G2)
-TotalFibreArea_Ratio_G2$Wash <- Wash
-Condition = c("W000_G2","W001_G2","W003_G2","W005_G2","W007_G2","W009_G2","W011_G2","W013_G2","W015_G2")
-TotalFibreArea_Ratio_G2$Condition <- Condition
+# Scatter Plot
+pSHTR_G2 <- ggplot(SHTR_G2, aes(x = Shedding, y = Transfer)) +
+  geom_point(size = 3) +
+  labs(x = "Shedding average fibre area (mm\u00b2)", y = "Transfer average fibre area (mm\u00b2)") +
+  geom_smooth(method=lm, se=FALSE)
+pSHTR_G2
+ggsave("SheddingTransfer_G2.png", pSHTR_G2, width = 10, height = 9, units = "in", dpi=150, path = "Statistics")
 
-write.table(TotalFibreArea_Ratio_G2, file = "Statistics/TotalFibreArea_Ratio_G2.csv", quote = F, sep = ",", row.names = F)
+# Correlation Analysis
+correlation <- cor(SHTR_G2$Shedding, SHTR_G2$Transfer)
+print(paste("Correlation Coefficient:", correlation))
 
 
+### G3 ###
 FC_Shedding_800g_G3 <- rbind(meanDataAreaW000_G3_800,meanDataAreaW001_G3_800,meanDataAreaW003_G3_800,meanDataAreaW005_G3_800,meanDataAreaW007_G3_800,meanDataAreaW009_G3_800,meanDataAreaW011_G3_800,meanDataAreaW013_G3_800,meanDataAreaW015_G3_800)
 Wash = c("W000","W001","W003","W005","W007","W009","W011","W013","W015")
-FC_Shedding_800g_G3$Wash <- Wash
+SHTR_G3_df <- data.frame(Wash)
+SHTR_G3_df$Shedding <- FC_Shedding_800g_G3$meanArea
+SHTR_G3_df$Transfer <- FibreCount_TransferArea_G3$meanArea
+SHTR_G3 <- SHTR_G3_df[-7,]
 
-Ratio_G3 <- round(FC_Shedding_800g_G3$meanArea/FibreCount_TransferArea_G3$meanArea, 2)
-TotalFibreArea_Ratio_G3 <- data.frame(Ratio_G3)
-TotalFibreArea_Ratio_G3$Wash <- Wash
-Condition = c("W000_G3","W001_G3","W003_G3","W005_G3","W007_G3","W009_G3","W011_G3","W013_G3","W015_G3")
-TotalFibreArea_Ratio_G3$Condition <- Condition
+# Scatter Plot
+pSHTR_G3 <- ggplot(SHTR_G3, aes(x = Shedding, y = Transfer)) +
+  geom_point(size = 3) +
+  labs(x = "Shedding average fibre area (mm\u00b2)", y = "Transfer average fibre area (mm\u00b2)") +
+  geom_smooth(method=lm, se=FALSE)
+pSHTR_G3
+ggsave("SheddingTransfer_G3.png", pSHTR_G3, width = 10, height = 9, units = "in", dpi=150, path = "Statistics")
 
-write.table(TotalFibreArea_Ratio_G3, file = "Statistics/TotalFibreArea_Ratio_G3.csv", quote = F, sep = ",", row.names = F)
+# Correlation Analysis
+correlation <- cor(SHTR_G3$Shedding, SHTR_G3$Transfer)
+print(paste("Correlation Coefficient:", correlation))
 
 
+### G4 ###
 FC_Shedding_800g_G4 <- rbind(meanDataAreaW000_G4_800,meanDataAreaW001_G4_800,meanDataAreaW003_G4_800,meanDataAreaW005_G4_800,meanDataAreaW007_G4_800,meanDataAreaW009_G4_800,meanDataAreaW011_G4_800) #,meanDataAreaW013_G4_800,meanDataAreaW015_G4_800)
 Wash = c("W000","W001","W003","W005","W007","W009","W011") #,"W013","W015")
-FC_Shedding_800g_G4$Wash <- Wash
+SHTR_G4 <- data.frame(Wash)
+SHTR_G4$Shedding <- FC_Shedding_800g_G4$meanArea
+SHTR_G4$Transfer <- FibreCount_TransferArea_G4$meanArea
 
-Ratio_G4 <- round(FC_Shedding_800g_G4$meanArea/FibreCount_TransferArea_G4$meanArea, 2)
-TotalFibreArea_Ratio_G4 <- data.frame(Ratio_G4)
-TotalFibreArea_Ratio_G4$Wash <- Wash
-Condition = c("W000_G4","W001_G4","W003_G4","W005_G4","W007_G4","W009_G4","W011_G4") #,"W013_G4","W015_G4")
-TotalFibreArea_Ratio_G4$Condition <- Condition
+# Scatter Plot
+pSHTR_G4 <- ggplot(SHTR_G4, aes(x = Shedding, y = Transfer)) +
+  geom_point(size = 3) +
+  labs(x = "Shedding average fibre area (mm\u00b2)", y = "Transfer average fibre area (mm\u00b2)") +
+  geom_smooth(method=lm, se=FALSE)
+pSHTR_G4
+ggsave("SheddingTransfer_G4.png", pSHTR_G4, width = 10, height = 9, units = "in", dpi=150, path = "Statistics")
 
-write.table(TotalFibreArea_Ratio_G4, file = "Statistics/TotalFibreArea_Ratio_G4.csv", quote = F, sep = ",", row.names = F)
+# Correlation Analysis
+correlation <- cor(SHTR_G4$Shedding, SHTR_G4$Transfer)
+print(paste("Correlation Coefficient:", correlation))
