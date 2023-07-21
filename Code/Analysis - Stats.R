@@ -261,8 +261,8 @@ print(paste("Correlation Coefficient:", correlation))
 
 
 ### G4 ###
-FC_Shedding_800g_G4 <- rbind(meanDataAreaW000_G4_800,meanDataAreaW001_G4_800,meanDataAreaW003_G4_800,meanDataAreaW005_G4_800,meanDataAreaW007_G4_800,meanDataAreaW009_G4_800,meanDataAreaW011_G4_800) #,meanDataAreaW013_G4_800,meanDataAreaW015_G4_800)
-Wash = c("W000","W001","W003","W005","W007","W009","W011") #,"W013","W015")
+FC_Shedding_800g_G4 <- rbind(meanDataAreaW000_G4_800,meanDataAreaW001_G4_800,meanDataAreaW003_G4_800,meanDataAreaW005_G4_800,meanDataAreaW007_G4_800,meanDataAreaW009_G4_800,meanDataAreaW011_G4_800,meanDataAreaW013_G4_800,meanDataAreaW015_G4_800)
+Wash = c("W000","W001","W003","W005","W007","W009","W011","W013","W015")
 SHTR_G4 <- data.frame(Wash)
 SHTR_G4$Shedding <- FC_Shedding_800g_G4$meanArea
 SHTR_G4$Transfer <- FibreCount_TransferArea_G4$meanArea

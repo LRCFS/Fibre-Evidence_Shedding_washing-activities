@@ -334,7 +334,7 @@ ggsave("TransferArea_G3_W000-15.png", pTR_G3, width = 10, height = 9, units = "i
 ###################
 #####   G4   #####
 ###################
-TransferArea_G4 <- read.csv('./Fibre count Summary/TR_G4_W000-W011_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+TransferArea_G4 <- read.csv('./Fibre count Summary/TR_G4_W000-W015_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
 TransferArea_G4$Slice<- gsub(".TIF","",TransferArea_G4$Slice)
 TransferArea_G4Extended <- data.frame(str_split(TransferArea_G4$Slice, "_", simplify=TRUE))
 names(TransferArea_G4Extended) <- c("Project","Wash","Garment","Bound","Condition")
@@ -403,7 +403,7 @@ meanDataAreaW015_G4_TR$SD<- round(sd(DataAreaW015_G4_TR$Area.mm2),digits =2 )
 meanDataAreaW015_G4_TR$Wash <- "W015"
 meanDataAreaW015_G4_TR$Condition <- "W015_G4"
 
-FibreCount_TransferArea_G4 <- rbind(meanDataAreaW000_G4_TR, meanDataAreaW001_G4_TR, meanDataAreaW003_G4_TR, meanDataAreaW005_G4_TR, meanDataAreaW007_G4_TR,meanDataAreaW009_G4_TR, meanDataAreaW011_G4_TR) #,meanDataAreaW013_G4_TR,meanDataAreaW015_G4_TR)
+FibreCount_TransferArea_G4 <- rbind(meanDataAreaW000_G4_TR, meanDataAreaW001_G4_TR, meanDataAreaW003_G4_TR, meanDataAreaW005_G4_TR, meanDataAreaW007_G4_TR,meanDataAreaW009_G4_TR, meanDataAreaW011_G4_TR,meanDataAreaW013_G4_TR,meanDataAreaW015_G4_TR)
 
 #write.table(FibreCount_TransferArea_G4, file = "Transfer_Area.csv", quote = F, sep = ",", row.names = F)
 
@@ -423,7 +423,7 @@ pTR_G4 <- ggplot(FibreCount_TransferArea_G4, aes(x = factor(Wash, level = c('W00
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=meanArea-SD, ymax=meanArea+SD),width=.2,position=position_dodge(.9))
 pTR_G4
-ggsave("TransferArea_G4_W000-11.png", pTR_G4, width = 10, height = 9, units = "in", dpi=150, path = "Results")
+ggsave("TransferArea_G4_W000-15.png", pTR_G4, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 
 # COMBINED
