@@ -230,13 +230,13 @@ pAtr_G1 <- ggplot(TransferFibreCount_G1, aes(x=group, y=value)) +
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,15)+
+  ylim(0,30)+
   labs(x="\nWash number", y="Number of Fibres\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))
 show(pAtr_G1)
 ggsave("Fibre Count boxplot_ATr_G1.png", pAtr_G1, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
@@ -478,18 +478,17 @@ write.table(TransferFibreCount_G2, file = "Transfer_Fibre_Count.csv", quote = F,
 #### GRAPH - FIGURE 4-8 ####
 pAtr_G2 <- ggplot(TransferFibreCount_G2, aes(x=group, y=value)) +
   geom_boxplot() +
-  #scale_x_discrete(labels = every_n_labeler(5)) +
   stat_summary(fun = mean, colour="darkred",
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,22)+
+  ylim(0,30)+
   labs(x="\nWash number", y="Number of Fibres\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))
 show(pAtr_G2)
 ggsave("Fibre Count boxplot_ATr_G2.png", pAtr_G2, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
@@ -731,18 +730,17 @@ write.table(TransferFibreCount_G3, file = "Transfer_Fibre_Count.csv", quote = F,
 #### GRAPH ####
 pAtr_G3 <- ggplot(TransferFibreCount_G3, aes(x=group, y=value)) +
   geom_boxplot() +
-  #scale_x_discrete(labels = every_n_labeler(5)) +
   stat_summary(fun = mean, colour="darkred",
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
                geom="line", lwd=1, lty=1) +
-  ylim(0,17)+
+  ylim(0,30)+
   labs(x="\nWash number", y="Number of Fibres\n") +
   theme_classic(base_family = "Arial", base_size = 14) +
   theme(legend.title = element_blank(),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))
 show(pAtr_G3)
 ggsave("Fibre Count boxplot_ATr_G3.png", pAtr_G3, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
@@ -1541,7 +1539,6 @@ write.table(TransferFibreCount_G4, file = "Transfer_Fibre_Count.csv", quote = F,
 #### GRAPH - FIGURE 4-8 ####
 pAtr_G4 <- ggplot(TransferFibreCount_G4, aes(x=group, y=value)) +
   geom_boxplot() +
-  #scale_x_discrete(labels = every_n_labeler(5)) +
   stat_summary(fun = mean, colour="darkred",
                geom="point",position=position_dodge(width=0.75)) +
   stat_summary(fun = mean, colour="darkred", aes(group=1),
@@ -1552,7 +1549,7 @@ pAtr_G4 <- ggplot(TransferFibreCount_G4, aes(x=group, y=value)) +
   theme(legend.title = element_blank(),
         legend.position = "bottom",
         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))
 show(pAtr_G4)
 ggsave("Fibre Count boxplot_ATr_G4.png", pAtr_G4, width = 6, height = 7, units = "in", dpi=150, path = "Results")
 
@@ -1560,68 +1557,90 @@ ggsave("Fibre Count boxplot_ATr_G4.png", pAtr_G4, width = 6, height = 7, units =
 #################################################################################################
 #####                             FIBRE ANALYSIS GARMENT COMBINED                           #####
 #################################################################################################
-TransferFibreCount_PhDG <- read.csv('./Transfer_Fibre_Count_red jumpers_PhD.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
-pAtr_PhD <- ggplot(TransferFibreCount_PhDG, aes(x=group, y=value)) +
-  geom_boxplot() +
-  scale_x_discrete(labels = every_n_labeler(5)) +
-  stat_summary(fun = mean, colour="darkred",
-               geom="point",position=position_dodge(width=0.75)) +
-  stat_summary(fun = mean, colour="darkred", aes(group=1),
-               geom="line", lwd=1, lty=1) +
-  labs(x="\nWash number", y="Number of Fibre\n") +
-  theme_classic(base_family = "Arial", base_size = 14) +
-  theme(legend.title = element_blank(),
-        legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
-show(pAtr_PhD)
+# Combined results - figure 4
+pAtr_figure4_pending <- ggarrange(pAtr_G1+ rremove("ylab") + rremove("xlab"),
+                                  pAtr_G4+ rremove("ylab") + rremove("xlab"),
+                                  ncol = 2, labels = c("A", "B"),vjust = 1.2, hjust = 1.2)
 
-TransferFibreCount_PhDG <- TransferFibreCount_PhDG[is.element(TransferFibreCount_PhDG$group, c('W000','W001','W002','W003','W004','W005','W006','W007','W008','W009','W010')),]
-TransferFibreCount_PhDG$Coder <-"5 garments - no detergent"
-TransferFibreCount_G1$Coder <-"1 garment - no detergent"
-TransferFibreCount_G2$Coder <-"1 garment -  detergent"
-TransferFibreCount_G3$Coder <-"1 garment -  detergent + softener"
-G4_TransferFibreCount_Total$Coder <-"12 garments - no detergent"
-TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2, TransferFibreCount_G3, G4_TransferFibreCount_Total) #,TransferFibreCount_PhDG)
+ppAtr_combined <- annotate_figure(pAtr_figure4_pending, left = textGrob("Number of fibres\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
+                                  bottom = textGrob("\nWash number", vjust = 0.5, hjust = 0.5,gp = gpar(cex = 1)));ppAtr_combined
 
-pAtr_Total <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
-  geom_boxplot() +
-  labs(x="\nWash number", y="Number of Fibre\n") +
-  scale_fill_brewer(palette = "Reds")+
-  theme_classic(base_family = "Arial", base_size = 14) +
-  theme(legend.title = element_blank(),
-        legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
-show(pAtr_Total)
-ggsave("Fibre Count boxplot_ATr_Total.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+ggsave("ppAtr_figure4.png", ppAtr_combined, width = 7, height = 4.5, units = "in", dpi=300, path = "Results")
 
-pAtr_Total_2nd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
-  geom_boxplot() +
-  facet_wrap(~Coder)+
-  stat_summary(fun = mean, colour="black",
-               geom="point",position=position_dodge(width=0.75)) +
-  stat_summary(fun = mean, colour="black", aes(group=1),
-               geom="line", lwd=1, lty=1) +
-  labs(x="\nWash number", y="Number of Fibre\n") +
-  scale_fill_brewer(palette = "Reds")+
-  theme_classic(base_family = "Arial", base_size = 14) +
-  theme(legend.title = element_blank(),
-        legend.position = "bottom",
-        legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
-        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=0.5))
-show(pAtr_Total_2nd)
-ggsave("Fibre Count boxplot_ATr_Total_2nd.png", pAtr_Total_2nd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+# Combined results - figure 5
+pAtr_figure5_pending <- ggarrange(pAtr_G2+ rremove("ylab") + rremove("xlab"),
+                                  pAtr_G3+ rremove("ylab") + rremove("xlab"),
+                                  ncol = 2, labels = c("A", "B"),vjust = 1.2, hjust = 1.2)
 
-# Combined results
-pAtr_combined_pending <- ggarrange(pAtr_PhD+ rremove("ylab") + rremove("xlab"), vjust = 0.8, hjust = 0.8,                                                # First row with scatter plot
-                                   ggarrange(pAtr_G1+ rremove("ylab") + rremove("xlab"),
-                                             pAtr_G4Total_2nd+ rremove("ylab") + rremove("xlab"),
-                                             ncol = 2, labels = c("B", "C"),vjust = 0.8, hjust = 0.8), # Second row with box and dot plots
-                                   nrow = 2,
-                                   labels = "A"                                        # Labels of the scatter plot
-) 
-ppAtr_combined <- annotate_figure(pAtr_combined_pending, left = textGrob("Number of fibres\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
-                             bottom = textGrob("\nWash number", vjust = 0.5, hjust = 0.5,gp = gpar(cex = 1)));ppAtr_combined
+ppAtr_combined <- annotate_figure(pAtr_figure5_pending, left = textGrob("Number of fibres\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
+                                  bottom = textGrob("\nWash number", vjust = 0.5, hjust = 0.5,gp = gpar(cex = 1)));ppAtr_combined
 
-ggsave("ppAtr_combined.png", ppAtr_combined, width = 6, height = 6, units = "in", dpi=300, path = "Results")
+ggsave("ppAtr_figure5.png", ppAtr_combined, width = 7, height = 4.5, units = "in", dpi=300, path = "Results")
+
+
+# TransferFibreCount_PhDG <- read.csv('./Transfer_Fibre_Count_red jumpers_PhD.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+# pAtr_PhD <- ggplot(TransferFibreCount_PhDG, aes(x=group, y=value)) +
+#   geom_boxplot() +
+#   scale_x_discrete(labels = every_n_labeler(5)) +
+#   stat_summary(fun = mean, colour="darkred",
+#                geom="point",position=position_dodge(width=0.75)) +
+#   stat_summary(fun = mean, colour="darkred", aes(group=1),
+#                geom="line", lwd=1, lty=1) +
+#   labs(x="\nWash number", y="Number of Fibre\n") +
+#   theme_classic(base_family = "Arial", base_size = 14) +
+#   theme(legend.title = element_blank(),
+#         legend.position = "bottom",
+#         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))
+# show(pAtr_PhD)
+# 
+# TransferFibreCount_PhDG <- TransferFibreCount_PhDG[is.element(TransferFibreCount_PhDG$group, c('W000','W001','W002','W003','W004','W005','W006','W007','W008','W009','W010')),]
+# TransferFibreCount_PhDG$Coder <-"5 garments - no detergent"
+# TransferFibreCount_G1$Coder <-"1 garment - no detergent"
+# TransferFibreCount_G2$Coder <-"1 garment -  detergent"
+# TransferFibreCount_G3$Coder <-"1 garment -  detergent + softener"
+# G4_TransferFibreCount_Total <- rbind(TransferFibreCount_G4A, TransferFibreCount_G4B, TransferFibreCount_G4C)
+# G4_TransferFibreCount_Total$Coder <-"12 garments - no detergent"
+# TransferFibreCount_Total <- rbind(TransferFibreCount_G1, TransferFibreCount_G2, TransferFibreCount_G3, G4_TransferFibreCount_Total) #,TransferFibreCount_PhDG)
+# 
+# pAtr_Total <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
+#   geom_boxplot() +
+#   labs(x="\nWash number", y="Number of Fibre\n") +
+#   scale_fill_brewer(palette = "Reds")+
+#   theme_classic(base_family = "Arial", base_size = 14) +
+#   theme(legend.title = element_blank(),
+#         legend.position = "bottom",
+#         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))
+# show(pAtr_Total)
+# ggsave("Fibre Count boxplot_ATr_Total.png", pAtr_Total, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+# 
+# pAtr_Total_2nd <- ggplot(TransferFibreCount_Total, aes(x=group, y=value,fill=Coder)) +
+#   geom_boxplot() +
+#   facet_wrap(~Coder)+
+#   stat_summary(fun = mean, colour="black",
+#                geom="point",position=position_dodge(width=0.75)) +
+#   stat_summary(fun = mean, colour="black", aes(group=1),
+#                geom="line", lwd=1, lty=1) +
+#   labs(x="\nWash number", y="Number of Fibre\n") +
+#   scale_fill_brewer(palette = "Reds")+
+#   theme_classic(base_family = "Arial", base_size = 14) +
+#   theme(legend.title = element_blank(),
+#         legend.position = "bottom",
+#         legend.background = element_rect(fill="grey95",size=1, linetype="solid", colour="grey80"),
+#         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5))
+# show(pAtr_Total_2nd)
+# ggsave("Fibre Count boxplot_ATr_Total_2nd.png", pAtr_Total_2nd, width = 6, height = 7, units = "in", dpi=150, path = "Results")
+# 
+# # Combined results
+# pAtr_combined_pending <- ggarrange(pAtr_PhD+ rremove("ylab") + rremove("xlab"), vjust = 0.8, hjust = 0.8,                                                # First row with scatter plot
+#                                    ggarrange(pAtr_G1+ rremove("ylab") + rremove("xlab"),
+#                                              pAtr_G4Total_2nd+ rremove("ylab") + rremove("xlab"),
+#                                              ncol = 2, labels = c("B", "C"),vjust = 0.8, hjust = 0.8), # Second row with box and dot plots
+#                                    nrow = 2,
+#                                    labels = "A"                                        # Labels of the scatter plot
+# ) 
+# ppAtr_combined <- annotate_figure(pAtr_combined_pending, left = textGrob("Number of fibres\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
+#                              bottom = textGrob("\nWash number", vjust = 0.5, hjust = 0.5,gp = gpar(cex = 1)));ppAtr_combined
+# 
+# ggsave("ppAtr_combined.png", ppAtr_combined, width = 6, height = 6, units = "in", dpi=300, path = "Results")
