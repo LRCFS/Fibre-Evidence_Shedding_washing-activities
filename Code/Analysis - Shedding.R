@@ -326,6 +326,7 @@ pSH_G1
 ggsave("Shedding_G1_W000-15.png", pSH_G1, width = 10, height = 9, units = "in", dpi=150, path = "Results")
 
 # plot - no label
+FibreCount_Shedding_G1$Condition<- gsub("_G1","",FibreCount_Shedding_G1$Condition)
 pSH_G1 <- ggplot(FibreCount_Shedding_G1, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                              y= meanArea, fill=Condition))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
@@ -649,6 +650,7 @@ y = rep(c(125, 150, 175, 200, 225),2)
 x = rep(c(1:5), 2)
 
 # plot
+FibreCount_Shedding_G2$Condition<- gsub("_G2","",FibreCount_Shedding_G2$Condition)
 pSH_G2 <- ggplot(FibreCount_Shedding_G2, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                           y= meanArea, fill=Condition))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
@@ -988,6 +990,7 @@ y = rep(c(125, 150, 175, 200, 225),2)
 x = rep(c(1:5), 2)
 
 # plot
+FibreCount_Shedding_G3$Condition<- gsub("_G3","",FibreCount_Shedding_G3$Condition)
 pSH_G3 <- ggplot(FibreCount_Shedding_G3, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                           y= meanArea, fill=Condition))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
@@ -1327,6 +1330,7 @@ y = rep(c(125, 150, 175, 200, 225),2)
 x = rep(c(1:5), 2)
 
 # plot
+FibreCount_Shedding_G4$Condition<- gsub("_G4","",FibreCount_Shedding_G4$Condition)
 pSH_G4 <- ggplot(FibreCount_Shedding_G4, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                              y= meanArea, fill=Condition))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
