@@ -278,3 +278,35 @@ ggsave("SheddingTransfer_G4.png", pSHTR_G4, width = 10, height = 9, units = "in"
 # Correlation Analysis
 correlation <- cor(SHTR_G4$Shedding, SHTR_G4$Transfer)
 print(paste("Correlation Coefficient:", correlation))
+
+# Combined results - figure 6
+pSHTR_figure6_pending <- ggarrange(pSHTR_G1+ rremove("ylab") + rremove("xlab"),
+                                 pSHTR_G4+ rremove("ylab") + rremove("xlab"),
+                                 labels = c("A", "B"),
+                                 common.legend = F, legend = "right",
+                                 align = "hv",
+                                 ncol = 1, nrow = 2,
+                                 font.label = list(size = 12, color = "black", family = NULL, position = "top"))+
+  theme(plot.margin = margin(0,1.5,0,0, "cm")) # in order (Top,left,bottom,right)
+pSHTR_figure6_pending
+
+ppSHTR_combined <- annotate_figure(pSHTR_figure6_pending, left = textGrob("Transfer total fibre area (mm\u00b2)\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
+                                 bottom = textGrob("Shedding total fibre area (mm\u00b2)\n", vjust = 0.5, hjust = 0.5,gp = gpar(cex = 1)));ppSHTR_combined
+
+ggsave("ppSHTR_figure6.png", ppSHTR_combined, width = 7, height = 6, units = "in", dpi=300, path = "Results")
+
+# Combined results - figure 7
+pSHTR_figure7_pending <- ggarrange(pSHTR_G2+ rremove("ylab") + rremove("xlab"),
+                                   pSHTR_G3+ rremove("ylab") + rremove("xlab"),
+                                   labels = c("A", "B"),
+                                   common.legend = F, legend = "right",
+                                   align = "hv",
+                                   ncol = 1, nrow = 2,
+                                   font.label = list(size = 12, color = "black", family = NULL, position = "top"))+
+  theme(plot.margin = margin(0,1.5,0,0, "cm")) # in order (Top,left,bottom,right)
+pSHTR_figure7_pending
+
+ppSHTR_combined_2 <- annotate_figure(pSHTR_figure7_pending, left = textGrob("Transfer total fibre area (mm\u00b2)\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
+                                   bottom = textGrob("Shedding total fibre area (mm\u00b2)\n", vjust = 0.5, hjust = 0.5,gp = gpar(cex = 1)));ppSHTR_combined_2
+
+ggsave("ppSHTR_figure7.png", ppSHTR_combined_2, width = 7, height = 6, units = "in", dpi=300, path = "Results")
