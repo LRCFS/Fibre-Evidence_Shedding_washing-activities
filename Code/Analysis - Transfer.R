@@ -219,7 +219,7 @@ medianAtr_G1 <- aggregate(value ~  group, TransferFibreCount_G1, median)
 datatableAtr_G1 <- cbind(meanAtr_G1, medianAtr_G1$value, SDAtr_G1$value, SD2Atr_G1)
 names(datatableAtr_G1) <- c("Wash number", "Average", "median", "SD", "SD2")
 datatableAtr_G1$Forthesis <- paste(datatableAtr_G1$Average, datatableAtr_G1$SD, sep=" ± ")
-#write.table(datatableAtr_G, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
+#write.table(datatableAtr_G1, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
 
 write.table(TransferFibreCount_G1, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
@@ -1532,7 +1532,7 @@ medianAtr_G4 <- aggregate(value ~  group, TransferFibreCount_G4, median)
 datatableAtr_G4 <- cbind(meanAtr_G4, medianAtr_G4$value, SDAtr_G4$value, SD2Atr_G4)
 names(datatableAtr_G4) <- c("Wash number", "Average", "median", "SD", "SD2")
 datatableAtr_G4$Forthesis <- paste(datatableAtr_G4$Average, datatableAtr_G4$SD, sep=" ± ")
-#write.table(datatableAtr_G4, file = "Stats_Atr red.csv", quote = F, sep = ",", row.names = F)
+#write.table(datatableAtr_G4, file = "Stats_Atr red_G4.csv", quote = F, sep = ",", row.names = F)
 
 write.table(TransferFibreCount_G4, file = "Transfer_Fibre_Count.csv", quote = F, sep = ",", row.names = F)
 
