@@ -1,5 +1,5 @@
 #########################################################
-#####                  SHEDDING TEST                #####
+#####                    SHEDDING                   #####
 #########################################################
 
 # ------------------------------------------------------------------------
@@ -54,6 +54,7 @@ results_G1_extended <- results_G1_extended %>%
 names(results_G1_extended) <- c("Garment","Wash","Weight")
 results_G1 <- cbind(results_G1_extended,Mean_Area=results_G1$Mean_Area,SD_Area=results_G1$SD_Area)
 rm(results_G1_extended)
+results_G1$check <- (results_G1$SD_Area/results_G1$Mean_Area)
 
 #### Intermediate Data Visualisation ####
 pSH_G1 <- ggplot(results_G1, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
@@ -121,6 +122,7 @@ results_G2_extended <- results_G2_extended %>%
 names(results_G2_extended) <- c("Garment","Wash","Weight")
 results_G2 <- cbind(results_G2_extended,Mean_Area=results_G2$Mean_Area,SD_Area=results_G2$SD_Area)
 rm(results_G2_extended)
+results_G2$check <- (results_G2$SD_Area/results_G2$Mean_Area)
 
 #### Intermediate Data Visualisation ####
 pSH_G2 <- ggplot(results_G2, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
@@ -188,6 +190,7 @@ results_G3_extended <- results_G3_extended %>%
 names(results_G3_extended) <- c("Garment","Wash","Weight")
 results_G3 <- cbind(results_G3_extended,Mean_Area=results_G3$Mean_Area,SD_Area=results_G3$SD_Area)
 rm(results_G3_extended)
+results_G3$check <- (results_G3$SD_Area/results_G3$Mean_Area)
 
 #### Intermediate Data Visualisation ####
 pSH_G3 <- ggplot(results_G3, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
@@ -255,6 +258,7 @@ results_G4_extended <- results_G4_extended %>%
 names(results_G4_extended) <- c("Garment","Wash","Weight")
 results_G4 <- cbind(results_G4_extended,Mean_Area=results_G4$Mean_Area,SD_Area=results_G4$SD_Area)
 rm(results_G4_extended)
+results_G4$check <- (results_G4$SD_Area/results_G4$Mean_Area)
 
 #### Intermediate Data Visualisation ####
 pSH_G4 <- ggplot(results_G4, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
@@ -286,15 +290,15 @@ pSH_G4 <- pSH_G4 + theme(legend.text = element_text(size = 12)  # Adjust the hor
 pCombinedSH_pending <- ggarrange(pSH_G1+ rremove("ylab") + rremove("xlab"),
                                  pSH_G2+ rremove("ylab") + rremove("xlab"),
                                  pSH_G3+ rremove("ylab") + rremove("xlab"),
-                                 pSH_G4+ rremove("ylab") + rremove("xlab"),
+                                 #pSH_G4+ rremove("ylab") + rremove("xlab"),
                                  labels = c("A", "B", "C", "D"),
                                  common.legend = TRUE, legend = "right",
                                  align = "hv",
-                                 ncol = 1, nrow = 4,
+                                 ncol = 1, nrow = 3,
                                  font.label = list(size = 12, color = "black", family = NULL, position = "top"))+
   theme(plot.margin = margin(0,1,0,0, "cm")) # in order (Top,right,bottom,left)
 
-pCombinedSH <- annotate_figure(pCombinedSH_pending, left = textGrob("Total fibre area (mm\u00b2)\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
+pCombinedSH <- annotate_figure(pCombinedSH_pending, left = textGrob("Shed fibre area (mm\u00b2)\n", rot = 90, vjust = 0.5, hjust = 0.5, gp = gpar(cex =1)),
                                bottom = textGrob("weight", vjust = 0.5, hjust = 0.5,gp = gpar(cex = 1)))
 pCombinedSH
 
@@ -331,3 +335,57 @@ pSH_G1vsG2 <- ggplot(results, aes(x = factor(Weight, level = c('100g', '200g', '
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))
 pSH_G1vsG2
 ggsave("Shedding_G1.png", pSH_G1, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+
+# ------------------------------------------------------------------------
+# Section 5: Analysis 800g
+# ------------------------------------------------------------------------
+results_G1_800g<- results_G1 %>% filter(grepl('800g', Weight))
+results_G2_800g<- results_G2 %>% filter(grepl('800g', Weight))
+results_G3_800g<- results_G3 %>% filter(grepl('800g', Weight))
+# results_G4_800g<- results_G4 %>% filter(grepl('800g', Weight))
+
+results_800g <- rbind(results_G1_800g,results_G2_800g,results_G3_800g)
+
+pSH_G1 <- ggplot(results_800g, aes(x = factor(Wash, level = c('W000', 'W001', 'W003','W005','W007','W009','W011','W013','W015')),
+                                 y= Mean_Area, fill=Garment))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,400)+
+  scale_fill_manual(values = brewer.pal(9, "Greys")[1:9])+
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))
+pSH_G1
+ggsave("Shedding_G1.png", pSH_G1, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+
+pSH_G1 <- ggplot(results_800g, aes(x = factor(Wash, level = c('W000', 'W001', 'W003','W005','W007','W009','W011','W013','W015')),
+                                   y= Mean_Area, fill=Garment))+
+  geom_bar(stat="identity", position=position_dodge(),colour="black")+
+  labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0,300)+
+  scale_fill_manual(values = brewer.pal(9, "Greys")[1:9])+
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
+  geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))
+pSH_G1
+ggsave("Shedding_G1.png", pSH_G1, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+
+pSH_G1 <- ggplot(results_800g, aes(x = factor(Wash, levels = c('W000', 'W001', 'W003','W005','W007','W009','W011','W013','W015')),
+                                   y = Mean_Area, group = Garment)) +
+  geom_point(aes(shape = Garment)) + # Use shapes to differentiate groups
+  geom_line(aes(linetype = Garment)) + # Use linetypes to differentiate lines
+  labs(x = "\nWash Cycle", y = "Total fibre area (mm\u00b2)\n") +
+  theme_bw(base_family = "Arial", base_size = 12) +
+  ylim(0, 300) +
+  scale_shape_manual(values = c(16, 17, 18, 19)) + # Assign shapes for points
+  scale_linetype_manual(values = c("solid", "dotted", "dashed", "dotdash")) + # Assign linetypes
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        axis.text.x = element_text(angle = 0, vjust = 0.95, hjust = 0.5)) +
+  geom_errorbar(aes(ymin = Mean_Area - SD_Area, ymax = Mean_Area + SD_Area), width = .2) # Adjust error bars if needed
+# Display the plot
+pSH_G1
