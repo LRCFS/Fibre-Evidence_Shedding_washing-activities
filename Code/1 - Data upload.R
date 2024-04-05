@@ -32,39 +32,52 @@ rm(RepeatedContact_Extended)
 # Section 2: Shedding data from washed garments
 # ------------------------------------------------------------------------
 # Read the CSV file containing garment weight data
-Shedding_G1 <- read.csv('./Data/SH_Garment1_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_G1 <- read.csv('./Data/SH_1stSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 Shedding_G1$Slice<- gsub(".TIF","",Shedding_G1$Slice)
 Shedding_G1_Extended <- data.frame(str_split(Shedding_G1$Slice, "_", simplify=TRUE))
 names(Shedding_G1_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
 Shedding_G1 <- cbind(Shedding_G1_Extended,Area=Shedding_G1$Total.Area)
 rm(Shedding_G1_Extended)
 
-Shedding_G2 <- read.csv('./Data/SH_Garment2_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_G2 <- read.csv('./Data/SH_2ndSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 Shedding_G2$Slice<- gsub(".TIF","",Shedding_G2$Slice)
 Shedding_G2_Extended <- data.frame(str_split(Shedding_G2$Slice, "_", simplify=TRUE))
 names(Shedding_G2_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
 Shedding_G2 <- cbind(Shedding_G2_Extended,Area=Shedding_G2$Total.Area)
 rm(Shedding_G2_Extended)
 
-Shedding_G3 <- read.csv('./Data/SH_Garment3_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_G3 <- read.csv('./Data/SH_3rdSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 Shedding_G3$Slice<- gsub(".TIF","",Shedding_G3$Slice)
 Shedding_G3_Extended <- data.frame(str_split(Shedding_G3$Slice, "_", simplify=TRUE))
 names(Shedding_G3_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
 Shedding_G3 <- cbind(Shedding_G3_Extended,Area=Shedding_G3$Total.Area)
 rm(Shedding_G3_Extended)
 
-Shedding_G4 <- read.csv('./Data/SH_Garment4_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_G4 <- read.csv('./Data/SH_4thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 Shedding_G4$Slice<- gsub(".TIF","",Shedding_G4$Slice)
 Shedding_G4_Extended <- data.frame(str_split(Shedding_G4$Slice, "_", simplify=TRUE))
 names(Shedding_G4_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
 Shedding_G4 <- cbind(Shedding_G4_Extended,Area=Shedding_G4$Total.Area)
 rm(Shedding_G4_Extended)
 
+Shedding_G5 <- read.csv('./Data/SH_5thSeries_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_G5$Slice<- gsub(".TIF","",Shedding_G5$Slice)
+Shedding_G5_Extended <- data.frame(str_split(Shedding_G5$Slice, "_", simplify=TRUE))
+names(Shedding_G5_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
+Shedding_G5 <- cbind(Shedding_G5_Extended,Area=Shedding_G5$Total.Area)
+rm(Shedding_G5_Extended)
+
+Shedding_G6 <- read.csv('./Data/SH_6thSeries_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_G6$Slice<- gsub(".TIF","",Shedding_G6$Slice)
+Shedding_G6_Extended <- data.frame(str_split(Shedding_G6$Slice, "_", simplify=TRUE))
+names(Shedding_G6_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
+Shedding_G6 <- cbind(Shedding_G6_Extended,Area=Shedding_G6$Total.Area)
+rm(Shedding_G6_Extended)
 # ------------------------------------------------------------------------
 # Section 3: Transfer experiments
 # ------------------------------------------------------------------------
 #### Uploading data from the first series involving washing a single donor garment ####
-G1 <- read.csv('./Data/Transfer_Garment1_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+G1 <- read.csv('./Data/Transfer_1stSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
 # Remove ".TIF" in G1
 G1$Slice<- gsub(".TIF","",G1$Slice)
@@ -92,7 +105,7 @@ G1_Dataset[,2:3] = apply(G1_Dataset[,2:3], 2, function(x) as.numeric(as.characte
 rm(G1,G1B,G1Atr,G1_Dataset_pending)
 
 #### Uploading data from the first series involving washing a single donor garment with detergent ####
-G2 <- read.csv('./Data/Transfer_Garment2_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+G2 <- read.csv('./Data/Transfer_2ndSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
 # Remove ".TIF" in G2
 G2$Slice<- gsub(".TIF","",G2$Slice)
@@ -120,7 +133,7 @@ G2_Dataset[,2:3] = apply(G2_Dataset[,2:3], 2, function(x) as.numeric(as.characte
 rm(G2,G2B,G2Atr,G2_Dataset_pending)
 
 #### Uploading data from the first series involving washing a single donor garment with detergent and softener ####
-G3 <- read.csv('./Data/Transfer_Garment3_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+G3 <- read.csv('./Data/Transfer_3rdSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
 # Remove ".TIF" in G3
 G3$Slice<- gsub(".TIF","",G3$Slice)
@@ -148,29 +161,85 @@ G3_Dataset[,2:3] = apply(G3_Dataset[,2:3], 2, function(x) as.numeric(as.characte
 rm(G3,G3B,G3Atr,G3_Dataset_pending)
 
 #### Uploading data from the third series involving washing 12 donor garments ####
-G12 <- read.csv('./Data/Transfer_Garment12_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+G4 <- read.csv('./Data/Transfer_4thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
-# Remove ".TIF" in G12
-G12$Slice<- gsub(".TIF","",G12$Slice)
+# Remove ".TIF" in G4
+G4$Slice<- gsub(".TIF","",G4$Slice)
 
-# Remove "_negative" and "_positive" in G12
+# Remove "_negative" and "_positive" in G4
 text_to_remove <- "_negative"
-G12 <- G12[!grepl(text_to_remove, G12$Slice), ]
+G4 <- G4[!grepl(text_to_remove, G4$Slice), ]
 text_to_remove <- "_positive"
-G12 <- G12[!grepl(text_to_remove, G12$Slice), ]
+G4 <- G4[!grepl(text_to_remove, G4$Slice), ]
 
 # Create different dataframes before and after transfer
-G12B<- G12 %>% filter(grepl('_B', Slice))
-G12Atr <- G12 %>% filter(grepl('_Atr', Slice))
+G4B<- G4 %>% filter(grepl('_B', Slice))
+G4Atr <- G4 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G12_Dataset_pending <- data.frame(rbind(G12B$Slice, G12B$Count, G12Atr$Count))
-G12_Dataset<-as.data.frame(t(G12_Dataset_pending))
+G4_Dataset_pending <- data.frame(rbind(G4B$Slice, G4B$Count, G4Atr$Count))
+G4_Dataset<-as.data.frame(t(G4_Dataset_pending))
 
-names(G12_Dataset) <- c("Sample", "Before transfer", "After transfer")
+names(G4_Dataset) <- c("Sample", "Before transfer", "After transfer")
 
 # Convert factor to numeric in columns 2 to 3
-G12_Dataset[,2:3] = apply(G12_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+G4_Dataset[,2:3] = apply(G4_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
-rm(G12,G12B,G12Atr,G12_Dataset_pending)
+rm(G4,G4B,G4Atr,G4_Dataset_pending)
+
+#### Uploading data from the second series involving washing 5 donor garments ####
+G5 <- read.csv('./Data/Transfer_5thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+
+# Remove ".TIF" in G5
+G5$Slice<- gsub(".TIF","",G5$Slice)
+
+# Remove "_negative" and "_positive" in G5
+text_to_remove <- "_negative"
+G5 <- G5[!grepl(text_to_remove, G5$Slice), ]
+text_to_remove <- "_positive"
+G5 <- G5[!grepl(text_to_remove, G5$Slice), ]
+
+# Create different dataframes before and after transfer
+G5B<- G5 %>% filter(grepl('_B', Slice))
+G5Atr <- G5 %>% filter(grepl('_Atr', Slice))
+
+# Create table
+G5_Dataset_pending <- data.frame(rbind(G5B$Slice, G5B$Count, G5Atr$Count))
+G5_Dataset<-as.data.frame(t(G5_Dataset_pending))
+
+names(G5_Dataset) <- c("Sample", "Before transfer", "After transfer")
+
+# Convert factor to numeric in columns 2 to 3
+G5_Dataset[,2:3] = apply(G5_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+
+# Remove unused dataframes
+rm(G5,G5B,G5Atr,G5_Dataset_pending)
+
+#### Uploading data from the second series involving washing 5 donor garments ####
+G6 <- read.csv('./Data/Transfer_6thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+
+# Remove ".TIF" in G6
+G6$Slice<- gsub(".TIF","",G6$Slice)
+
+# Remove "_negative" and "_positive" in G6
+text_to_remove <- "_negative"
+G6 <- G6[!grepl(text_to_remove, G6$Slice), ]
+text_to_remove <- "_positive"
+G6 <- G6[!grepl(text_to_remove, G6$Slice), ]
+
+# Create different dataframes before and after transfer
+G6B<- G6 %>% filter(grepl('_B', Slice))
+G6Atr <- G6 %>% filter(grepl('_Atr', Slice))
+
+# Create table
+G6_Dataset_pending <- data.frame(rbind(G6B$Slice, G6B$Count, G6Atr$Count))
+G6_Dataset<-as.data.frame(t(G6_Dataset_pending))
+
+names(G6_Dataset) <- c("Sample", "Before transfer", "After transfer")
+
+# Convert factor to numeric in columns 2 to 3
+G6_Dataset[,2:3] = apply(G6_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+
+# Remove unused dataframes
+rm(G6,G6B,G6Atr,G6_Dataset_pending)

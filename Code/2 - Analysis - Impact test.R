@@ -57,7 +57,7 @@ summary(res_aov)
 #... at the conventional alpha level of 0.05. This suggests that the height from which the impact test is conducted does not affects the area measured.
 # Tukey HSD test:
 post_test <- glht(res_aov, linfct = mcp(Height = "Tukey"))
-summary_post_test1 <- summary(post_test);summary_post_test
+summary_post_test1 <- summary(post_test);summary_post_test1
 
 
 # descriptive statistics
@@ -152,7 +152,7 @@ summary(res_aov)
 #... at the conventional alpha level of 0.05. This suggests that the Repeat from which the impact test is conducted does not affects the area measured.
 # Tukey HSD test:
 post_test <- glht(res_aov, linfct = mcp(Repeat = "Tukey"))
-summary_post_test2 <- summary(post_test);summary_post_test
+summary_post_test2 <- summary(post_test);summary_post_test2
 
 # descriptive statistics
 meanRepeatedContact <- ddply(RepeatedContact, .(Repeat), summarise, Mean = round(mean(Area.mm2),digits = 2));meanRepeatedContact
@@ -185,7 +185,6 @@ pRepeatedContact
 
 # to save the graph
 ggsave("Figure X - Repeated contact test.png", pRepeatedContact, width = 6, height = 5, units = "in", dpi=600, path = "Results/")
-
 
 # ------------------------------------------------------------------------
 # Section 3: save statistic tables

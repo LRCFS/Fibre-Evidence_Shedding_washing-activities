@@ -27,6 +27,8 @@ library(car)
 library(multcomp)
 library(plotly)
 library(patchwork)
+library(FSA)
+library(Matrix)
 
 #############################################################
 #####                      Function                     #####
@@ -36,6 +38,7 @@ source("Functions/SearchAndReplace.R")
 source("Functions/posthocTGH.R")
 source("Functions/ReturnEveryNthLabel.R")
 source("Functions/get_formula.R")
+source("Functions/multkw.R")
 
 #############################################################
 #####                Folder & Files                     #####
