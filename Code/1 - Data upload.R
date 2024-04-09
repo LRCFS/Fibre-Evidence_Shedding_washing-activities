@@ -53,14 +53,14 @@ names(Shedding_G3_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
 Shedding_G3 <- cbind(Shedding_G3_Extended,Area=Shedding_G3$Total.Area)
 rm(Shedding_G3_Extended)
 
-Shedding_G4 <- read.csv('./Data/SH_4thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_G4 <- read.csv('./Data/SH_5thSeries_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
 Shedding_G4$Slice<- gsub(".TIF","",Shedding_G4$Slice)
 Shedding_G4_Extended <- data.frame(str_split(Shedding_G4$Slice, "_", simplify=TRUE))
 names(Shedding_G4_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
 Shedding_G4 <- cbind(Shedding_G4_Extended,Area=Shedding_G4$Total.Area)
 rm(Shedding_G4_Extended)
 
-Shedding_G5 <- read.csv('./Data/SH_5thSeries_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_G5 <- read.csv('./Data/SH_4thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 Shedding_G5$Slice<- gsub(".TIF","",Shedding_G5$Slice)
 Shedding_G5_Extended <- data.frame(str_split(Shedding_G5$Slice, "_", simplify=TRUE))
 names(Shedding_G5_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
@@ -93,13 +93,13 @@ G1B<- G1 %>% filter(grepl('_B', Slice))
 G1Atr <- G1 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G1_Dataset_pending <- data.frame(rbind(G1B$Slice, G1B$Count, G1Atr$Count))
+G1_Dataset_pending <- data.frame(rbind(G1B$Slice, G1B$Count,G1Atr$Count,G1B$Total.Area, G1Atr$Total.Area))
 G1_Dataset<-as.data.frame(t(G1_Dataset_pending))
 
-names(G1_Dataset) <- c("Sample", "Before transfer", "After transfer")
+names(G1_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G1_Dataset[,2:3] = apply(G1_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+G1_Dataset[,2:5] = apply(G1_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
 rm(G1,G1B,G1Atr,G1_Dataset_pending)
@@ -121,13 +121,13 @@ G2B<- G2 %>% filter(grepl('_B', Slice))
 G2Atr <- G2 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G2_Dataset_pending <- data.frame(rbind(G2B$Slice, G2B$Count, G2Atr$Count))
+G2_Dataset_pending <- data.frame(rbind(G2B$Slice, G2B$Count,G2Atr$Count,G2B$Total.Area, G2Atr$Total.Area))
 G2_Dataset<-as.data.frame(t(G2_Dataset_pending))
 
-names(G2_Dataset) <- c("Sample", "Before transfer", "After transfer")
+names(G2_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G2_Dataset[,2:3] = apply(G2_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+G2_Dataset[,2:5] = apply(G2_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
 rm(G2,G2B,G2Atr,G2_Dataset_pending)
@@ -149,13 +149,13 @@ G3B<- G3 %>% filter(grepl('_B', Slice))
 G3Atr <- G3 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G3_Dataset_pending <- data.frame(rbind(G3B$Slice, G3B$Count, G3Atr$Count))
+G3_Dataset_pending <- data.frame(rbind(G3B$Slice, G3B$Count,G3Atr$Count,G3B$Total.Area, G3Atr$Total.Area))
 G3_Dataset<-as.data.frame(t(G3_Dataset_pending))
 
-names(G3_Dataset) <- c("Sample", "Before transfer", "After transfer")
+names(G3_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G3_Dataset[,2:3] = apply(G3_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+G3_Dataset[,2:5] = apply(G3_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
 rm(G3,G3B,G3Atr,G3_Dataset_pending)
@@ -177,13 +177,13 @@ G4B<- G4 %>% filter(grepl('_B', Slice))
 G4Atr <- G4 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G4_Dataset_pending <- data.frame(rbind(G4B$Slice, G4B$Count, G4Atr$Count))
+G4_Dataset_pending <- data.frame(rbind(G4B$Slice, G4B$Count,G4Atr$Count,G4B$Total.Area, G4Atr$Total.Area))
 G4_Dataset<-as.data.frame(t(G4_Dataset_pending))
 
-names(G4_Dataset) <- c("Sample", "Before transfer", "After transfer")
+names(G4_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G4_Dataset[,2:3] = apply(G4_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+G4_Dataset[,2:5] = apply(G4_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
 rm(G4,G4B,G4Atr,G4_Dataset_pending)
@@ -205,13 +205,13 @@ G5B<- G5 %>% filter(grepl('_B', Slice))
 G5Atr <- G5 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G5_Dataset_pending <- data.frame(rbind(G5B$Slice, G5B$Count, G5Atr$Count))
+G5_Dataset_pending <- data.frame(rbind(G5B$Slice, G5B$Count,G5Atr$Count,G5B$Total.Area, G5Atr$Total.Area))
 G5_Dataset<-as.data.frame(t(G5_Dataset_pending))
 
-names(G5_Dataset) <- c("Sample", "Before transfer", "After transfer")
+names(G5_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G5_Dataset[,2:3] = apply(G5_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+G5_Dataset[,2:5] = apply(G5_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
 rm(G5,G5B,G5Atr,G5_Dataset_pending)
@@ -233,13 +233,13 @@ G6B<- G6 %>% filter(grepl('_B', Slice))
 G6Atr <- G6 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G6_Dataset_pending <- data.frame(rbind(G6B$Slice, G6B$Count, G6Atr$Count))
+G6_Dataset_pending <- data.frame(rbind(G6B$Slice, G6B$Count,G6Atr$Count,G6B$Total.Area, G6Atr$Total.Area))
 G6_Dataset<-as.data.frame(t(G6_Dataset_pending))
 
-names(G6_Dataset) <- c("Sample", "Before transfer", "After transfer")
+names(G6_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G6_Dataset[,2:3] = apply(G6_Dataset[,2:3], 2, function(x) as.numeric(as.character(x)));
+G6_Dataset[,2:5] = apply(G6_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
 rm(G6,G6B,G6Atr,G6_Dataset_pending)

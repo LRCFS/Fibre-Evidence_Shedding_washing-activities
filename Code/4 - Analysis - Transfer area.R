@@ -51,7 +51,7 @@ dataframes <- list(Transfer_G1,Transfer_G2,Transfer_G3, Transfer_G4, Transfer_G5
 
 # Create a function to compute statistics and write to CSV
 compute_and_write_stats <- function(df, filename) {
-  mean_df <- aggregate(value ~ wash, df, function(x) round(mean(x), digits = 2))
+  mean_df <- aggregate(value ~ wash, df, function(x) round(mean(x), digits = 3))
   sd_df <- aggregate(value ~ wash, df, function(x) round(sd(x), digits = 2))
   median_df <- aggregate(value ~ wash, df, function(x) round(median(x), digits = 2))
   
@@ -226,7 +226,7 @@ n=15
 numS <- data.frame(setdiff(0:n, c(8,10,12,14)))
 Transfer_G1 <- Transfer_G1[!is.na(Transfer_G1$value), ]
 Transfer_G1$value <- as.numeric(Transfer_G1$value)
-meanAtrG1 <- aggregate(value ~ wash, Transfer_G1, function(x) round(mean(x), digits = 2))
+meanAtrG1 <- aggregate(value ~ wash, Transfer_G1, function(x) round(mean(x), digits = 3))
 forplotTotG1 <- data.frame(cbind(numS, value =meanAtrG1$value))
 names(forplotTotG1) <- c("Transfer", "value")
 forplotTotG1$group <- c("No detergent, no conditioner")
@@ -236,7 +236,7 @@ n=15
 numS <- data.frame(setdiff(0:n, c(11,12,14)))
 Transfer_G2 <- Transfer_G2[!is.na(Transfer_G2$value), ]
 Transfer_G2$value <- as.numeric(Transfer_G2$value)
-meanAtrG2 <- aggregate(value ~ wash, Transfer_G2, function(x) round(mean(x), digits = 2))
+meanAtrG2 <- aggregate(value ~ wash, Transfer_G2, function(x) round(mean(x), digits = 3))
 forplotTotG2 <- data.frame(cbind(numS, value =meanAtrG2$value))
 names(forplotTotG2) <- c("Transfer", "value")
 forplotTotG2$group <- c("Detergent, no conditioner")
@@ -246,7 +246,7 @@ n=15
 numS <- data.frame(setdiff(0:n, c(11,12,14)))
 Transfer_G3 <- Transfer_G3[!is.na(Transfer_G3$value), ]
 Transfer_G3$value <- as.numeric(Transfer_G3$value)
-meanAtrG3 <- aggregate(value ~ wash, Transfer_G3, function(x) round(mean(x), digits = 2))
+meanAtrG3 <- aggregate(value ~ wash, Transfer_G3, function(x) round(mean(x), digits = 3))
 forplotTotG3 <- data.frame(cbind(numS, value =meanAtrG3$value))
 names(forplotTotG3) <- c("Transfer", "value")
 forplotTotG3$group <- c("Detergent and conditioner")
@@ -273,7 +273,7 @@ lty_values <- c(1, 2, 3)  # Different line types: 1 = solid, 2 = dashed, 3 = dot
 plot(Toplot$Transfer[Toplot$group == "No detergent, no conditioner"], Toplot$value[Toplot$group == "No detergent, no conditioner"],
      col="black", pch=pch_values[1],
      xlab='\nWash number',
-     ylab='Average number of transferred fibres',
+     ylab='Average area of transferred fibres',
      xlim=range(Toplot$Transfer), 
      ylim=range(Toplot$value),
      xaxt='n',
@@ -311,7 +311,7 @@ n=15
 numS <- data.frame(setdiff(0:n, c(6,7,8,9,11,12,13,14)))
 Transfer_G4 <- Transfer_G4[!is.na(Transfer_G4$value), ]
 Transfer_G4$value <- as.numeric(Transfer_G4$value)
-meanAtrG4 <- aggregate(value ~ wash, Transfer_G4, function(x) round(mean(x), digits = 2))
+meanAtrG4 <- aggregate(value ~ wash, Transfer_G4, function(x) round(mean(x), digits = 3))
 forplotTotG4 <- data.frame(cbind(numS, value =meanAtrG4$value))
 names(forplotTotG4) <- c("Transfer", "value")
 forplotTotG4$group <- c("R-cotton textile")
@@ -321,7 +321,7 @@ n=51
 numS <- data.frame(setdiff(0:n, c()))
 Transfer_G5 <- Transfer_G5[!is.na(Transfer_G5$value), ]
 Transfer_G5$value <- as.numeric(Transfer_G5$value)
-meanAtrG5 <- aggregate(value ~ wash, Transfer_G5, function(x) round(mean(x), digits = 2))
+meanAtrG5 <- aggregate(value ~ wash, Transfer_G5, function(x) round(mean(x), digits = 3))
 forplotTotG5 <- data.frame(cbind(numS, value =meanAtrG5$value))
 names(forplotTotG5) <- c("Transfer", "value")
 forplotTotG5$group <- c("5 v-cotton garment")
@@ -329,9 +329,9 @@ forplotTotG5$group <- c("5 v-cotton garment")
 # data from the series involving washing a single donor garment with detergent
 n=41
 numS <- data.frame(setdiff(0:n, c(16,17,24,26,28,30,32,34,36,38,40)))
-Transfer_G6 <- Transfer_G6[!is.na(Transfer_G6$value), ]
+Transfer_G6 <- Transfer_G6[!i s.na(Transfer_G6$value), ]
 Transfer_G6$value <- as.numeric(Transfer_G6$value)
-meanAtrG6 <- aggregate(value ~ wash, Transfer_G6, function(x) round(mean(x), digits = 2))
+meanAtrG6 <- aggregate(value ~ wash, Transfer_G6, function(x) round(mean(x), digits = 3))
 forplotTotG6 <- data.frame(cbind(numS, value =meanAtrG6$value))
 names(forplotTotG6) <- c("Transfer", "value")
 forplotTotG6$group <- c("12 v-cotton garment")
@@ -343,19 +343,6 @@ Toplot <- rbind(forplotTotG4,forplotTotG5,forplotTotG6)
 Toplot$Transfer <- as.numeric(Toplot$Transfer)
 Toplot$value <- as.numeric(Toplot$value)
 Toplot$group <- as.factor(Toplot$group)
-
-# find the best visual fit
-# for the first series involving washing a single donor garment
-fitG4 <- lm(value~poly(Transfer,9,raw=TRUE), data=forplotTotG4)
-a <- summary(fitG4)$adj.r.squared;a
-
-# for the second series involving washing 5 donor garments
-fitG5 <- lm(value~poly(Transfer,9,raw=TRUE), data=forplotTotG5)
-b <- summary(fitG5)$adj.r.squared;b
-
-# for the second series involving washing 5 donor garments
-fitG6 <- lm(value~poly(Transfer,9,raw=TRUE), data=forplotTotG6)
-c <- summary(fitG6)$adj.r.squared;c
 
 #### Final graph - Figure XXX ####
 # Set up a PNG device
@@ -372,7 +359,7 @@ lty_values <- c(1, 2, 3)  # Different line types: 1 = solid, 2 = dashed, 3 = dot
 plot(Toplot$Transfer[Toplot$group == "R-cotton textile"], Toplot$value[Toplot$group == "R-cotton textile"],
      col="black", pch=pch_values[1],
      xlab='\nWash number',
-     ylab='Average number of transferred fibres',
+     ylab='Average area of transferred fibres',
      xlim=range(Toplot$Transfer), 
      ylim=range(Toplot$value),
      xaxt='n',
@@ -405,7 +392,7 @@ lines(splineG6$x, splineG6$y, col = 'black', lty=lty_values[3])
 dev.off()
 
 # ------------------------------------------------------------------------
-# Section 1: Transfer - statistics
+# Section 2: Transfer - statistics
 # ------------------------------------------------------------------------
 ## Create different dataframes with each wash
 wash_codes <- c("W000", "W001", "W015")
@@ -458,16 +445,13 @@ show(X3)
 # Test of normality - shapiro test
 #H0: data are normally distributed
 #H1: data are not normally distributed
-shapiro.test(results_Transfer_W000$value) # p-value = 0.0003768 - not normally distributed
-shapiro.test(results_Transfer_W001$value) # p-value = 0.6357 - Normally distributed
-shapiro.test(results_Transfer_W015$value) # p-value = 3.149e-05 - not normally distributed
+shapiro.test(results_Transfer_W000$value) # p-value = 0.09684 - Normally distributed
+shapiro.test(results_Transfer_W001$value) # p-value = 0.7346 - Normally distributed
+shapiro.test(results_Transfer_W015$value) # p-value = 7.067e-06 - not normally distributed
 
 # Analysis for the non normally distributed wash
-results_Transfer_W000$garment <- as.factor(results_Transfer_W000$garment)
-kruskal.test(value ~ garment, data = results_Transfer_W000)#  p-value = 0.2365 - NS
-
 results_Transfer_W015$garment <- as.factor(results_Transfer_W015$garment)
-kruskal.test(value ~ garment, data = results_Transfer_W015)#  p-value = 0.0006181
+kruskal.test(value ~ garment, data = results_Transfer_W015)#  p-value = 0.0003758
 
 results_Transfer_W015_Dunn <- dunnTest(value ~ garment, data=results_Transfer_W015, method="bonferroni");results_Transfer_W015_Dunn
 
@@ -475,11 +459,17 @@ results_Transfer_W015_Dunn <- dunnTest(value ~ garment, data=results_Transfer_W0
 # sphericity test - Levene’s Test
 #H0: All sample variances are equal
 #H1: At least one group has a variance that is not equal to the rest.
-leveneTest(value ~ garment, results_Transfer_W001) # p-value = 0.3509,  equal variances
+results_Transfer_W000$garment <- as.factor(results_Transfer_W000$garment)
+results_Transfer_W001$garment <- as.factor(results_Transfer_W001$garment)
+leveneTest(value ~ garment, results_Transfer_W000) # p-value = 0.5937,  equal variances
+leveneTest(value ~ garment, results_Transfer_W001) # p-value = 0.3155,  equal variances
 
 # ANOVA
+res_aovW000 <- aov(value ~ garment, results_Transfer_W000)
+summary(res_aovW000) #  p-value = 0.174- NS
+
 res_aovW001 <- aov(value ~ garment, results_Transfer_W001)
-summary(res_aovW001) #  p-value = 0.0692- NS
+summary(res_aovW001) #  p-value = 0.147- NS
 
 # Export the data
 write.table(results_Transfer_W015_Dunn$res, file = "Results/Statistics/Transfer_W015.csv", quote = F, sep = ",", row.names = F)
