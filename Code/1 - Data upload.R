@@ -6,7 +6,7 @@
 # Slice; Count;
 # "Count" correspond to the fibre counted by imageJ
 
-# "Slice" correspond to the name of the receiver swatch and must be written in this form "W000_G1_G3_8_perp_B.TIF" for the wash experiments
+# "Slice" correspond to the name of the receiver swatch and must be written in this form "W000_Vcotton_VcottonDC_8_perp_B.TIF" for the wash experiments
 # with Wxxx the wash number, Gx the garment number, "_x_" the contact area number and "_B" the condition of the experimentr
 # condition experiments: "B" for Before transfer, "Atr" for after transfer
 
@@ -32,214 +32,216 @@ rm(RepeatedContact_Extended)
 # Section 2: Shedding data from washed garments
 # ------------------------------------------------------------------------
 # Read the CSV file containing garment weight data
-Shedding_G1 <- read.csv('./Data/SH_1stSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
-Shedding_G1$Slice<- gsub(".TIF","",Shedding_G1$Slice)
-Shedding_G1_Extended <- data.frame(str_split(Shedding_G1$Slice, "_", simplify=TRUE))
-names(Shedding_G1_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
-Shedding_G1 <- cbind(Shedding_G1_Extended,Area=Shedding_G1$Total.Area)
-rm(Shedding_G1_Extended)
+Shedding_Vcotton <- read.csv('./Data/SH_1Vcotton_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_Vcotton$Slice<- gsub(".TIF","",Shedding_Vcotton$Slice)
+Shedding_Vcotton_Extended <- data.frame(str_split(Shedding_Vcotton$Slice, "_", simplify=TRUE))
+names(Shedding_Vcotton_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
+Shedding_Vcotton <- cbind(Shedding_Vcotton_Extended,Area=Shedding_Vcotton$Total.Area)
+rm(Shedding_Vcotton_Extended)
 
-Shedding_G2 <- read.csv('./Data/SH_2ndSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
-Shedding_G2$Slice<- gsub(".TIF","",Shedding_G2$Slice)
-Shedding_G2_Extended <- data.frame(str_split(Shedding_G2$Slice, "_", simplify=TRUE))
-names(Shedding_G2_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
-Shedding_G2 <- cbind(Shedding_G2_Extended,Area=Shedding_G2$Total.Area)
-rm(Shedding_G2_Extended)
+Shedding_VcottonD <- read.csv('./Data/SH_1VcottonD_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_VcottonD$Slice<- gsub(".TIF","",Shedding_VcottonD$Slice)
+Shedding_VcottonD_Extended <- data.frame(str_split(Shedding_VcottonD$Slice, "_", simplify=TRUE))
+names(Shedding_VcottonD_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
+Shedding_VcottonD <- cbind(Shedding_VcottonD_Extended,Area=Shedding_VcottonD$Total.Area)
+rm(Shedding_VcottonD_Extended)
 
-Shedding_G3 <- read.csv('./Data/SH_3rdSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
-Shedding_G3$Slice<- gsub(".TIF","",Shedding_G3$Slice)
-Shedding_G3_Extended <- data.frame(str_split(Shedding_G3$Slice, "_", simplify=TRUE))
-names(Shedding_G3_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
-Shedding_G3 <- cbind(Shedding_G3_Extended,Area=Shedding_G3$Total.Area)
-rm(Shedding_G3_Extended)
+Shedding_VcottonDC <- read.csv('./Data/SH_1VcottonDC_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_VcottonDC$Slice<- gsub(".TIF","",Shedding_VcottonDC$Slice)
+Shedding_VcottonDC_Extended <- data.frame(str_split(Shedding_VcottonDC$Slice, "_", simplify=TRUE))
+names(Shedding_VcottonDC_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
+Shedding_VcottonDC <- cbind(Shedding_VcottonDC_Extended,Area=Shedding_VcottonDC$Total.Area)
+rm(Shedding_VcottonDC_Extended)
 
-Shedding_G4 <- read.csv('./Data/SH_5thSeries_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
-Shedding_G4$Slice<- gsub(".TIF","",Shedding_G4$Slice)
-Shedding_G4_Extended <- data.frame(str_split(Shedding_G4$Slice, "_", simplify=TRUE))
-names(Shedding_G4_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
-Shedding_G4 <- cbind(Shedding_G4_Extended,Area=Shedding_G4$Total.Area)
-rm(Shedding_G4_Extended)
+Shedding_5_Vcotton <- read.csv('./Data/SH_5Vcotton2nd_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_5_Vcotton$Slice<- gsub(".TIF","",Shedding_5_Vcotton$Slice)
+Shedding_5_Vcotton_Extended <- data.frame(str_split(Shedding_5_Vcotton$Slice, "_", simplify=TRUE))
+names(Shedding_5_Vcotton_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
+Shedding_5_Vcotton <- cbind(Shedding_5_Vcotton_Extended,Area=Shedding_5_Vcotton$Total.Area)
+rm(Shedding_5_Vcotton_Extended)
 
-Shedding_G5 <- read.csv('./Data/SH_4thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
-Shedding_G5$Slice<- gsub(".TIF","",Shedding_G5$Slice)
-Shedding_G5_Extended <- data.frame(str_split(Shedding_G5$Slice, "_", simplify=TRUE))
-names(Shedding_G5_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
-Shedding_G5 <- cbind(Shedding_G5_Extended,Area=Shedding_G5$Total.Area)
-rm(Shedding_G5_Extended)
+Shedding_12_Vcotton <- read.csv('./Data/SH_12Vcotton_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Shedding_12_Vcotton$Slice<- gsub(".TIF","",Shedding_12_Vcotton$Slice)
+Shedding_12_Vcotton_Extended <- data.frame(str_split(Shedding_12_Vcotton$Slice, "_", simplify=TRUE))
+names(Shedding_12_Vcotton_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
+Shedding_12_Vcotton <- cbind(Shedding_12_Vcotton_Extended,Area=Shedding_12_Vcotton$Total.Area)
+rm(Shedding_12_Vcotton_Extended)
 
-Shedding_G6 <- read.csv('./Data/SH_6thSeries_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
-Shedding_G6$Slice<- gsub(".TIF","",Shedding_G6$Slice)
-Shedding_G6_Extended <- data.frame(str_split(Shedding_G6$Slice, "_", simplify=TRUE))
-names(Shedding_G6_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
-Shedding_G6 <- cbind(Shedding_G6_Extended,Area=Shedding_G6$Total.Area)
-rm(Shedding_G6_Extended)
+Shedding_Rcotton <- read.csv('./Data/SH_Rcotton2nd_Summary.csv', sep="," ,header = T,fileEncoding="UTF-8-BOM")
+Shedding_Rcotton$Slice<- gsub(".TIF","",Shedding_Rcotton$Slice)
+Shedding_Rcotton_Extended <- data.frame(str_split(Shedding_Rcotton$Slice, "_", simplify=TRUE))
+names(Shedding_Rcotton_Extended) <- c("Project","Wash","Garment","Weight","Repeat")
+Shedding_Rcotton <- cbind(Shedding_Rcotton_Extended,Area=Shedding_Rcotton$Total.Area)
+rm(Shedding_Rcotton_Extended)
+
 # ------------------------------------------------------------------------
 # Section 3: Transfer experiments
 # ------------------------------------------------------------------------
 #### Uploading data from the first series involving washing a single donor garment ####
-G1 <- read.csv('./Data/Transfer_1stSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Vcotton <- read.csv('./Data/Transfer_1stSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
-# Remove ".TIF" in G1
-G1$Slice<- gsub(".TIF","",G1$Slice)
+# Remove ".TIF" in Vcotton
+Vcotton$Slice<- gsub(".TIF","",Vcotton$Slice)
 
-# Remove "_negative" and "_positive" in G1
+# Remove "_negative" and "_positive" in Vcotton
 text_to_remove <- "_negative"
-G1 <- G1[!grepl(text_to_remove, G1$Slice), ]
+Vcotton <- Vcotton[!grepl(text_to_remove, Vcotton$Slice), ]
 text_to_remove <- "_positive"
-G1 <- G1[!grepl(text_to_remove, G1$Slice), ]
+Vcotton <- Vcotton[!grepl(text_to_remove, Vcotton$Slice), ]
 
 # Create different dataframes before and after transfer
-G1B<- G1 %>% filter(grepl('_B', Slice))
-G1Atr <- G1 %>% filter(grepl('_Atr', Slice))
+VcottonB<- Vcotton %>% filter(grepl('_B', Slice))
+VcottonAtr <- Vcotton %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G1_Dataset_pending <- data.frame(rbind(G1B$Slice, G1B$Count,G1Atr$Count,G1B$Total.Area, G1Atr$Total.Area))
-G1_Dataset<-as.data.frame(t(G1_Dataset_pending))
+Vcotton_Dataset_pending <- data.frame(rbind(VcottonB$Slice, VcottonB$Count,VcottonAtr$Count,VcottonB$Total.Area, VcottonAtr$Total.Area))
+Vcotton_Dataset<-as.data.frame(t(Vcotton_Dataset_pending))
 
-names(G1_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
+names(Vcotton_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G1_Dataset[,2:5] = apply(G1_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
+Vcotton_Dataset[,2:5] = apply(Vcotton_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
-rm(G1,G1B,G1Atr,G1_Dataset_pending)
+rm(Vcotton,VcottonB,VcottonAtr,Vcotton_Dataset_pending)
 
 #### Uploading data from the first series involving washing a single donor garment with detergent ####
-G2 <- read.csv('./Data/Transfer_2ndSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+VcottonD <- read.csv('./Data/Transfer_2ndSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
-# Remove ".TIF" in G2
-G2$Slice<- gsub(".TIF","",G2$Slice)
+# Remove ".TIF" in VcottonD
+VcottonD$Slice<- gsub(".TIF","",VcottonD$Slice)
 
-# Remove "_negative" and "_positive" in G2
+# Remove "_negative" and "_positive" in VcottonD
 text_to_remove <- "_negative"
-G2 <- G2[!grepl(text_to_remove, G2$Slice), ]
+VcottonD <- VcottonD[!grepl(text_to_remove, VcottonD$Slice), ]
 text_to_remove <- "_positive"
-G2 <- G2[!grepl(text_to_remove, G2$Slice), ]
+VcottonD <- VcottonD[!grepl(text_to_remove, VcottonD$Slice), ]
 
 # Create different dataframes before and after transfer
-G2B<- G2 %>% filter(grepl('_B', Slice))
-G2Atr <- G2 %>% filter(grepl('_Atr', Slice))
+VcottonDB<- VcottonD %>% filter(grepl('_B', Slice))
+VcottonDAtr <- VcottonD %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G2_Dataset_pending <- data.frame(rbind(G2B$Slice, G2B$Count,G2Atr$Count,G2B$Total.Area, G2Atr$Total.Area))
-G2_Dataset<-as.data.frame(t(G2_Dataset_pending))
+VcottonD_Dataset_pending <- data.frame(rbind(VcottonDB$Slice, VcottonDB$Count,VcottonDAtr$Count,VcottonDB$Total.Area, VcottonDAtr$Total.Area))
+VcottonD_Dataset<-as.data.frame(t(VcottonD_Dataset_pending))
 
-names(G2_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
+names(VcottonD_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G2_Dataset[,2:5] = apply(G2_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
+VcottonD_Dataset[,2:5] = apply(VcottonD_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
-rm(G2,G2B,G2Atr,G2_Dataset_pending)
+rm(VcottonD,VcottonDB,VcottonDAtr,VcottonD_Dataset_pending)
 
 #### Uploading data from the first series involving washing a single donor garment with detergent and softener ####
-G3 <- read.csv('./Data/Transfer_3rdSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+VcottonDC <- read.csv('./Data/Transfer_3rdSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
-# Remove ".TIF" in G3
-G3$Slice<- gsub(".TIF","",G3$Slice)
+# Remove ".TIF" in VcottonDC
+VcottonDC$Slice<- gsub(".TIF","",VcottonDC$Slice)
 
-# Remove "_negative" and "_positive" in G3
+# Remove "_negative" and "_positive" in VcottonDC
 text_to_remove <- "_negative"
-G3 <- G3[!grepl(text_to_remove, G3$Slice), ]
+VcottonDC <- VcottonDC[!grepl(text_to_remove, VcottonDC$Slice), ]
 text_to_remove <- "_positive"
-G3 <- G3[!grepl(text_to_remove, G3$Slice), ]
+VcottonDC <- VcottonDC[!grepl(text_to_remove, VcottonDC$Slice), ]
 
 # Create different dataframes before and after transfer
-G3B<- G3 %>% filter(grepl('_B', Slice))
-G3Atr <- G3 %>% filter(grepl('_Atr', Slice))
+VcottonDCB<- VcottonDC %>% filter(grepl('_B', Slice))
+VcottonDCAtr <- VcottonDC %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G3_Dataset_pending <- data.frame(rbind(G3B$Slice, G3B$Count,G3Atr$Count,G3B$Total.Area, G3Atr$Total.Area))
-G3_Dataset<-as.data.frame(t(G3_Dataset_pending))
+VcottonDC_Dataset_pending <- data.frame(rbind(VcottonDCB$Slice, VcottonDCB$Count,VcottonDCAtr$Count,VcottonDCB$Total.Area, VcottonDCAtr$Total.Area))
+VcottonDC_Dataset<-as.data.frame(t(VcottonDC_Dataset_pending))
 
-names(G3_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
+names(VcottonDC_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G3_Dataset[,2:5] = apply(G3_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
+VcottonDC_Dataset[,2:5] = apply(VcottonDC_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
-rm(G3,G3B,G3Atr,G3_Dataset_pending)
+rm(VcottonDC,VcottonDCB,VcottonDCAtr,VcottonDC_Dataset_pending)
 
 #### Uploading data from the third series involving washing 12 donor garments ####
-G4 <- read.csv('./Data/Transfer_4thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Vcotton5 <- read.csv('./Data/Transfer_5Vcotton_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
-# Remove ".TIF" in G4
-G4$Slice<- gsub(".TIF","",G4$Slice)
+# Remove ".TIF" in Vcotton5
+Vcotton5$Slice<- gsub(".TIF","",Vcotton5$Slice)
 
-# Remove "_negative" and "_positive" in G4
+# Remove "_negative" and "_positive" in Vcotton5
 text_to_remove <- "_negative"
-G4 <- G4[!grepl(text_to_remove, G4$Slice), ]
+Vcotton5 <- Vcotton5[!grepl(text_to_remove, Vcotton5$Slice), ]
 text_to_remove <- "_positive"
-G4 <- G4[!grepl(text_to_remove, G4$Slice), ]
+Vcotton5 <- Vcotton5[!grepl(text_to_remove, Vcotton5$Slice), ]
 
 # Create different dataframes before and after transfer
-G4B<- G4 %>% filter(grepl('_B', Slice))
-G4Atr <- G4 %>% filter(grepl('_Atr', Slice))
+Vcotton5B<- Vcotton5 %>% filter(grepl('_B', Slice))
+Vcotton5Atr <- Vcotton5 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G4_Dataset_pending <- data.frame(rbind(G4B$Slice, G4B$Count,G4Atr$Count,G4B$Total.Area, G4Atr$Total.Area))
-G4_Dataset<-as.data.frame(t(G4_Dataset_pending))
+Vcotton5_Dataset_pending <- data.frame(rbind(Vcotton5B$Slice, Vcotton5B$Count,Vcotton5Atr$Count,Vcotton5B$Total.Area, Vcotton5Atr$Total.Area))
+Vcotton5_Dataset<-as.data.frame(t(Vcotton5_Dataset_pending))
 
-names(G4_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
+names(Vcotton5_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G4_Dataset[,2:5] = apply(G4_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
+Vcotton5_Dataset[,2:5] = apply(Vcotton5_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
-rm(G4,G4B,G4Atr,G4_Dataset_pending)
+rm(Vcotton5,Vcotton5B,Vcotton5Atr,Vcotton5_Dataset_pending)
 
 #### Uploading data from the second series involving washing 5 donor garments ####
-G5 <- read.csv('./Data/Transfer_5thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Vcotton12 <- read.csv('./Data/Transfer_12Vcotton_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
-# Remove ".TIF" in G5
-G5$Slice<- gsub(".TIF","",G5$Slice)
+# Remove ".TIF" in Vcotton12
+Vcotton12$Slice<- gsub(".TIF","",Vcotton12$Slice)
 
-# Remove "_negative" and "_positive" in G5
+# Remove "_negative" and "_positive" in Vcotton12
 text_to_remove <- "_negative"
-G5 <- G5[!grepl(text_to_remove, G5$Slice), ]
+Vcotton12 <- Vcotton12[!grepl(text_to_remove, Vcotton12$Slice), ]
 text_to_remove <- "_positive"
-G5 <- G5[!grepl(text_to_remove, G5$Slice), ]
+Vcotton12 <- Vcotton12[!grepl(text_to_remove, Vcotton12$Slice), ]
 
 # Create different dataframes before and after transfer
-G5B<- G5 %>% filter(grepl('_B', Slice))
-G5Atr <- G5 %>% filter(grepl('_Atr', Slice))
+Vcotton12B<- Vcotton12 %>% filter(grepl('_B', Slice))
+Vcotton12Atr <- Vcotton12 %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G5_Dataset_pending <- data.frame(rbind(G5B$Slice, G5B$Count,G5Atr$Count,G5B$Total.Area, G5Atr$Total.Area))
-G5_Dataset<-as.data.frame(t(G5_Dataset_pending))
+Vcotton12_Dataset_pending <- data.frame(rbind(Vcotton12B$Slice, Vcotton12B$Count,Vcotton12Atr$Count,Vcotton12B$Total.Area, Vcotton12Atr$Total.Area))
+Vcotton12_Dataset<-as.data.frame(t(Vcotton12_Dataset_pending))
 
-names(G5_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
+names(Vcotton12_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G5_Dataset[,2:5] = apply(G5_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
+Vcotton12_Dataset[,2:5] = apply(Vcotton12_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
-rm(G5,G5B,G5Atr,G5_Dataset_pending)
+rm(Vcotton12,Vcotton12B,Vcotton12Atr,Vcotton12_Dataset_pending)
 
 #### Uploading data from the second series involving washing 5 donor garments ####
-G6 <- read.csv('./Data/Transfer_6thSeries_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Rcotton <- read.csv('./Data/Transfer_Rcotton_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
 
-# Remove ".TIF" in G6
-G6$Slice<- gsub(".TIF","",G6$Slice)
+# Remove ".TIF" in Rcotton
+Rcotton$Slice<- gsub(".TIF","",Rcotton$Slice)
 
-# Remove "_negative" and "_positive" in G6
+# Remove "_negative" and "_positive" in Rcotton
 text_to_remove <- "_negative"
-G6 <- G6[!grepl(text_to_remove, G6$Slice), ]
+Rcotton <- Rcotton[!grepl(text_to_remove, Rcotton$Slice), ]
 text_to_remove <- "_positive"
-G6 <- G6[!grepl(text_to_remove, G6$Slice), ]
+Rcotton <- Rcotton[!grepl(text_to_remove, Rcotton$Slice), ]
 
 # Create different dataframes before and after transfer
-G6B<- G6 %>% filter(grepl('_B', Slice))
-G6Atr <- G6 %>% filter(grepl('_Atr', Slice))
+RcottonB<- Rcotton %>% filter(grepl('_B', Slice))
+RcottonAtr <- Rcotton %>% filter(grepl('_Atr', Slice))
 
 # Create table
-G6_Dataset_pending <- data.frame(rbind(G6B$Slice, G6B$Count,G6Atr$Count,G6B$Total.Area, G6Atr$Total.Area))
-G6_Dataset<-as.data.frame(t(G6_Dataset_pending))
+Rcotton_Dataset_pending <- data.frame(rbind(RcottonB$Slice, RcottonB$Count,RcottonAtr$Count,RcottonB$Total.Area, RcottonAtr$Total.Area))
+Rcotton_Dataset<-as.data.frame(t(Rcotton_Dataset_pending))
 
-names(G6_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
+names(Rcotton_Dataset) <- c("Sample", "Before transfer count", "After transfer count","Before transfer area", "After transfer area")
 
 # Convert factor to numeric in columns 2 to 3
-G6_Dataset[,2:5] = apply(G6_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
+Rcotton_Dataset[,2:5] = apply(Rcotton_Dataset[,2:5], 2, function(x) as.numeric(as.character(x)));
 
 # Remove unused dataframes
-rm(G6,G6B,G6Atr,G6_Dataset_pending)
+rm(Rcotton,RcottonB,RcottonAtr,Rcotton_Dataset_pending)
+
