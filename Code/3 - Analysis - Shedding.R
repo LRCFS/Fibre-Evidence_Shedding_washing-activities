@@ -57,7 +57,7 @@ rm(results_shedding_Vcotton_extended)
 results_shedding_Vcotton$check <- (results_shedding_Vcotton$SD_Area/results_shedding_Vcotton$Mean_Area)
 
 #### Intermediate Data Visualisation ####
-pSH_Vcotton <- ggplot(results_shedding_Vcotton, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+pSH_Vcotton <- ggplot(results_shedding_Vcotton, aes(x = factor(Weightmargin, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                           y= Mean_Area, fill=Wash))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
@@ -418,7 +418,7 @@ results_shedding_5_Vcotton_W051$Weight <- paste0(results_shedding_5_Vcotton_W051
 results_shedding_5_Vcotton_percentagediff <- data.frame(cbind(results_shedding_5_Vcotton_W000$Mean_Area,results_shedding_5_Vcotton_W051$Mean_Area))
 results_shedding_5_Vcotton_percentagediff$percentagediff <- round(abs(results_shedding_5_Vcotton_percentagediff$X1 - results_shedding_5_Vcotton_percentagediff$X2) / 
   ((results_shedding_5_Vcotton_percentagediff$X1 + results_shedding_5_Vcotton_percentagediff$X2)/2)*100, digits=2)
-results_shedding_5_Vcotton_percentagediff$ratio <- round(with(results_shedding_5_Vcotton_percentagediff, pmax(X1, X2) / pmin(X1, X2)),digit=2)
+results_shedding_5_Vcotton_percentagediff$ratio <- round(abs(results_shedding_5_Vcotton_percentagediff$X1/results_shedding_5_Vcotton_percentagediff$X2),digit=2)
 label = rep(results_shedding_5_Vcotton_percentagediff$ratio,2)
 
 #### Intermediate Data Visualisation ####
@@ -429,7 +429,7 @@ pSH_5_Vcotton <- ggplot(results_shedding_5_Vcotton, aes(x = factor(Weight, level
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,375)+
+  ylim(0,325)+
   scale_fill_manual(values = c(brewer.pal(9, "Greys")[c(1, 9)])) +
   theme(plot.title = element_text(hjust = 0.5),
         legend.title = element_blank(),
@@ -440,7 +440,6 @@ pSH_5_Vcotton <- ggplot(results_shedding_5_Vcotton, aes(x = factor(Weight, level
   geom_errorbarh(aes(xmax = (b + 0.3), xmin = (b - 0.3), y = a-20), height = 15,colour="#c9101a") 
 ggsave("Shedding_5_Vcotton.png", pSH_5_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 pSH_5_Vcotton
-
 # ------------------------------------------------------------------------
 # Section 5: Garment 5
 # ------------------------------------------------------------------------
@@ -448,7 +447,7 @@ pSH_5_Vcotton
 # Convert Area from inch2 to mm2
 # 1 pixel = 1 x10^-5 inch2, so (Area*1)/0.000011 to convert into px
 Shedding_12_Vcotton$Area.px <- (Shedding_12_Vcotton$Area*1)/0.000011
-# 1 mm = 110 pixels, 1mm2 = 12100 px
+# scale of the image: 1 mm = 110 pixels, 1mm2 = 12544 px
 Shedding_12_Vcotton$Area.mm2 <- Shedding_12_Vcotton$Area.px/12100
 
 # Create different dataframes for each wash
@@ -515,8 +514,9 @@ results_shedding_12_Vcotton_bis_W041$Weight <- paste0(results_shedding_12_Vcotto
 results_shedding_12_Vcotton_bis_percentagediff <- data.frame(cbind(results_shedding_12_Vcotton_bis_W000$Mean_Area,results_shedding_12_Vcotton_bis_W041$Mean_Area))
 results_shedding_12_Vcotton_bis_percentagediff$percentagediff <- round(abs(results_shedding_12_Vcotton_bis_percentagediff$X1 - results_shedding_12_Vcotton_bis_percentagediff$X2) / 
                                                  ((results_shedding_12_Vcotton_bis_percentagediff$X1 + results_shedding_12_Vcotton_bis_percentagediff$X2)/2)*100, digits=2)
-results_shedding_12_Vcotton_bis_percentagediff$ratio <- round(with(results_shedding_12_Vcotton_bis_percentagediff, pmax(X1, X2) / pmin(X1, X2)),digit=2)
+results_shedding_12_Vcotton_bis_percentagediff$ratio <- round(abs(results_shedding_12_Vcotton_bis_percentagediff$X1/results_shedding_12_Vcotton_bis_percentagediff$X2),digit=2)
 label = rep(results_shedding_12_Vcotton_bis_percentagediff$ratio,2)
+
 
 c = rep(c(100, 125, 150, 175, 200, 225),2)
 d = rep(c(1:6), 2)
@@ -525,7 +525,7 @@ pSH_12_Vcotton <- ggplot(results_shedding_12_Vcotton_bis, aes(x = factor(Weight,
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,375)+
+  ylim(0,325)+
   scale_fill_manual(values = c(brewer.pal(9, "Greys")[c(1, 9)])) +
   theme(plot.title = element_text(hjust = 0.5),
         legend.title = element_blank(),
@@ -608,18 +608,18 @@ results_shedding_Rcotton_W025$Weight <- paste0(results_shedding_Rcotton_W025$Wei
 results_shedding_Rcotton_percentagediff <- data.frame(cbind(results_shedding_Rcotton_W000$Mean_Area,results_shedding_Rcotton_W025$Mean_Area))
 results_shedding_Rcotton_percentagediff$percentagediff <- round(abs(results_shedding_Rcotton_percentagediff$X1 - results_shedding_Rcotton_percentagediff$X2) / 
   ((results_shedding_Rcotton_percentagediff$X1 + results_shedding_Rcotton_percentagediff$X2)/2)*100, digits=2)
-results_shedding_Rcotton_percentagediff$ratio <- round(with(results_shedding_Rcotton_percentagediff, pmax(X1, X2) / pmin(X1, X2)),digit=2)
+results_shedding_Rcotton_percentagediff$ratio <- round(abs(results_shedding_Rcotton_percentagediff$X1/results_shedding_Rcotton_percentagediff$X2),digit=2)
 label = rep(results_shedding_Rcotton_percentagediff$ratio,2)
 
 #### Intermediate Data Visualisation ####
-e = rep(c(150, 175, 200, 335, 355, 375),2)
+e = rep(c(175, 215, 255, 295, 310, 320),2)
 f = rep(c(1:6), 2)
 pSH_Rcotton <- ggplot(results_shedding_Rcotton, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                  y= Mean_Area, fill=Wash))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
   theme_bw(base_family = "Arial", base_size = 12) +
-  ylim(0,375)+
+  ylim(0,500)+
   scale_fill_manual(values = c(brewer.pal(9, "Greys")[c(1, 9)])) +
   theme(plot.title = element_text(hjust = 0.5),
         legend.title = element_blank(),
@@ -686,3 +686,53 @@ pCombinedSH2
 # to save the graph
 ggsave("Figure XXX - Shedding 4-6 garments.png", pCombinedSH2, width =7, height = 10, units = "in", dpi=600,path = "Results")
 
+#### EXPORT TABLE FOR ARTICLE ####
+# Create a list of dataframes
+dataframes <- list(Shedding_Vcotton,Shedding_VcottonD,Shedding_VcottonDC)
+
+# Create a function to compute statistics and write to CSV
+compute_and_write_stats <- function(df, filename) {
+  # Assuming the 'Wash' column needs to be included in the aggregation
+  mean_df <- aggregate(Area.mm2 ~ Wash + Weight, df, function(x) round(mean(x), digits = 2))
+  sd_df <- aggregate(Area.mm2 ~ Wash + Weight, df, function(x) round(sd(x), digits = 2))
+  median_df <- aggregate(Area.mm2 ~ Wash + Weight, df, function(x) round(median(x), digits = 2))
+  
+  # Merge the dataframes by 'Wash' and 'Weight' to ensure they align
+  datatable <- merge(merge(mean_df, median_df, by = c("Wash", "Weight")), sd_df, by = c("Wash", "Weight"))
+  
+  # Rename the columns appropriately
+  names(datatable) <- c("Wash", "Weight", "Average", "Median", "SD")
+  
+  # Write the datatable to a CSV file
+  write.table(datatable, file = filename, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE, fileEncoding = "UTF-8")
+}
+
+# Loop through the dataframes and compute/write statistics
+for (i in 1:length(dataframes)) {
+  compute_and_write_stats(dataframes[[i]], paste("Results/Statistics/Shedding Descriptive statistics - Series ", c(1, 2, 3)[i], ".csv", sep = ""))
+}
+
+# Create a list of dataframes
+dataframes <- list(Shedding_5_Vcotton,Shedding_12_Vcotton,Shedding_Rcotton)
+
+# Create a function to compute statistics and write to CSV
+compute_and_write_stats <- function(df, filename) {
+  # Assuming the 'Wash' column needs to be included in the aggregation
+  mean_df <- aggregate(Area.mm2 ~ Wash + Weight, df, function(x) round(mean(x), digits = 2))
+  sd_df <- aggregate(Area.mm2 ~ Wash + Weight, df, function(x) round(sd(x), digits = 2))
+  median_df <- aggregate(Area.mm2 ~ Wash + Weight, df, function(x) round(median(x), digits = 2))
+  
+  # Merge the dataframes by 'Wash' and 'Weight' to ensure they align
+  datatable <- merge(merge(mean_df, median_df, by = c("Wash", "Weight")), sd_df, by = c("Wash", "Weight"))
+  
+  # Rename the columns appropriately
+  names(datatable) <- c("Wash", "Weight", "Average", "Median", "SD")
+  
+  # Write the datatable to a CSV file
+  write.table(datatable, file = filename, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE, fileEncoding = "UTF-8")
+}
+
+# Loop through the dataframes and compute/write statistics
+for (i in 1:length(dataframes)) {
+  compute_and_write_stats(dataframes[[i]], paste("Results/Statistics/Shedding Descriptive statistics - Series ", c(4, 5, 6)[i], ".csv", sep = ""))
+}

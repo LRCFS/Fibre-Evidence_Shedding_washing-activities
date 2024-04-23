@@ -11,7 +11,7 @@
 # condition experiments: "B" for Before transfer, "Atr" for after transfer
 
 # ------------------------------------------------------------------------
-# Section 1: Impact test and Repeated Contact
+# Section 1: Impact test, Repeated Contact and Hand pressure
 # ------------------------------------------------------------------------
 # Read the CSV file containing garment weight data
 ImpactTest <- read.csv('./Data/Impact-test_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
@@ -27,6 +27,13 @@ RepeatedContact_Extended <- data.frame(str_split(RepeatedContact$Slice, "_", sim
 RepeatedContact <- data.frame(cbind(Contact.Area=RepeatedContact_Extended$X4,Repeat=RepeatedContact_Extended$X5,Area=RepeatedContact$Total.Area))
 RepeatedContact$Area <- as.numeric(RepeatedContact$Area)
 rm(RepeatedContact_Extended)
+
+Handpressure<- read.csv('./Data/Hand-pressure_Summary.csv', sep="," ,header = T,fileEncoding = 'UTF-8-BOM')
+Handpressure$Slice<- gsub(".TIF","",Handpressure$Slice)
+Handpressure_Extended <- data.frame(str_split(Handpressure$Slice, "_", simplify=TRUE))
+Handpressure <- data.frame(cbind(Operator=Handpressure_Extended$X2,Pressure=Handpressure_Extended$X3,Garment=Handpressure_Extended$X4,Repeat=Handpressure_Extended$X5,Sample=Handpressure_Extended$X6,Area=Handpressure$Total.Area))
+Handpressure$Area <- as.numeric(Handpressure$Area)
+rm(Handpressure_Extended)
 
 # ------------------------------------------------------------------------
 # Section 2: Shedding data from washed garments

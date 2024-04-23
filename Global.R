@@ -29,6 +29,7 @@ library(plotly)
 library(patchwork)
 library(FSA)
 library(Matrix)
+library(rstatix)
 
 #############################################################
 #####                      Function                     #####
@@ -52,8 +53,8 @@ Results.dir <- "Results/"
 #####                       Codes                       #####
 #############################################################
 # This codes can be run subsequently
-source("Code/1 - Data upload.R")
-#source("Code/2 - Analysis - Impact test.R")
-source("Code/3 - Analysis - Shedding.R")
-source("Code/4 - Analysis - Transfer area.R")
+# source("Code/1 - Data upload.R")
+# source("Code/2 - Analysis - Impact test.R")
+# source("Code/3 - Analysis - Shedding.R")
+# source("Code/4 - Analysis - Transfer area.R")
 
