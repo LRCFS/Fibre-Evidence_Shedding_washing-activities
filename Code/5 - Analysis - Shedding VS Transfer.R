@@ -10,7 +10,12 @@
 forplotTotVcotton$Transfer <- paste0("W", sprintf("%03d", forplotTotVcotton$Transfer))
 forplotTotVcottonD$Transfer <- paste0("W", sprintf("%03d", forplotTotVcottonD$Transfer))
 forplotTotVcottonDC$Transfer <- paste0("W", sprintf("%03d", forplotTotVcottonDC$Transfer))
+forplotTot5_Vcotton$Transfer <- paste0("W", sprintf("%03d", forplotTot5_Vcotton$Transfer))
+forplotTot12_Vcotton$Transfer <- paste0("W", sprintf("%03d", forplotTot12_Vcotton$Transfer))
+forplotTotRcotton$Transfer <- paste0("W", sprintf("%03d", forplotTotRcotton$Transfer))
+
 Wash_codes <- c("W000", "W001", "W003","W005","W007","W009","W011","W013","W015")
+Wash_codes2 <- c("W000", "W025", "W041","W051")
 
 # Loop through each Wash code, filter the dataframe, and create a new variable in the global environment
 for (Wash_code in Wash_codes) {
@@ -28,6 +33,21 @@ for (Wash_code in Wash_codes) {
   assign(paste("results_Transfer_VcottonDC", Wash_code, sep = "_"), filtered_df)
 }
 
+Wash_codes <- c("W000","W051")
+for (Wash_code in Wash_code2) {
+  filtered_df <- forplotTot5_Vcotton %>% filter(grepl(Wash_code, Transfer))
+  assign(paste("results_Transfer_5_Vcotton", Wash_code, sep = "_"), filtered_df)
+}
+
+for (Wash_code in Wash_code2) {
+  filtered_df <- forplotTot12_Vcotton %>% filter(grepl(Wash_code, Transfer))
+  assign(paste("results_Transfer_12_Vcotton", Wash_code, sep = "_"), filtered_df)
+}
+
+for (Wash_code in Wash_code2) {
+  filtered_df <- forplotTotRcotton %>% filter(grepl(Wash_code, Transfer))
+  assign(paste("results_Transfer_Rcotton", Wash_code, sep = "_"), filtered_df)
+}
 # for (Wash_code in Wash_codes) {
 #   filtered_df <- meanAtr5_Vcotton %>% filter(grepl(Wash_code, Wash))
 #   assign(paste("results_Transfer_5_Vcotton", Wash_code, sep = "_"), filtered_df)
@@ -50,6 +70,8 @@ results_VcottonD_T <- rbind(results_Transfer_VcottonD_W000,results_Transfer_Vcot
                       results_Transfer_VcottonD_W007,results_Transfer_VcottonD_W009,results_Transfer_VcottonD_W011,results_Transfer_VcottonD_W013,results_Transfer_VcottonD_W015)
 results_VcottonDC_T <- rbind(results_Transfer_VcottonDC_W000,results_Transfer_VcottonDC_W001,results_Transfer_VcottonDC_W003,results_Transfer_VcottonDC_W005,
                       results_Transfer_VcottonDC_W007,results_Transfer_VcottonDC_W009,results_Transfer_VcottonDC_W011,results_Transfer_VcottonDC_W013,results_Transfer_VcottonDC_W015)
+results_5_Vcotton_T <- rbind(results_Transfer_5_Vcotton_W000,results_Transfer_VcottonDC_W001,results_Transfer_VcottonDC_W003,results_Transfer_VcottonDC_W005,
+                             results_Transfer_VcottonDC_W007,results_Transfer_VcottonDC_W009,results_Transfer_VcottonDC_W011,results_Transfer_VcottonDC_W013,results_Transfer_VcottonDC_W015)
 
 results_Vcotton_S<- results_shedding_Vcotton %>% filter(grepl('800g', Weight))
 results_VcottonD_S<- results_Shedding_VcottonD %>% filter(grepl('800g', Weight))
@@ -71,7 +93,6 @@ PearsonVcotton <- data.frame(
 PearsonVcotton$ratio <- round(pmax(PearsonVcotton$Transferred, PearsonVcotton$Shed) / 
                                 pmin(PearsonVcotton$Transferred, PearsonVcotton$Shed), digits = 2)
 
-
 PearsonVcottonD <- data.frame(
   Wash = results_VcottonD_T$Transfer,
   Transferred = as.numeric(round(results_VcottonD_T$value, digits=3)),
@@ -80,7 +101,6 @@ PearsonVcottonD <- data.frame(
 )
 PearsonVcottonD$ratio <- round(pmax(PearsonVcottonD$Transferred, PearsonVcottonD$Shed) / 
                                 pmin(PearsonVcottonD$Transferred, PearsonVcottonD$Shed), digits = 2)
-
 
 PearsonVcottonDC <- data.frame(
   Wash = results_VcottonDC_T$Transfer,

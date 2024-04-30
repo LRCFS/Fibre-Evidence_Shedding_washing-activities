@@ -57,7 +57,7 @@ rm(results_shedding_Vcotton_extended)
 results_shedding_Vcotton$check <- (results_shedding_Vcotton$SD_Area/results_shedding_Vcotton$Mean_Area)
 
 #### Intermediate Data Visualisation ####
-pSH_Vcotton <- ggplot(results_shedding_Vcotton, aes(x = factor(Weightmargin, level = c('100g', '200g', '400g','800g','1000g','2000g')),
+pSH_Vcotton <- ggplot(results_shedding_Vcotton, aes(x = factor(Weight, level = c('100g', '200g', '400g','800g','1000g','2000g')),
                                           y= Mean_Area, fill=Wash))+
   geom_bar(stat="identity", position=position_dodge(),colour="black")+
   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
@@ -735,4 +735,25 @@ compute_and_write_stats <- function(df, filename) {
 # Loop through the dataframes and compute/write statistics
 for (i in 1:length(dataframes)) {
   compute_and_write_stats(dataframes[[i]], paste("Results/Statistics/Shedding Descriptive statistics - Series ", c(4, 5, 6)[i], ".csv", sep = ""))
+}
+
+# Table for comparisons in discussion
+# Define the weights you want to process
+weights <- c("100g", "200g", "400g", "800g", "1000g", "2000g")
+
+# Loop over each weight
+for (weight in weights) {
+  # Filter each dataset by the current weight and fixed wash condition
+  Shedding_Vcotton_table <- filter(Shedding_Vcotton, Weight == weight & Wash == "W000")
+  Shedding_VcottonD_table <- filter(Shedding_VcottonD, Weight == weight & Wash == "W000")
+  Shedding_VcottonDC_table <- filter(Shedding_VcottonDC, Weight == weight & Wash == "W000")
+  
+  # Combine the tables
+  Shedding_table <- rbind(Shedding_Vcotton_table, Shedding_VcottonD_table, Shedding_VcottonDC_table)
+  
+  # Construct file name based on the weight
+  file_name <- sprintf("Results/Statistics/Shedding_table_%s.csv", gsub("g", "", weight))
+  
+  # Write the combined table to a CSV file
+  write.table(Shedding_table, file = file_name, quote = FALSE, sep = ",", row.names = FALSE)
 }
