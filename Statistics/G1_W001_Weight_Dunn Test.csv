@@ -1,8 +1,0 @@
-Comparison,Z,P.unadj,P.adj,,
-100g - 2000g,-3.464823228,0.00053058,0.00159174,,
-100g - 800g,-1.838477631,0.065992055,0.197976165,,
-2000g - 800g,1.626345597,0.103876157,0.311628471,,
-,,,,,Kruskal-Wallis rank sum test
-,,,,,
-,,,,,data:  Area.mm2 by Weight
-,,,,,"Kruskal-Wallis chi-squared = 12.02, df = 2, p-value = 0.002454"
