@@ -67,7 +67,7 @@ compute_and_write_stats <- function(df, filename) {
 
 # Loop through the dataframes and compute/write statistics
 for (i in 1:length(dataframes)) {
-  compute_and_write_stats(dataframes[[i]], paste("Results/Descriptive statistics - Garment ", c(1, 2, 3, 4, 5, 6)[i], ".csv", sep = ""))
+  compute_and_write_stats(dataframes[[i]], paste("Results/Statistics/Transfer Descriptive statistics - Series ", c(1, 2, 3, 4, 5, 6)[i], ".csv", sep = ""))
 }
 
 #### Final graph - Figure XXX #### 
@@ -118,7 +118,7 @@ Toplot$value <- as.numeric(Toplot$value)
 Toplot$group <- as.factor(Toplot$group)
 
 # Set up a PNG device
-png("./Results/Figure XXX - Transfer.png", width = 2400, height = 2100, res = 300)
+png("./Results/Figure 12 - Transfer 1st to 3rd series.png", width = 2400, height = 2100, res = 300)
 
 # Adjust the margins (bottom, left, top, right)
 par(mar = c(5, 4, 1, 2))  # Adjust the top margin to be smaller
@@ -227,7 +227,7 @@ Toplot$group <- as.factor(Toplot$group)
 
 #### Final graph - Figure XXX ####
 # Set up a PNG device
-png("./Results/Figure XXX - Transfer2.png", width = 2400, height = 2100, res = 300)
+png("./Results/Figure 13 - Transfer2 4th to 6th.png", width = 2400, height = 2100, res = 300)
 
 # Adjust the margins (bottom, left, top, right)
 par(mar = c(5, 4, 1, 2))  # Adjust the top margin to be smaller

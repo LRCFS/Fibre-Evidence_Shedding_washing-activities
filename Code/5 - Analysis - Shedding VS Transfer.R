@@ -15,7 +15,6 @@ forplotTot12_Vcotton$Transfer <- paste0("W", sprintf("%03d", forplotTot12_Vcotto
 forplotTotRcotton$Transfer <- paste0("W", sprintf("%03d", forplotTotRcotton$Transfer))
 
 Wash_codes <- c("W000", "W001", "W003","W005","W007","W009","W011","W013","W015")
-Wash_codes2 <- c("W000", "W025", "W041","W051")
 
 # Loop through each Wash code, filter the dataframe, and create a new variable in the global environment
 for (Wash_code in Wash_codes) {
@@ -34,32 +33,20 @@ for (Wash_code in Wash_codes) {
 }
 
 Wash_codes <- c("W000","W051")
-for (Wash_code in Wash_code2) {
+for (Wash_code in Wash_codes) {
   filtered_df <- forplotTot5_Vcotton %>% filter(grepl(Wash_code, Transfer))
   assign(paste("results_Transfer_5_Vcotton", Wash_code, sep = "_"), filtered_df)
 }
 
-for (Wash_code in Wash_code2) {
+Wash_codes <- c("W000","W041")
+for (Wash_code in Wash_codes) {
   filtered_df <- forplotTot12_Vcotton %>% filter(grepl(Wash_code, Transfer))
   assign(paste("results_Transfer_12_Vcotton", Wash_code, sep = "_"), filtered_df)
 }
 
-for (Wash_code in Wash_code2) {
-  filtered_df <- forplotTotRcotton %>% filter(grepl(Wash_code, Transfer))
-  assign(paste("results_Transfer_Rcotton", Wash_code, sep = "_"), filtered_df)
-}
+# Wash_codes <- c("W000","W015")
 # for (Wash_code in Wash_codes) {
-#   filtered_df <- meanAtr5_Vcotton %>% filter(grepl(Wash_code, Wash))
-#   assign(paste("results_Transfer_5_Vcotton", Wash_code, sep = "_"), filtered_df)
-# }
-# 
-# for (Wash_code in Wash_codes) {
-#   filtered_df <- meanAtr12_Vcotton %>% filter(grepl(Wash_code, Wash))
-#   assign(paste("results_Transfer_12_Vcotton", Wash_code, sep = "_"), filtered_df)
-# }
-# 
-# for (Wash_code in Wash_codes) {
-#   filtered_df <- meanAtrRcotton %>% filter(grepl(Wash_code, Wash))
+#   filtered_df <- forplotTotRcotton %>% filter(grepl(Wash_code, Transfer))
 #   assign(paste("results_Transfer_Rcotton", Wash_code, sep = "_"), filtered_df)
 # }
 
@@ -70,14 +57,17 @@ results_VcottonD_T <- rbind(results_Transfer_VcottonD_W000,results_Transfer_Vcot
                       results_Transfer_VcottonD_W007,results_Transfer_VcottonD_W009,results_Transfer_VcottonD_W011,results_Transfer_VcottonD_W013,results_Transfer_VcottonD_W015)
 results_VcottonDC_T <- rbind(results_Transfer_VcottonDC_W000,results_Transfer_VcottonDC_W001,results_Transfer_VcottonDC_W003,results_Transfer_VcottonDC_W005,
                       results_Transfer_VcottonDC_W007,results_Transfer_VcottonDC_W009,results_Transfer_VcottonDC_W011,results_Transfer_VcottonDC_W013,results_Transfer_VcottonDC_W015)
-results_5_Vcotton_T <- rbind(results_Transfer_5_Vcotton_W000,results_Transfer_VcottonDC_W001,results_Transfer_VcottonDC_W003,results_Transfer_VcottonDC_W005,
-                             results_Transfer_VcottonDC_W007,results_Transfer_VcottonDC_W009,results_Transfer_VcottonDC_W011,results_Transfer_VcottonDC_W013,results_Transfer_VcottonDC_W015)
+results_5_Vcotton_T <- rbind(results_Transfer_5_Vcotton_W000,results_Transfer_5_Vcotton_W051)
+results_12_Vcotton_T <- rbind(results_Transfer_12_Vcotton_W000,results_Transfer_12_Vcotton_W041)
 
 results_Vcotton_S<- results_shedding_Vcotton %>% filter(grepl('800g', Weight))
 results_VcottonD_S<- results_Shedding_VcottonD %>% filter(grepl('800g', Weight))
 results_VcottonD_S<- results_VcottonD_S %>% filter(!grepl('W011', Wash))
 results_VcottonDC_S<- results_Shedding_VcottonDC %>% filter(grepl('800g', Weight))
 results_VcottonDC_S<- results_VcottonDC_S %>% filter(!grepl('W011', Wash))
+
+results_5_Vcotton_S <- results_shedding_5_Vcotton
+results_12_Vcotton_S <-results_shedding_12_Vcotton
 
 # Ensure the data is ordered consistently by weight category if necessary
 results_Vcotton_S <- results_Vcotton_S[order(results_Vcotton_S$Wash, results_Vcotton_S$Weight), ]
@@ -165,7 +155,7 @@ pPearson_combined <- annotate_figure(pPearson_combined_pending, left = textGrob(
 pPearson_combined
 
 # To save the graph
-ggsave("Figure XXX - Transfer VS Shedding.png", pPearson_combined, width = 8, height = 10, units = "in", dpi=600, path = "Results")
+ggsave("Figure 14 - Transfer VS Shedding.png", pPearson_combined, width = 8, height = 10, units = "in", dpi=600, path = "Results")
 
 # #### Final graph - Figure XXX ####
 # results_Vcotton_S$coder <- c("Shed")

@@ -68,7 +68,7 @@ pSH_Vcotton <- ggplot(results_shedding_Vcotton, aes(x = factor(Weight, level = c
         legend.position = "bottom",
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))
-ggsave("Shedding_Vcotton.png", pSH_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+# ggsave("Shedding_Vcotton.png", pSH_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 
 #### STATS ####
 ## Create different dataframes with each wash
@@ -163,53 +163,52 @@ results_shedding_Vcotton_W011_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_s
 results_shedding_Vcotton_W013_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_shedding_Vcotton_W013, method="bonferroni");results_shedding_Vcotton_W013_Dunn
 results_shedding_Vcotton_W015_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_shedding_Vcotton_W015, method="bonferroni");results_shedding_Vcotton_W015_Dunn
 
+# write.table(results_shedding_Vcotton_W003_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W003.csv", quote = F, sep = ",", row.names = F)
+# write.table(results_shedding_Vcotton_W005_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W005.csv", quote = F, sep = ",", row.names = F)
+# write.table(results_shedding_Vcotton_W007_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W007.csv", quote = F, sep = ",", row.names = F)
+# write.table(results_shedding_Vcotton_W011_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W011.csv", quote = F, sep = ",", row.names = F)
+# write.table(results_shedding_Vcotton_W013_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W013.csv", quote = F, sep = ",", row.names = F)
+# write.table(results_shedding_Vcotton_W015_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W015.csv", quote = F, sep = ",", row.names = F)
 
-write.table(results_shedding_Vcotton_W003_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W003.csv", quote = F, sep = ",", row.names = F)
-write.table(results_shedding_Vcotton_W005_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W005.csv", quote = F, sep = ",", row.names = F)
-write.table(results_shedding_Vcotton_W007_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W007.csv", quote = F, sep = ",", row.names = F)
-write.table(results_shedding_Vcotton_W011_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W011.csv", quote = F, sep = ",", row.names = F)
-write.table(results_shedding_Vcotton_W013_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W013.csv", quote = F, sep = ",", row.names = F)
-write.table(results_shedding_Vcotton_W015_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W015.csv", quote = F, sep = ",", row.names = F)
-
-dataframes <- list(summary_post_testW000,summary_post_testW001,summary_post_testW009)
-
-# Create a function to compute statistics and write to CSV
-compute_and_write_stats <- function(df, filename) {
-  coefficients <- df$test$coefficients
-  std_errors <- df$test$sigma
-  t_values <- df$test$tstat
-  p_values <- df$test$pvalues
-  
-  # Convert p-values to non-scientific notation
-  formatted_p_values <- formatC(p_values, format = "f", digits = 5)
-  
-  # Assign significance levels with stars
-  significance_stars <- ifelse(p_values < 0.001, "***", ifelse(p_values < 0.01, "**", ifelse(p_values < 0.05, "*", "NS")))
-  
-  datatable <- data.frame(
-    'Pairwise Comparison' = names(coefficients),
-    Estimate = coefficients,
-    'T-Value' = t_values,
-    'p-Value' = formatted_p_values,
-    'Significance' = significance_stars  # Add the new column for significance stars
-  )
-  
-  # Ensure the Results directory exists
-  if(!dir.exists(dirname(filename))) {
-    dir.create(dirname(filename), recursive = TRUE)
-  }
-  
-  write.table(datatable, file = filename, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE, fileEncoding = "UTF-8")
-}
-
-
-# Assuming dataframes is a list of summary objects from glht tests
-dataframes <- list(summary_post_testW000 = summary_post_testW000, summary_post_testW001 = summary_post_testW001,summary_post_testW009 = summary_post_testW009)
-
-# Loop through the dataframes and compute/write statistics
-for (i in seq_along(dataframes)) {
-  compute_and_write_stats(dataframes[[i]], paste0("Results/Statistics/Shedding_Vcotton_", i, ".csv"))
-}
+# dataframes <- list(summary_post_testW000,summary_post_testW001,summary_post_testW009)
+# 
+# # Create a function to compute statistics and write to CSV
+# compute_and_write_stats <- function(df, filename) {
+#   coefficients <- df$test$coefficients
+#   std_errors <- df$test$sigma
+#   t_values <- df$test$tstat
+#   p_values <- df$test$pvalues
+#   
+#   # Convert p-values to non-scientific notation
+#   formatted_p_values <- formatC(p_values, format = "f", digits = 5)
+#   
+#   # Assign significance levels with stars
+#   significance_stars <- ifelse(p_values < 0.001, "***", ifelse(p_values < 0.01, "**", ifelse(p_values < 0.05, "*", "NS")))
+#   
+#   datatable <- data.frame(
+#     'Pairwise Comparison' = names(coefficients),
+#     Estimate = coefficients,
+#     'T-Value' = t_values,
+#     'p-Value' = formatted_p_values,
+#     'Significance' = significance_stars  # Add the new column for significance stars
+#   )
+#   
+#   # Ensure the Results directory exists
+#   if(!dir.exists(dirname(filename))) {
+#     dir.create(dirname(filename), recursive = TRUE)
+#   }
+#   
+#   write.table(datatable, file = filename, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE, fileEncoding = "UTF-8")
+# }
+# 
+# 
+# # Assuming dataframes is a list of summary objects from glht tests
+# dataframes <- list(summary_post_testW000 = summary_post_testW000, summary_post_testW001 = summary_post_testW001,summary_post_testW009 = summary_post_testW009)
+# 
+# # Loop through the dataframes and compute/write statistics
+# for (i in seq_along(dataframes)) {
+#   compute_and_write_stats(dataframes[[i]], paste0("Results/Statistics/Shedding_Vcotton_", i, ".csv"))
+# }
 
 # ------------------------------------------------------------------------
 # Section 2: Garment 2
@@ -277,7 +276,7 @@ pSH_VcottonD <- ggplot(results_Shedding_VcottonD, aes(x = factor(Weight, level =
         legend.position = "bottom",
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))
-ggsave("Shedding_VcottonD.png", pSH_VcottonD, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+# ggsave("Shedding_VcottonD.png", pSH_VcottonD, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 
 # ------------------------------------------------------------------------
 # Section 3: Garment 3
@@ -345,7 +344,7 @@ pSH_VcottonDC <- ggplot(results_Shedding_VcottonDC, aes(x = factor(Weight, level
         legend.position = "bottom",
         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
   geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))
-ggsave("Shedding_VcottonDC.png", pSH_VcottonDC, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+# ggsave("Shedding_VcottonDC.png", pSH_VcottonDC, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 
 # ------------------------------------------------------------------------
 # Section 4: 4th series 
@@ -438,7 +437,7 @@ pSH_5_Vcotton <- ggplot(results_shedding_5_Vcotton, aes(x = factor(Weight, level
   geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))+
   geom_text(x=b, y=a+2, label=label,colour="#c9101a")+
   geom_errorbarh(aes(xmax = (b + 0.3), xmin = (b - 0.3), y = a-20), height = 15,colour="#c9101a") 
-ggsave("Shedding_5_Vcotton.png", pSH_5_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+#ggsave("Shedding_5_Vcotton.png", pSH_5_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 pSH_5_Vcotton
 # ------------------------------------------------------------------------
 # Section 5: Garment 5
@@ -534,7 +533,7 @@ pSH_12_Vcotton <- ggplot(results_shedding_12_Vcotton_bis, aes(x = factor(Weight,
   geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))+
   geom_text(x=d, y=c+2, label=label,colour="#c9101a")+
   geom_errorbarh(aes(xmax = (d + 0.3), xmin = (d - 0.3), y = c-20), height = 15,colour="#c9101a") 
-ggsave("Shedding_12_Vcotton.png", pSH_12_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+#ggsave("Shedding_12_Vcotton.png", pSH_12_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 pSH_12_Vcotton
 
 # ------------------------------------------------------------------------
@@ -628,7 +627,7 @@ pSH_Rcotton <- ggplot(results_shedding_Rcotton, aes(x = factor(Weight, level = c
   geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))+
   geom_text(x=f, y=e+2, label=label,colour="#c9101a")+
   geom_errorbarh(aes(xmax = (f + 0.3), xmin = (f - 0.3), y = e-20), height = 15,colour="#c9101a") 
-ggsave("Shedding_Rcotton.png", pSH_Rcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
+# ggsave("Shedding_Rcotton.png", pSH_Rcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 pSH_Rcotton
 
 # ------------------------------------------------------------------------
@@ -660,7 +659,7 @@ pCombinedSH <- annotate_figure(pCombinedSH_pending, left = textGrob("Shed fibre 
 pCombinedSH
 
 # to save the graph
-ggsave("Figure XXX - Shedding all garments.png", pCombinedSH, width =8, height = 10, units = "in", dpi=600,path = "Results")
+ggsave("Figure 10 - Shedding 1st to 3rd series.png", pCombinedSH, width =8, height = 10, units = "in", dpi=600,path = "Results")
 
 
 #### Final graph - Figure XXX #### 
@@ -684,7 +683,7 @@ pCombinedSH2 <- annotate_figure(pCombinedSH_pendinVcottonD, left = textGrob("She
 pCombinedSH2
 
 # to save the graph
-ggsave("Figure XXX - Shedding 4-6 garments.png", pCombinedSH2, width =7, height = 10, units = "in", dpi=600,path = "Results")
+ggsave("Figure 11 - Shedding 4th to 6th series.png", pCombinedSH2, width =7, height = 10, units = "in", dpi=600,path = "Results")
 
 #### EXPORT TABLE FOR ARTICLE ####
 # Create a list of dataframes
@@ -737,23 +736,26 @@ for (i in 1:length(dataframes)) {
   compute_and_write_stats(dataframes[[i]], paste("Results/Statistics/Shedding Descriptive statistics - Series ", c(4, 5, 6)[i], ".csv", sep = ""))
 }
 
-# Table for comparisons in discussion
-# Define the weights you want to process
-weights <- c("100g", "200g", "400g", "800g", "1000g", "2000g")
+# # Table for comparisons in discussion
+# # Define the weights you want to process
+# weights <- c("100g", "200g", "400g", "800g", "1000g", "2000g")
+# 
+# # Loop over each weight
+# for (weight in weights) {
+#   # Filter each dataset by the current weight and fixed wash condition
+#   Shedding_Vcotton_table <- filter(Shedding_Vcotton, Weight == weight & Wash == "W000")
+#   Shedding_VcottonD_table <- filter(Shedding_VcottonD, Weight == weight & Wash == "W000")
+#   Shedding_VcottonDC_table <- filter(Shedding_VcottonDC, Weight == weight & Wash == "W000")
+#   Shedding_5_Vcotton_table <- filter(Shedding_5_Vcotton, Weight == weight & Wash == "W000")
+#   Shedding_12_Vcotton_table <- filter(Shedding_12_Vcotton, Weight == weight & Wash == "W000")
+#   
+#   # Combine the tables
+#   Shedding_table <- rbind(Shedding_Vcotton_table, Shedding_VcottonD_table, Shedding_VcottonDC_table,Shedding_5_Vcotton_table,Shedding_12_Vcotton_table)
+#   
+#   # Construct file name based on the weight
+#   file_name <- sprintf("Results/Statistics/Shedding_table_%s.csv", gsub("g", "", weight))
+#   
+#   # Write the combined table to a CSV file
+#   write.table(Shedding_table, file = file_name, quote = FALSE, sep = ",", row.names = FALSE)
+# }
 
-# Loop over each weight
-for (weight in weights) {
-  # Filter each dataset by the current weight and fixed wash condition
-  Shedding_Vcotton_table <- filter(Shedding_Vcotton, Weight == weight & Wash == "W000")
-  Shedding_VcottonD_table <- filter(Shedding_VcottonD, Weight == weight & Wash == "W000")
-  Shedding_VcottonDC_table <- filter(Shedding_VcottonDC, Weight == weight & Wash == "W000")
-  
-  # Combine the tables
-  Shedding_table <- rbind(Shedding_Vcotton_table, Shedding_VcottonD_table, Shedding_VcottonDC_table)
-  
-  # Construct file name based on the weight
-  file_name <- sprintf("Results/Statistics/Shedding_table_%s.csv", gsub("g", "", weight))
-  
-  # Write the combined table to a CSV file
-  write.table(Shedding_table, file = file_name, quote = FALSE, sep = ",", row.names = FALSE)
-}
