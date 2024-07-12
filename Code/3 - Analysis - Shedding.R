@@ -70,146 +70,6 @@ pSH_Vcotton <- ggplot(results_shedding_Vcotton, aes(x = factor(Weight, level = c
   geom_errorbar(aes(ymin=Mean_Area-SD_Area, ymax=Mean_Area+SD_Area),width=.2,position=position_dodge(.9))
 # ggsave("Shedding_Vcotton.png", pSH_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 
-#### STATS ####
-## Create different dataframes with each wash
-wash_codes <- c("W000", "W001", "W003", "W005", "W007", "W009", "W011", "W013", "W015")
-# Loop through each wash code, filter the dataframe, and create a new variable in the global environment
-for (wash_code in wash_codes) {
-  filtered_df <- Shedding_Vcotton %>% filter(grepl(wash_code, Wash))
-  
-  # Dynamically create variable names and assign dataframes to them
-  assign(paste("results_shedding_Vcotton", wash_code, sep = "_"), filtered_df)
-}
-
-# Residuals VS Fitted and and Q-Q plots
-# Combine dataframes into one, adding a 'Wash' column to identify the group
-# Adjust the plotting area to accommodate all plots
-OP <- par(mfrow=c(3,2))
-# Loop through each wash code and plot the linear model
-for (wash_code in wash_codes) {
-  dataframe_name <- paste("results_shedding_Vcotton", wash_code, sep = "_")
-  # Dynamically retrieve the dataframe using get()
-  current_df <- get(dataframe_name)
-  # Plot the linear model
-  plot(lm(Area.mm2 ~ Weight, data = current_df), 1:2, main = wash_code)
-}
-# Reset to original plotting parameters
-par(OP)
-
-# Test of normality - shapiro test
-# List of dataframe names
-dataframe_names <- c("results_shedding_Vcotton_W000", "results_shedding_Vcotton_W001", "results_shedding_Vcotton_W003","results_shedding_Vcotton_W005", "results_shedding_Vcotton_W007", "results_shedding_Vcotton_W009","results_shedding_Vcotton_W011", "results_shedding_Vcotton_W013", "results_shedding_Vcotton_W015")
-# Function to perform Shapiro-Wilk test and interpret results
-perform_shapiro_test <- function(df_name) {
-  dataframe <- get(df_name)
-  test_result <- shapiro.test(dataframe$Area.mm2)
-  interpretation <- ifelse(test_result$p.value < 0.05, "Not normally distributed", "Normally distributed")
-  message(paste(df_name, "- p-value:", test_result$p.value, interpretation))
-}
-# Apply the function to each dataframe name
-lapply(dataframe_names, perform_shapiro_test)
-
-# Analysis for the normally distributed wash
-### sphericity test
-#Levene’s Test
-#H0: All sample variances are equal
-#H1: At least one group has a variance that is not equal to the rest.
-results_shedding_Vcotton_W000$Weight <- as.factor(results_shedding_Vcotton_W000$Weight)
-leveneTest(Area.mm2 ~ Weight, results_shedding_Vcotton_W000) # p-value = 0.5255,  equal variances
-results_shedding_Vcotton_W001$Weight <- as.factor(results_shedding_Vcotton_W001$Weight)
-leveneTest(Area.mm2 ~ Weight, results_shedding_Vcotton_W001) # p-value = 0.2146,  equal variances
-results_shedding_Vcotton_W009$Weight <- as.factor(results_shedding_Vcotton_W009$Weight)
-leveneTest(Area.mm2 ~ Weight, results_shedding_Vcotton_W009) # p-value = 0.8318,  equal variances
-
-# ANOVA
-res_aovW000 <- aov(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W000)
-summary(res_aovW000) #  p-value = 5.15e-07
-res_aovW001 <- aov(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W001)
-summary(res_aovW001) #  p-value = 2.33e-11
-res_aovW009 <- aov(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W009)
-summary(res_aovW009) #  p-value = 2.41e-05
-
-# Tukey HSD test:
-post_testW000 <- glht(res_aovW000, linfct = mcp(Weight = "Tukey"))
-summary_post_testW000 <- summary(post_testW000);summary_post_testW000
-post_testW001 <- glht(res_aovW001, linfct = mcp(Weight = "Tukey"))
-summary_post_testW001 <- summary(post_testW001);summary_post_testW001
-post_testW009 <- glht(res_aovW009, linfct = mcp(Weight = "Tukey"))
-summary_post_testW009 <- summary(post_testW009);summary_post_testW009
-
-# Analysis for the non normally distributed wash
-results_shedding_Vcotton_W003$Weight <- as.factor(results_shedding_Vcotton_W003$Weight)
-kruskal.test(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W003)#  p-value = 0.0001559
-
-results_shedding_Vcotton_W005$Weight <- as.factor(results_shedding_Vcotton_W005$Weight)
-kruskal.test(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W005)#  p-value = 0.00055
-
-results_shedding_Vcotton_W007$Weight <- as.factor(results_shedding_Vcotton_W007$Weight)
-kruskal.test(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W007)#  p-value = 8.87e-05
-
-results_shedding_Vcotton_W011$Weight <- as.factor(results_shedding_Vcotton_W011$Weight)
-kruskal.test(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W011)#  p-value = 8.728e-05
-
-results_shedding_Vcotton_W013$Weight <- as.factor(results_shedding_Vcotton_W013$Weight)
-kruskal.test(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W013)#  p-value = 5.016e-05
-
-results_shedding_Vcotton_W015$Weight <- as.factor(results_shedding_Vcotton_W015$Weight)
-kruskal.test(Area.mm2 ~ Weight, data = results_shedding_Vcotton_W015)#  p-value = 0.002379
-
-results_shedding_Vcotton_W003_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_shedding_Vcotton_W003, method="bonferroni");results_shedding_Vcotton_W003_Dunn
-results_shedding_Vcotton_W005_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_shedding_Vcotton_W005, method="bonferroni");results_shedding_Vcotton_W005_Dunn
-results_shedding_Vcotton_W007_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_shedding_Vcotton_W007, method="bonferroni");results_shedding_Vcotton_W007_Dunn
-results_shedding_Vcotton_W011_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_shedding_Vcotton_W011, method="bonferroni");results_shedding_Vcotton_W011_Dunn
-results_shedding_Vcotton_W013_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_shedding_Vcotton_W013, method="bonferroni");results_shedding_Vcotton_W013_Dunn
-results_shedding_Vcotton_W015_Dunn <- dunnTest(Area.mm2 ~ Weight, data=results_shedding_Vcotton_W015, method="bonferroni");results_shedding_Vcotton_W015_Dunn
-
-# write.table(results_shedding_Vcotton_W003_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W003.csv", quote = F, sep = ",", row.names = F)
-# write.table(results_shedding_Vcotton_W005_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W005.csv", quote = F, sep = ",", row.names = F)
-# write.table(results_shedding_Vcotton_W007_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W007.csv", quote = F, sep = ",", row.names = F)
-# write.table(results_shedding_Vcotton_W011_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W011.csv", quote = F, sep = ",", row.names = F)
-# write.table(results_shedding_Vcotton_W013_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W013.csv", quote = F, sep = ",", row.names = F)
-# write.table(results_shedding_Vcotton_W015_Dunn$res, file = "Results/Statistics/Shedding_Vcotton_W015.csv", quote = F, sep = ",", row.names = F)
-
-# dataframes <- list(summary_post_testW000,summary_post_testW001,summary_post_testW009)
-# 
-# # Create a function to compute statistics and write to CSV
-# compute_and_write_stats <- function(df, filename) {
-#   coefficients <- df$test$coefficients
-#   std_errors <- df$test$sigma
-#   t_values <- df$test$tstat
-#   p_values <- df$test$pvalues
-#   
-#   # Convert p-values to non-scientific notation
-#   formatted_p_values <- formatC(p_values, format = "f", digits = 5)
-#   
-#   # Assign significance levels with stars
-#   significance_stars <- ifelse(p_values < 0.001, "***", ifelse(p_values < 0.01, "**", ifelse(p_values < 0.05, "*", "NS")))
-#   
-#   datatable <- data.frame(
-#     'Pairwise Comparison' = names(coefficients),
-#     Estimate = coefficients,
-#     'T-Value' = t_values,
-#     'p-Value' = formatted_p_values,
-#     'Significance' = significance_stars  # Add the new column for significance stars
-#   )
-#   
-#   # Ensure the Results directory exists
-#   if(!dir.exists(dirname(filename))) {
-#     dir.create(dirname(filename), recursive = TRUE)
-#   }
-#   
-#   write.table(datatable, file = filename, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE, fileEncoding = "UTF-8")
-# }
-# 
-# 
-# # Assuming dataframes is a list of summary objects from glht tests
-# dataframes <- list(summary_post_testW000 = summary_post_testW000, summary_post_testW001 = summary_post_testW001,summary_post_testW009 = summary_post_testW009)
-# 
-# # Loop through the dataframes and compute/write statistics
-# for (i in seq_along(dataframes)) {
-#   compute_and_write_stats(dataframes[[i]], paste0("Results/Statistics/Shedding_Vcotton_", i, ".csv"))
-# }
-
 # ------------------------------------------------------------------------
 # Section 2: Garment 2
 # ------------------------------------------------------------------------
@@ -759,3 +619,110 @@ for (i in 1:length(dataframes)) {
 #   write.table(Shedding_table, file = file_name, quote = FALSE, sep = ",", row.names = FALSE)
 # }
 
+#### STATS ####
+# Create the combined dataframe for statistical analysis
+For_Stats <- rbind(Shedding_Vcotton, Shedding_VcottonD, Shedding_VcottonDC)
+
+# Function to create a subset of For_Stats data based on weight pattern and garment
+createTransfer_Subset <- function(For_Stats, weightPattern, garment) {
+  subset <- For_Stats %>%
+    filter(Weight == weightPattern & Garment == garment)
+  
+  subset$weightCoder <- weightPattern
+  
+  return(subset)
+}
+
+# Define the weights and garments based on unique values from the dataframe
+weights <- c('100g','200g','400g','800g','1000g','2000g')
+garments <- c('1Vcotton','1VcottonD','1VcottonDC')
+
+# Create subsets of the data for each combination of garment and weight
+for (garment in garments) {
+  for (weight in weights) {
+    assign(paste0("For_Stats_Shedding", "_", weight, "_", garment), 
+           createTransfer_Subset(For_Stats, weight, garment))
+  }
+}
+
+
+# Combine all the subsets for Red with 180 rotation into one dataframe
+For_Stats_Shedding_100g <- rbind(For_Stats_Shedding_100g_1Vcotton, For_Stats_Shedding_100g_1VcottonD,For_Stats_Shedding_100g_1VcottonDC)
+For_Stats_Shedding_200g <- rbind(For_Stats_Shedding_200g_1Vcotton, For_Stats_Shedding_200g_1VcottonD,For_Stats_Shedding_200g_1VcottonDC)
+For_Stats_Shedding_400g <- rbind(For_Stats_Shedding_400g_1Vcotton, For_Stats_Shedding_400g_1VcottonD,For_Stats_Shedding_400g_1VcottonDC)
+For_Stats_Shedding_800g <- rbind(For_Stats_Shedding_800g_1Vcotton, For_Stats_Shedding_800g_1VcottonD,For_Stats_Shedding_800g_1VcottonDC)
+For_Stats_Shedding_1000g <- rbind(For_Stats_Shedding_1000g_1Vcotton, For_Stats_Shedding_1000g_1VcottonD,For_Stats_Shedding_1000g_1VcottonDC)
+For_Stats_Shedding_2000g <- rbind(For_Stats_Shedding_2000g_1Vcotton, For_Stats_Shedding_2000g_1VcottonD,For_Stats_Shedding_2000g_1VcottonDC)
+
+# Test of normality - shapiro test
+# List of dataframe names
+dataframe_names <- c("For_Stats_Shedding_100g","For_Stats_Shedding_200g","For_Stats_Shedding_400g",
+                     "For_Stats_Shedding_800g","For_Stats_Shedding_1000g","For_Stats_Shedding_2000g")
+# Function to perform Shapiro-Wilk test and interpret results
+perform_shapiro_test <- function(df_name) {
+  dataframe <- get(df_name)
+  test_result <- shapiro.test(dataframe$Area.mm2)
+  interpretation <- ifelse(test_result$p.value < 0.05, "Not normally distributed", "Normally distributed")
+  message(paste(df_name, "- p-value:", test_result$p.value, interpretation))
+}
+# Apply the function to each dataframe name
+lapply(dataframe_names, perform_shapiro_test)
+# For_Stats_Shedding_100g - p-value: 1.02873994007177e-11 Not normally distributed
+# For_Stats_Shedding_200g - p-value: 8.34126968552537e-11 Not normally distributed
+# For_Stats_Shedding_400g - p-value: 5.14663283980105e-10 Not normally distributed
+# For_Stats_Shedding_800g - p-value: 2.76486168097498e-08 Not normally distributed
+# For_Stats_Shedding_1000g - p-value: 4.44185544889641e-09 Not normally distributed
+# For_Stats_Shedding_2000g - p-value: 1.30458853700905e-07 Not normally distributed
+
+# Analysis for the normally distributed wash
+### sphericity test
+#Levene’s Test
+#H0: All sample variances are equal
+#H1: At least one group has a variance that is not equal to the rest.
+For_Stats_Shedding_100g$Garment <- as.factor(For_Stats_Shedding_100g$Garment)
+leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_100g) # p-value = 0.2216,  equal variances
+
+For_Stats_Shedding_200g$Garment <- as.factor(For_Stats_Shedding_200g$Garment)
+leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_200g) # p-value = 0.1686,  equal variances
+
+For_Stats_Shedding_400g$Garment <- as.factor(For_Stats_Shedding_400g$Garment)
+leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_400g) # p-value = 0.8188,  equal variances
+
+For_Stats_Shedding_800g$Garment <- as.factor(For_Stats_Shedding_800g$Garment)
+leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_800g) # p-value = 0.6499,  equal variances
+
+For_Stats_Shedding_1000g$Garment <- as.factor(For_Stats_Shedding_1000g$Garment)
+leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_1000g) # p-value = 0.5355,  equal variances
+
+For_Stats_Shedding_2000g$Garment <- as.factor(For_Stats_Shedding_2000g$Garment)
+leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_2000g) # p-value = 0.7381,  equal variances
+
+# Analysis for the non normally distributed data
+For_Stats_Shedding_100g$Garment <- as.factor(For_Stats_Shedding_100g$Garment)
+kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_100g)#  p-value = 0.07137 NS
+
+For_Stats_Shedding_200g$Garment <- as.factor(For_Stats_Shedding_200g$Garment)
+kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_200g)#  p-value = 0.022 *
+
+For_Stats_Shedding_400g$Garment <- as.factor(For_Stats_Shedding_400g$Garment)
+kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_400g)#  p-value = 0.02152 *
+
+For_Stats_Shedding_800g$Garment <- as.factor(For_Stats_Shedding_800g$Garment)
+kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_800g)#  p-value = 0.1474 NS
+
+For_Stats_Shedding_1000g$Garment <- as.factor(For_Stats_Shedding_1000g$Garment)
+kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_1000g)#  p-value = 0.05226 NS
+
+For_Stats_Shedding_2000g$Garment <- as.factor(For_Stats_Shedding_2000g$Garment)
+kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_2000g)#  p-value = 0.04425 *
+
+For_Stats_Shedding_100g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_100g, method="bonferroni");For_Stats_Shedding_100g_Dunn
+For_Stats_Shedding_200g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_200g, method="bonferroni");For_Stats_Shedding_200g_Dunn
+For_Stats_Shedding_400g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_400g, method="bonferroni");For_Stats_Shedding_400g_Dunn
+For_Stats_Shedding_800g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_800g, method="bonferroni");For_Stats_Shedding_800g_Dunn
+For_Stats_Shedding_1000g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_1000g, method="bonferroni");For_Stats_Shedding_1000g_Dunn
+For_Stats_Shedding_2000g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_2000g, method="bonferroni");For_Stats_Shedding_2000g_Dunn
+
+For_Stats_Shedding_Dunn_Table <- cbind(For_Stats_Shedding_100g_Dunn$res,For_Stats_Shedding_200g_Dunn$res,For_Stats_Shedding_400g_Dunn$res,
+                                       For_Stats_Shedding_800g_Dunn$res,For_Stats_Shedding_1000g_Dunn$res,For_Stats_Shedding_2000g_Dunn$res)
+write.table(For_Stats_Shedding_Dunn_Table, file = "Results/Statistics/Shedding_Stats_raw.csv", quote = F, sep = ",", row.names = F)

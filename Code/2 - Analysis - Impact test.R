@@ -17,6 +17,8 @@ Handpressure$Area.px <- (Handpressure$Area*1)/0.000011
 # scale of the image: 1 mm = 110 pixels, 1mm2 = 12100 px
 Handpressure$Area.mm2 <- Handpressure$Area.px/12100
 
+write.table(Handpressure, file = "Results/For Pat/Handpressure.csv", quote = F, sep = ",", row.names = F)
+
 ## Create different dataframes for each participant
 Handpressure_O1 <- Handpressure %>% filter(Operator == "Operator 1")
 Handpressure_O2 <- Handpressure %>% filter(Operator == "Operator 2")

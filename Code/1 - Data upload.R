@@ -39,6 +39,7 @@ Handpressure_Extended <- data.frame(str_split(Handpressure$Slice, "_", simplify=
 Handpressure <- data.frame(cbind(Operator=Handpressure_Extended$X2,Pressure=Handpressure_Extended$X3,Garment=Handpressure_Extended$X4,Repeat=Handpressure_Extended$X5,Sample=Handpressure_Extended$X6,Area=Handpressure$Total.Area))
 Handpressure$Area <- as.numeric(Handpressure$Area)
 rm(Handpressure_Extended)
+write.table(Handpressure, file = "Results/For Pat/Handpressure.csv", quote = F, sep = ",", row.names = F)
 
 # ------------------------------------------------------------------------
 # Section 2: Shedding data from washed garments
