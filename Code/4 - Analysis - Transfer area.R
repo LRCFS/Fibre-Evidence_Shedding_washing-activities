@@ -188,7 +188,7 @@ meanAtr5_Vcotton <- aggregate(value ~ Wash, Transfer_5_Vcotton, function(x) roun
 SDAtr5_Vcotton <- aggregate(value ~ Wash, Transfer_5_Vcotton, function(x) round(sd(x), digits = 3))
 forplotTot5_Vcotton <- data.frame(cbind(numS, value =meanAtr5_Vcotton$value))
 names(forplotTot5_Vcotton) <- c("Transfer", "value")
-forplotTot5_Vcotton$group <- c("R-cotton textile")
+forplotTot5_Vcotton$group <- c("5 v-cotton garment")
 
 # data from the series involving Washing a single donor garment with detergent and softener
 n=41
@@ -199,7 +199,7 @@ meanAtr12_Vcotton <- aggregate(value ~ Wash, Transfer_12_Vcotton, function(x) ro
 SDAtr12_Vcotton <- aggregate(value ~ Wash, Transfer_12_Vcotton, function(x) round(sd(x), digits = 3))
 forplotTot12_Vcotton <- data.frame(cbind(numS, value =meanAtr12_Vcotton$value))
 names(forplotTot12_Vcotton) <- c("Transfer", "value")
-forplotTot12_Vcotton$group <- c("5 v-cotton garment")
+forplotTot12_Vcotton$group <- c("12 v-cotton garment")
 
 # data from the series involving Washing a single donor garment with detergent
 n=15
@@ -210,15 +210,10 @@ meanAtrRcotton <- aggregate(value ~ Wash, Transfer_Rcotton, function(x) round(me
 SDAtrRcotton <- aggregate(value ~ Wash, Transfer_Rcotton, function(x) round(sd(x), digits = 3))
 forplotTotRcotton <- data.frame(cbind(numS, value =meanAtrRcotton$value))
 names(forplotTotRcotton) <- c("Transfer", "value")
-forplotTotRcotton$group <- c("12 v-cotton garment")
+forplotTotRcotton$group <- c("R-cotton textile")
 
 # Combined all data
-Toplot <- rbind(forplotTot5_Vcotton,forplotTot12_Vcotton,forplotTotRcotton)
-
-# Add standard deviation columns to each data frame
-forplotTotVcotton$sd <- SDAtrVcotton$value
-forplotTotVcottonD$sd <- SDAtrVcottonD$value
-forplotTotVcottonDC$sd <- SDAtrVcottonDC$value
+Toplot <- rbind(forplotTot5_Vcotton, forplotTot12_Vcotton, forplotTotRcotton)
 
 # Convert specific columns to different format
 Toplot$Transfer <- as.numeric(Toplot$Transfer)
@@ -227,7 +222,7 @@ Toplot$group <- as.factor(Toplot$group)
 
 #### Final graph - Figure XXX ####
 # Set up a PNG device
-png("./Results/Figure 13 - Transfer2 4th to 6th.png", width = 2400, height = 2100, res = 300)
+png("./Results/Figure 13 - Transfer 4th to 6th.png", width = 2400, height = 2100, res = 300)
 
 # Adjust the margins (bottom, left, top, right)
 par(mar = c(5, 4, 1, 2))  # Adjust the top margin to be smaller
@@ -238,7 +233,7 @@ lty_values <- c(1, 2, 3)  # Different line types: 1 = solid, 2 = dashed, 3 = dot
 
 # Initial plot with first group only, to establish plot parameters
 plot(Toplot$Transfer[Toplot$group == "R-cotton textile"], Toplot$value[Toplot$group == "R-cotton textile"],
-     col="black", pch=pch_values[1],
+     col="black", pch=pch_values[3],
      xlab='\nWash number',
      ylab='Average area of transferred fibres',
      xlim=range(Toplot$Transfer), 
@@ -249,108 +244,157 @@ plot(Toplot$Transfer[Toplot$group == "R-cotton textile"], Toplot$value[Toplot$gr
      main="")
 
 # Add other groups to the plot with points
-points(Toplot$Transfer[Toplot$group == "5 v-cotton garment"], Toplot$value[Toplot$group == "5 v-cotton garment"], col="black", pch=pch_values[2])
-points(Toplot$Transfer[Toplot$group == "12 v-cotton garment"], Toplot$value[Toplot$group == "12 v-cotton garment"], col="black", pch=pch_values[3])
+points(Toplot$Transfer[Toplot$group == "5 v-cotton garment"], Toplot$value[Toplot$group == "5 v-cotton garment"], col="black", pch=pch_values[1])
+points(Toplot$Transfer[Toplot$group == "12 v-cotton garment"], Toplot$value[Toplot$group == "12 v-cotton garment"], col="black", pch=pch_values[2])
 
 # Define axis separately
 axis(1, at=seq(0, max(Toplot$Transfer), by=1), las=1, cex.axis = 1.2)
 
 # Add legend
-legend("topright", legend=c("R-cotton textile","5 v-cotton garment", "12 v-cotton garment"),
+legend("topright", legend=c("5 v-cotton garment", "12 v-cotton garment","R-cotton textile"),
        col="black", pch=pch_values, lty=lty_values, cex=1.2)
 
 # Predict and plot smooth curves with different line types
 spline5_Vcotton <- spline(Toplot$Transfer[Toplot$group == "R-cotton textile"], Toplot$value[Toplot$group == "R-cotton textile"], n = 200)
-lines(spline5_Vcotton$x, spline5_Vcotton$y, col = 'black', lty=lty_values[1])
+lines(spline5_Vcotton$x, spline5_Vcotton$y, col = 'black', lty=lty_values[3])
 
 spline12_Vcotton <- spline(Toplot$Transfer[Toplot$group == "5 v-cotton garment"], Toplot$value[Toplot$group == "5 v-cotton garment"], n = 200)
-lines(spline12_Vcotton$x, spline12_Vcotton$y, col = 'black', lty=lty_values[2])
+lines(spline12_Vcotton$x, spline12_Vcotton$y, col = 'black', lty=lty_values[1])
 
 splineRcotton <- spline(Toplot$Transfer[Toplot$group == "12 v-cotton garment"], Toplot$value[Toplot$group == "12 v-cotton garment"], n = 200)
-lines(splineRcotton$x, splineRcotton$y, col = 'black', lty=lty_values[3])
+lines(splineRcotton$x, splineRcotton$y, col = 'black', lty=lty_values[2])
 
 # End the plot device
 dev.off()
 
-# # ------------------------------------------------------------------------
-# # Section 2: Transfer - statistics
-# # ------------------------------------------------------------------------
-# ## Create different dataframes with each Wash
-# Wash_codes <- c("W000", "W001", "W015")
-# # Loop through each Wash code, filter the dataframe, and create a new variable in the global environment
-# for (Wash_code in Wash_codes) {
-#   filtered_df <- Transfer_Vcotton %>% filter(grepl(Wash_code, Wash))
-#   
-#   # Dynamically create variable names and assign dataframes to them
-#   assign(paste("results_Transfer_Vcotton", Wash_code, sep = "_"), filtered_df)
-# }
-# 
-# for (Wash_code in Wash_codes) {
-#   filtered_df <- Transfer_VcottonD %>% filter(grepl(Wash_code, Wash))
-#   
-#   # Dynamically create variable names and assign dataframes to them
-#   assign(paste("results_Transfer_VcottonD", Wash_code, sep = "_"), filtered_df)
-# }
-# 
-# for (Wash_code in Wash_codes) {
-#   filtered_df <- Transfer_VcottonDC %>% filter(grepl(Wash_code, Wash))
-#   
-#   # Dynamically create variable names and assign dataframes to them
-#   assign(paste("results_Transfer_VcottonDC", Wash_code, sep = "_"), filtered_df)
-# }
-# 
-# #combining results for statistic analysis
-# results_Transfer_W000 <- rbind(results_Transfer_Vcotton_W000,results_Transfer_VcottonD_W000,results_Transfer_VcottonDC_W000)
-# results_Transfer_W001 <- rbind(results_Transfer_Vcotton_W001,results_Transfer_VcottonD_W001,results_Transfer_VcottonDC_W001)
-# results_Transfer_W015 <- rbind(results_Transfer_Vcotton_W015,results_Transfer_VcottonD_W015,results_Transfer_VcottonDC_W000)
-# 
-# # Data visualisation
-# X<-ggline(results_Transfer_W000, x = "garment", y = "value",
-#        add = c("mean_se", "jitter"),
-#        order = c("Vcotton", "VcottonD", "VcottonDC"),
-#        ylab = "Number of transferred fibres", xlab = "Washing condition")
-# show(X)
-# 
-# X2<-ggline(results_Transfer_W001, x = "garment", y = "value",
-#           add = c("mean_se", "jitter"),
-#           order = c("Vcotton", "VcottonD", "VcottonDC"),
-#           ylab = "Number of transferred fibres", xlab = "Washing condition")
-# show(X2)
-# 
-# X3<-ggline(results_Transfer_W015, x = "garment", y = "value",
-#           add = c("mean_se", "jitter"),
-#           order = c("Vcotton", "VcottonD", "VcottonDC"),
-#           ylab = "Number of transferred fibres", xlab = "Washing condition")
-# show(X3)
-# 
-# # Test of normality - shapiro test
-# #H0: data are normally distributed
-# #H1: data are not normally distributed
-# shapiro.test(results_Transfer_W000$value) # p-value = 0.09684 - Normally distributed
-# shapiro.test(results_Transfer_W001$value) # p-value = 0.7346 - Normally distributed
-# shapiro.test(results_Transfer_W015$value) # p-value = 7.067e-06 - not normally distributed
-# 
-# # Analysis for the non normally distributed Wash
-# results_Transfer_W015$garment <- as.factor(results_Transfer_W015$garment)
-# kruskal.test(value ~ garment, data = results_Transfer_W015)#  p-value = 0.0003758
-# 
-# results_Transfer_W015_Dunn <- dunnTest(value ~ garment, data=results_Transfer_W015, method="bonferroni");results_Transfer_W015_Dunn
-# 
-# # Analysis for the normally distributed Wash
-# # sphericity test - Levene’s Test
-# #H0: All sample variances are equal
-# #H1: At least one group has a variance that is not equal to the rest.
-# results_Transfer_W000$garment <- as.factor(results_Transfer_W000$garment)
-# results_Transfer_W001$garment <- as.factor(results_Transfer_W001$garment)
-# leveneTest(value ~ garment, results_Transfer_W000) # p-value = 0.5937,  equal variances
-# leveneTest(value ~ garment, results_Transfer_W001) # p-value = 0.3155,  equal variances
-# 
-# # ANOVA
-# res_aovW000 <- aov(value ~ garment, results_Transfer_W000)
-# summary(res_aovW000) #  p-value = 0.174- NS
-# 
-# res_aovW001 <- aov(value ~ garment, results_Transfer_W001)
-# summary(res_aovW001) #  p-value = 0.147- NS
-# 
-# # Export the data
-# write.table(results_Transfer_W015_Dunn$res, file = "Results/Statistics/Transfer_W015.csv", quote = F, sep = ",", row.names = F)
+
+# ------------------------------------------------------------------------
+# Section 2: Transfer - statistics
+# ------------------------------------------------------------------------
+# Load the data
+first_series <- Transfer_Vcotton
+second_series <- Transfer_VcottonD
+third_series <- Transfer_VcottonDC
+
+# Add a column to each dataset to indicate the series
+first_series$Series <- 'First'
+second_series$Series <- 'Second'
+third_series$Series <- 'Third'
+
+# Combine the datasets
+combined_data <- bind_rows(first_series, second_series, third_series)
+
+# Identify common wash cycles across all three series
+common_washes <- intersect(intersect(first_series$Wash, second_series$Wash), third_series$Wash)
+
+# Filter the data to include only the common wash cycles
+filtered_data <- combined_data %>% filter(Wash %in% common_washes)
+
+# Aggregate the data by taking the mean value for each wash cycle and series combination
+aggregated_data <- filtered_data %>%
+  group_by(Wash, Series) %>%
+  summarise(value = mean(value)) %>%
+  pivot_wider(names_from = Series, values_from = value)
+
+# Test for normality for each series
+shapiro_first <- shapiro.test(aggregated_data$First)
+shapiro_second <- shapiro.test(aggregated_data$Second)
+shapiro_third <- shapiro.test(aggregated_data$Third)
+
+print(shapiro_first)
+print(shapiro_second)
+print(shapiro_third)
+
+# Perform the Friedman test
+friedman_test_result <- friedman.test(as.matrix(aggregated_data[, -1]))
+print(friedman_test_result)
+
+# Prepare data for the Nemenyi post hoc test in long format
+nemenyi_data <- aggregated_data %>%
+  pivot_longer(cols = c(First, Second, Third), names_to = "Series", values_to = "Value") %>%
+  mutate(Wash = factor(Wash), Series = factor(Series))
+
+# Perform the Nemenyi post hoc test
+nemenyi_result <- frdAllPairsNemenyiTest(Value ~ Series | Wash, data = nemenyi_data)
+print(summary(nemenyi_result))
+
+
+# Load the data
+fourth_series <- Transfer_5_Vcotton
+fifth_series <- Transfer_12_Vcotton
+sixth_series <- Transfer_Rcotton
+
+# Add a column to each dataset to indicate the series
+fourth_series$Series <- 'fourth'
+fifth_series$Series <- 'fifth'
+sixth_series$Series <- 'sixth'
+
+# Combine the datasets
+combined_data <- bind_rows(fourth_series, fifth_series, sixth_series)
+
+# Identify common wash cycles across all three series
+common_washes <- intersect(intersect(fourth_series$Wash, fifth_series$Wash), sixth_series$Wash)
+
+# Filter the data to include only the common wash cycles
+filtered_data <- combined_data %>% filter(Wash %in% common_washes)
+
+# Aggregate the data by taking the mean value for each wash cycle and series combination
+aggregated_data <- filtered_data %>%
+  group_by(Wash, Series) %>%
+  summarise(value = mean(value)) %>%
+  pivot_wider(names_from = Series, values_from = value)
+
+# Test for normality for each series
+shapiro_fourth <- shapiro.test(aggregated_data$fourth)
+shapiro_fifth <- shapiro.test(aggregated_data$fifth)
+shapiro_sixth <- shapiro.test(aggregated_data$sixth)
+
+print(shapiro_fourth)
+print(shapiro_fifth)
+print(shapiro_sixth)
+
+# Perform the Friedman test
+friedman_test_result <- friedman.test(as.matrix(aggregated_data[, -1]))
+print(friedman_test_result)
+
+# Save the aggregated data to verify the wash cycles
+#write.csv(aggregated_data, "aggregated_data.csv", row.names = FALSE)
+
+# Prepare data for the Nemenyi post hoc test in long format
+nemenyi_data <- aggregated_data %>%
+  pivot_longer(cols = c(fourth, fifth, sixth), names_to = "Series", values_to = "Value") %>%
+  mutate(Wash = factor(Wash), Series = factor(Series))
+
+# Perform the Nemenyi post hoc test
+nemenyi_result <- frdAllPairsNemenyiTest(Value ~ Series | Wash, data = nemenyi_data)
+print(summary(nemenyi_result))
+
+### Difference between garments
+#Levene’s Test
+#H0: All sample variances are equal
+#H1: At least one group has a variance that is not equal to the rest.
+forstats_gentle_operators$Garment <- as.factor(forstats_gentle_operators$Garment)
+leveneTest(Area.mm2 ~ Garment, forstats_gentle_operators) # p-value = 0.9778 equal variances
+
+# Kruskal-Wallis test 
+kruskal_test_result <- kruskal.test(Area.mm2 ~ Garment, data = forstats_gentle_operators)
+print(kruskal_test_result) # p-value = 0.5951, no differences between groups
+
+# firm pressure
+# Shapiro test
+forstats_firm_garment1 <- filter(forstats_firm_operators, Garment == "G1")
+forstats_firm_garment2 <- filter(forstats_firm_operators, Garment == "G2")
+forstats_firm_garment1 %>%
+  shapiro_test(Area.mm2) # p-value = 0.000271,  non-parametric distribution
+forstats_firm_garment2 %>%
+  shapiro_test(Area.mm2) # p-value = 0.000221, non-parametric distribution
+
+#Levene’s Test
+#H0: All sample variances are equal
+#H1: At least one group has a variance that is not equal to the rest.
+forstats_firm_operators$Garment <- as.factor(forstats_firm_operators$Garment)
+leveneTest(Area.mm2 ~ Garment, forstats_firm_operators) # p-value = 0.7416 equal variances
+
+# Kruskal-Wallis test 
+kruskal_test_result <- kruskal.test(Area.mm2 ~ Garment, data = forstats_firm_operators)
+print(kruskal_test_result) # p-value = 0.2557, no differences between groups

@@ -145,120 +145,21 @@ pCombinedHP
 # to save the graph
 ggsave("Figure 6 - Shedding with operators.png", pCombinedHP, width =8, height = 7, units = "in", dpi=600,path = "Results")
 
-#### STATS ####
-### Difference between garments
-# Gentle pressure
-data_gentle <- Handpressure_gentle_table
-Operator2_data_gentle <- filter(data_gentle,Operator == "Operator 1")
-Operator2_data_gentle <- Operator2_data_gentle %>%
-  select("Garment","Area.mm2")
-Operator4_data_gentle <- filter(data_gentle,Operator == "Operator 4")
-Operator4_data_gentle <- Operator4_data_gentle %>%
-  select("Garment","Area.mm2")
-Operator5_data_gentle <- filter(data_gentle,Operator == "Operator 5")
-Operator5_data_gentle <- Operator5_data_gentle %>%
-  select("Garment","Area.mm2")
-
-Operator2_data_gentle %>%
-  group_by(Garment) %>%
-  shapiro_test(Area.mm2)
-
-Operator4_data_gentle %>%
-  group_by(Garment) %>%
-  shapiro_test(Area.mm2)
-
-Operator5_data_gentle %>%
-  group_by(Garment) %>%
-  shapiro_test(Area.mm2)
-
-### sphericity test
-#Levene’s Test
-#H0: All sample variances are equal
-#H1: At least one group has a variance that is not equal to the rest.
-Operator2_data_gentle$Garment <- as.factor(Operator2_data_gentle$Garment)
-leveneTest(Area.mm2 ~ Garment, Operator2_data_gentle) # p-value = 0.8402, equal variances
-Operator4_data_gentle$Garment <- as.factor(Operator4_data_gentle$Garment)
-leveneTest(Area.mm2 ~ Garment, Operator4_data_gentle) # p-value = 0.2897, equal variances
-Operator5_data_gentle$Garment <- as.factor(Operator5_data_gentle$Garment)
-leveneTest(Area.mm2 ~ Garment, Operator5_data_gentle) # p-value = 0.5335, equal variances
-
-# Choice of test
-# for Operator2_data_gentle : data follow a normal distribution and have equal variance: Two Sample t-test
-# for Operator4_data_gentle : data do not follow a normal distribution and have equal variance:  Mann-Whitney U test
-# for Operator5_data_gentle : data follow a normal distribution and have equal variance: Two Sample t-test
-
-# Perform the paired T-test
-stat.test_Operator2 <- t.test(Area.mm2 ~ Garment, data = Operator2_data_gentle, subset = Garment %in% c("G1", "G2"),var.equal = TRUE)
-print(stat.test_Operator2) # p-value = 0.723 - NS
-stat.test_Operator5 <- t.test(Area.mm2 ~ Garment, data = Operator5_data_gentle, subset = Garment %in% c("G1", "G2"),var.equal = TRUE)
-print(stat.test_Operator5) # p-value = 0.5329 - NS
-
-# Perform the Mann-Whitney U test
-stat.test_Operator4 <- wilcox.test(Area.mm2 ~ Garment, data = Operator4_data_gentle, subset = Garment %in% c("G1", "G2"))
-print(stat.test_Operator4) # p-value = 0.181 - NS
-
-# Firm pressure
-data_firm <- Handpressure_firm_table
-Operator2_data_firm <- filter(data_firm,Operator == "Operator 2")
-Operator2_data_firm <- Operator2_data_firm %>%
-  select("Garment","Area.mm2")
-Operator3_data_firm <- filter(data_firm,Operator == "Operator 3")
-Operator3_data_firm <- Operator3_data_firm %>%
-  select("Garment","Area.mm2")
-Operator5_data_firm <- filter(data_firm,Operator == "Operator 5")
-Operator5_data_firm <- Operator5_data_firm %>%
-  select("Garment","Area.mm2")
-
-Operator2_data_firm %>%
-  group_by(Garment) %>%
-  shapiro_test(Area.mm2)
-
-Operator3_data_firm %>%
-  group_by(Garment) %>%
-  shapiro_test(Area.mm2)
-
-Operator5_data_firm %>%
-  group_by(Garment) %>%
-  shapiro_test(Area.mm2)
-
-### sphericity test
-#Levene’s Test
-#H0: All sample variances are equal
-#H1: At least one group has a variance that is not equal to the rest.
-Operator2_data_firm$Garment <- as.factor(Operator2_data_firm$Garment)
-leveneTest(Area.mm2 ~ Garment, Operator2_data_firm) # p-value = 0.006145 , unequal variances
-Operator3_data_firm$Garment <- as.factor(Operator3_data_firm$Garment)
-leveneTest(Area.mm2 ~ Garment, Operator3_data_firm) # p-value = 0.4807, equal variances
-Operator5_data_firm$Garment <- as.factor(Operator5_data_firm$Garment)
-leveneTest(Area.mm2 ~ Garment, Operator5_data_firm) # p-value = 0.2079, equal variances
-
-# Choice of test
-# for Operator2_data_firm : data follow a normal distribution and have equal variance: Welch Two Sample t-test
-# for Operator3_data_firm : data follow a normal distribution and have equal variance: Two Sample t-test
-# for Operator5_data_firm : data do not follow a normal distribution and have equal variance:  Mann-Whitney U test
-
-# Perform the paired T-test
-stat.test_Operator2 <- t.test(Area.mm2 ~ Garment, data = Operator2_data_firm, subset = Garment %in% c("G1", "G2"))
-print(stat.test_Operator2) # p-value = 8.537e-05 - ***
-stat.test_Operator3 <- t.test(Area.mm2 ~ Garment, data = Operator3_data_firm, subset = Garment %in% c("G1", "G2"),var.equal = TRUE)
-print(stat.test_Operator5) # p-value = 0.1648 - NS
-
-# Perform the Mann-Whitney U test
-stat.test_Operator5 <- wilcox.test(Area.mm2 ~ Garment, data = Operator5_data_firm, subset = Garment %in% c("G1", "G2"))
-print(stat.test_Operator3) # p-value = 0.09861 - NS
-
 ### Difference between operators
 # Gentle pressure
-Operator2_data_gentle %>%
+Handpressure_O1 %>%
   shapiro_test(Area.mm2) # p-value = 0.196, normal distribution
-Operator4_data_gentle %>%
+
+Handpressure_O4 %>%
   shapiro_test(Area.mm2) # p-value = 0.000109, non-parametric distribution
-Operator5_data_gentle %>%
+
+Handpressure_O5_gentle <- filter(Handpressure_O5, Pressure == "gentle")
+Handpressure_O5_gentle %>%
   shapiro_test(Area.mm2) # p-value = 0.191, normal distribution
 
-forstats_gentle_operators <- filter(data_gentle, Pressure == "gentle")
+forstats_gentle_operators <- rbind(Handpressure_O1,Handpressure_O4,Handpressure_O5_gentle)
 forstats_gentle_operators <- forstats_gentle_operators %>%
-  select("Operator","Area.mm2")
+  select("Operator","Area.mm2", "Garment")
 
 ### sphericity test
 #Levene’s Test
@@ -266,6 +167,9 @@ forstats_gentle_operators <- forstats_gentle_operators %>%
 #H1: At least one group has a variance that is not equal to the rest.
 forstats_gentle_operators$Operator <- as.factor(forstats_gentle_operators$Operator)
 leveneTest(Area.mm2 ~ Operator, forstats_gentle_operators) # p-value = 0.08089 , equal variances
+
+resultforstats_gentle_operators <- aggregate(Area.mm2 ~ Operator, data = forstats_gentle_operators, FUN = mean)
+write.table(forstats_gentle_operators, file = "Results/forstats_gentle_operators.csv", quote = F, sep = ",", row.names = F)
 
 # Choice of test
 # for forstats_gentle_operators : data do not follow a normal distribution and have equal variance:   Kruskal-Wallis test 
@@ -279,18 +183,19 @@ dunn_test_result <- dunnTest(Area.mm2 ~ Operator,data = forstats_gentle_operator
 print(dunn_test_result)
 
 # Firm pressure
-Operator2_data_firm %>%
+Handpressure_O2 %>%
   shapiro_test(Area.mm2)# p-value = 0.00374, non-parametric distribution
 
-Operator3_data_firm %>%
+Handpressure_O3 %>%
   shapiro_test(Area.mm2)# p-value = 0.0102, non-parametric distribution
 
-Operator5_data_firm %>%
+Handpressure_O5_firm <- filter(Handpressure_O5, Pressure == "firm")
+Handpressure_O5_firm %>%
   shapiro_test(Area.mm2)# p-value = 0.0000265, non-parametric distribution
 
-forstats_firm_operators <- filter(data_firm, Pressure == "firm")
+forstats_firm_operators <- rbind(Handpressure_O2,Handpressure_O3,Handpressure_O5_firm)
 forstats_firm_operators <- forstats_firm_operators %>%
-  select("Operator","Area.mm2")
+  select("Operator","Area.mm2", "Garment")
 
 ### sphericity test
 #Levene’s Test
@@ -310,6 +215,46 @@ print(kruskal_test_result) # p-value = 7.374e-16, differences between groups
 dunn_test_result <- dunnTest(Area.mm2 ~ Operator,data = forstats_firm_operators,method = "bonferroni")
 print(dunn_test_result)
 
+#### STATS ####
+### Difference between garments
+# Gentle pressure
+# Shapiro test
+forstats_gentle_garment1 <- filter(forstats_gentle_operators, Garment == "G1")
+forstats_gentle_garment2 <- filter(forstats_gentle_operators, Garment == "G2")
+forstats_gentle_garment1 %>%
+  shapiro_test(Area.mm2) # p-value = 0.0981, normal distribution
+forstats_gentle_garment2 %>%
+  shapiro_test(Area.mm2) # p-value = 0.00000142, non-parametric distribution
+
+#Levene’s Test
+#H0: All sample variances are equal
+#H1: At least one group has a variance that is not equal to the rest.
+forstats_gentle_operators$Garment <- as.factor(forstats_gentle_operators$Garment)
+leveneTest(Area.mm2 ~ Garment, forstats_gentle_operators) # p-value = 0.9778 equal variances
+
+# Kruskal-Wallis test 
+kruskal_test_result <- kruskal.test(Area.mm2 ~ Garment, data = forstats_gentle_operators)
+print(kruskal_test_result) # p-value = 0.5951, no differences between groups
+
+# firm pressure
+# Shapiro test
+forstats_firm_garment1 <- filter(forstats_firm_operators, Garment == "G1")
+forstats_firm_garment2 <- filter(forstats_firm_operators, Garment == "G2")
+forstats_firm_garment1 %>%
+  shapiro_test(Area.mm2) # p-value = 0.000271,  non-parametric distribution
+forstats_firm_garment2 %>%
+  shapiro_test(Area.mm2) # p-value = 0.000221, non-parametric distribution
+
+#Levene’s Test
+#H0: All sample variances are equal
+#H1: At least one group has a variance that is not equal to the rest.
+forstats_firm_operators$Garment <- as.factor(forstats_firm_operators$Garment)
+leveneTest(Area.mm2 ~ Garment, forstats_firm_operators) # p-value = 0.7416 equal variances
+
+# Kruskal-Wallis test 
+kruskal_test_result <- kruskal.test(Area.mm2 ~ Garment, data = forstats_firm_operators)
+print(kruskal_test_result) # p-value = 0.2557, no differences between groups
+
 # ------------------------------------------------------------------------
 # Section 2: Impact test
 # ------------------------------------------------------------------------
@@ -320,10 +265,10 @@ ImpactTest$Area.px <- (ImpactTest$Area*1)/0.000011
 ImpactTest$Area.mm2 <- ImpactTest$Area.px/12544
 
 ## Create different dataframes for each height
-ImpactTest_5mm <- ImpactTest %>% filter(Height == "5mm")
-ImpactTest_10mm <- ImpactTest %>% filter(Height == "10mm")
-ImpactTest_15mm <- ImpactTest %>% filter(Height == "15mm")
-ImpactTest_20mm <- ImpactTest %>% filter(Height == "20mm")
+ImpactTest_5mm <- ImpactTest %>% filter(Height == "5 mm")
+ImpactTest_10mm <- ImpactTest %>% filter(Height == "10 mm")
+ImpactTest_15mm <- ImpactTest %>% filter(Height == "15 mm")
+ImpactTest_20mm <- ImpactTest %>% filter(Height == "20 mm")
 
 # STATS
 ggplot(ImpactTest) +
@@ -335,7 +280,7 @@ ggplot(ImpactTest) +
 ggqqplot(ImpactTest_5mm, "Area.mm2", facet.by = "Height")
 ggqqplot(ImpactTest_10mm, "Area.mm2", facet.by = "Height")
 ggqqplot(ImpactTest_15mm, "Area.mm2", facet.by = "Height")
-ggqqplot(ImpactTest_20mm, "Area.mm2", facet.by = "Height")
+ggqqplot(ImpactTest_20mm, "Area.mm2", facet.by = "Height")=
 
 # H0: the population is normally distributed, i.e if the p-value is greater than 0.05, then the null hypothesis is accepted
 # H1: the population is not normally distributed, i.e if the p-value is less than or equal to 0.05, then the null hypothesis is rejected
@@ -366,7 +311,6 @@ summary(res_aov)
 post_test <- glht(res_aov, linfct = mcp(Height = "Tukey"))
 summary_post_test1 <- summary(post_test);summary_post_test1
 
-
 # descriptive statistics
 meanImpactTest <- ddply(ImpactTest, .(Height), summarise, Mean = round(mean(Area.mm2),digits = 2));meanImpactTest
 SDImpactTest <- ddply(ImpactTest, .(Height), summarise, sd = round(sd(Area.mm2),digits = 2));SDImpactTest
@@ -384,7 +328,7 @@ eliminated_ImpactTest<- subset(ImpactTest, ImpactTest$Area.mm2 > (Q[1] - 1.5*iqr
 # adding label_offset column
 meanImpactTest$label_offset <- c(-2, 2, 5, -3)
 
-pImpactTest <- ggplot(eliminated_ImpactTest, aes(x = factor(Height, levels = c('5mm', '10mm', '15mm', '20mm')), y = Area.mm2)) +
+pImpactTest <- ggplot(eliminated_ImpactTest, aes(x = factor(Height, levels = c('5 mm', '10 mm', '15 mm', '20 mm')), y = Area.mm2)) +
   geom_boxplot() +
   geom_text(data = meanImpactTest, aes(x = Height, y = Mean + label_offset, label = Mean), size = 3, vjust = -0.5, colour = "blue") +
   labs(x = "\nHeight of impact", y = expression("Shed fibre area (mm"^2*")")) +

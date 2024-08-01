@@ -596,28 +596,28 @@ for (i in 1:length(dataframes)) {
   compute_and_write_stats(dataframes[[i]], paste("Results/Statistics/Shedding Descriptive statistics - Series ", c(4, 5, 6)[i], ".csv", sep = ""))
 }
 
-# # Table for comparisons in discussion
-# # Define the weights you want to process
-# weights <- c("100g", "200g", "400g", "800g", "1000g", "2000g")
-# 
-# # Loop over each weight
-# for (weight in weights) {
-#   # Filter each dataset by the current weight and fixed wash condition
-#   Shedding_Vcotton_table <- filter(Shedding_Vcotton, Weight == weight & Wash == "W000")
-#   Shedding_VcottonD_table <- filter(Shedding_VcottonD, Weight == weight & Wash == "W000")
-#   Shedding_VcottonDC_table <- filter(Shedding_VcottonDC, Weight == weight & Wash == "W000")
-#   Shedding_5_Vcotton_table <- filter(Shedding_5_Vcotton, Weight == weight & Wash == "W000")
-#   Shedding_12_Vcotton_table <- filter(Shedding_12_Vcotton, Weight == weight & Wash == "W000")
-#   
-#   # Combine the tables
-#   Shedding_table <- rbind(Shedding_Vcotton_table, Shedding_VcottonD_table, Shedding_VcottonDC_table,Shedding_5_Vcotton_table,Shedding_12_Vcotton_table)
-#   
-#   # Construct file name based on the weight
-#   file_name <- sprintf("Results/Statistics/Shedding_table_%s.csv", gsub("g", "", weight))
-#   
-#   # Write the combined table to a CSV file
-#   write.table(Shedding_table, file = file_name, quote = FALSE, sep = ",", row.names = FALSE)
-# }
+# Table for comparisons in discussion
+# Define the weights you want to process
+weights <- c("100g", "200g", "400g", "800g", "1000g", "2000g")
+
+# Loop over each weight
+for (weight in weights) {
+  # Filter each dataset by the current weight and fixed wash condition
+  Shedding_Vcotton_table <- filter(Shedding_Vcotton, Weight == weight & Wash == "W000")
+  Shedding_VcottonD_table <- filter(Shedding_VcottonD, Weight == weight & Wash == "W000")
+  Shedding_VcottonDC_table <- filter(Shedding_VcottonDC, Weight == weight & Wash == "W000")
+  Shedding_5_Vcotton_table <- filter(Shedding_5_Vcotton, Weight == weight & Wash == "W000")
+  Shedding_12_Vcotton_table <- filter(Shedding_12_Vcotton, Weight == weight & Wash == "W000")
+
+  # Combine the tables
+  Shedding_table <- rbind(Shedding_Vcotton_table, Shedding_VcottonD_table, Shedding_VcottonDC_table,Shedding_5_Vcotton_table,Shedding_12_Vcotton_table)
+
+  # Construct file name based on the weight
+  file_name <- sprintf("Results/Statistics/Shedding_table_%s.csv", gsub("g", "", weight))
+
+  # Write the combined table to a CSV file
+  write.table(Shedding_table, file = file_name, quote = FALSE, sep = ",", row.names = FALSE)
+}
 
 #### STATS ####
 # Create the combined dataframe for statistical analysis
@@ -645,7 +645,6 @@ for (garment in garments) {
   }
 }
 
-
 # Combine all the subsets for Red with 180 rotation into one dataframe
 For_Stats_Shedding_100g <- rbind(For_Stats_Shedding_100g_1Vcotton, For_Stats_Shedding_100g_1VcottonD,For_Stats_Shedding_100g_1VcottonDC)
 For_Stats_Shedding_200g <- rbind(For_Stats_Shedding_200g_1Vcotton, For_Stats_Shedding_200g_1VcottonD,For_Stats_Shedding_200g_1VcottonDC)
@@ -654,75 +653,191 @@ For_Stats_Shedding_800g <- rbind(For_Stats_Shedding_800g_1Vcotton, For_Stats_She
 For_Stats_Shedding_1000g <- rbind(For_Stats_Shedding_1000g_1Vcotton, For_Stats_Shedding_1000g_1VcottonD,For_Stats_Shedding_1000g_1VcottonDC)
 For_Stats_Shedding_2000g <- rbind(For_Stats_Shedding_2000g_1Vcotton, For_Stats_Shedding_2000g_1VcottonD,For_Stats_Shedding_2000g_1VcottonDC)
 
-# Test of normality - shapiro test
-# List of dataframe names
-dataframe_names <- c("For_Stats_Shedding_100g","For_Stats_Shedding_200g","For_Stats_Shedding_400g",
-                     "For_Stats_Shedding_800g","For_Stats_Shedding_1000g","For_Stats_Shedding_2000g")
-# Function to perform Shapiro-Wilk test and interpret results
-perform_shapiro_test <- function(df_name) {
-  dataframe <- get(df_name)
-  test_result <- shapiro.test(dataframe$Area.mm2)
-  interpretation <- ifelse(test_result$p.value < 0.05, "Not normally distributed", "Normally distributed")
-  message(paste(df_name, "- p-value:", test_result$p.value, interpretation))
+#### STATS ####
+# List of weights to be processed
+weights <- c(100, 200, 400, 800, 1000, 2000)
+
+# Initialize an empty list to store Friedman test results
+friedman_results <- list()
+
+# Loop through each weight
+for (weight in weights) {
+  # Construct the variable name for the current weight's data
+  data_var <- get(paste0("For_Stats_Shedding_", weight, "g"))
+  
+  # Aggregate the data to get the mean Area.mm2 for each Wash and Garment combination
+  result <- aggregate(Area.mm2 ~ Wash + Garment, data = data_var, FUN = mean)
+  
+  # Get summary statistics for the aggregated data
+  result %>%
+    group_by(Garment) %>%
+    get_summary_stats(Area.mm2, type = "common")
+  
+  # Create a box plot with jittered points for the current weight's data
+  ggboxplot(result, x = "Garment", y = "Area.mm2", add = "jitter")
+  
+  # Perform the Friedman test on the aggregated data
+  res.fried <- result %>% friedman_test(Area.mm2 ~ Garment | Wash)
+  
+  # Store the Friedman test result in the list, using the weight as the key
+  friedman_results[[as.character(weight)]] <- res.fried
 }
-# Apply the function to each dataframe name
-lapply(dataframe_names, perform_shapiro_test)
-# For_Stats_Shedding_100g - p-value: 1.02873994007177e-11 Not normally distributed
-# For_Stats_Shedding_200g - p-value: 8.34126968552537e-11 Not normally distributed
-# For_Stats_Shedding_400g - p-value: 5.14663283980105e-10 Not normally distributed
-# For_Stats_Shedding_800g - p-value: 2.76486168097498e-08 Not normally distributed
-# For_Stats_Shedding_1000g - p-value: 4.44185544889641e-09 Not normally distributed
-# For_Stats_Shedding_2000g - p-value: 1.30458853700905e-07 Not normally distributed
 
-# Analysis for the normally distributed wash
-### sphericity test
-#Levene’s Test
-#H0: All sample variances are equal
-#H1: At least one group has a variance that is not equal to the rest.
-For_Stats_Shedding_100g$Garment <- as.factor(For_Stats_Shedding_100g$Garment)
-leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_100g) # p-value = 0.2216,  equal variances
+# Combine all Friedman test results into a single data frame
+For_Stats_Shedding_Friedman_Table <- do.call(rbind, friedman_results)
 
-For_Stats_Shedding_200g$Garment <- as.factor(For_Stats_Shedding_200g$Garment)
-leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_200g) # p-value = 0.1686,  equal variances
+# Add a column for the weights to the combined data frame
+For_Stats_Shedding_Friedman_Table$Weight <- names(friedman_results)
 
-For_Stats_Shedding_400g$Garment <- as.factor(For_Stats_Shedding_400g$Garment)
-leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_400g) # p-value = 0.8188,  equal variances
+# Select relevant columns for the final table
+For_Stats_Shedding_Friedman_Table <- For_Stats_Shedding_Friedman_Table %>%
+  select(Weight, statistic, p)
 
-For_Stats_Shedding_800g$Garment <- as.factor(For_Stats_Shedding_800g$Garment)
-leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_800g) # p-value = 0.6499,  equal variances
+# Rename columns for better readability
+names(For_Stats_Shedding_Friedman_Table) <- c("Weight", "Friedman_statistic", "p-value")
 
-For_Stats_Shedding_1000g$Garment <- as.factor(For_Stats_Shedding_1000g$Garment)
-leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_1000g) # p-value = 0.5355,  equal variances
+# Print the final Friedman test results table
+For_Stats_Shedding_Friedman_Table
 
-For_Stats_Shedding_2000g$Garment <- as.factor(For_Stats_Shedding_2000g$Garment)
-leveneTest(Area.mm2 ~ Garment, For_Stats_Shedding_2000g) # p-value = 0.7381,  equal variances
+#### STATS ####
+### Difference between garments
+# Function to filter data by wash and weight
+filter_data <- function(data, wash, weight) {
+  data_filtered <- filter(data, Wash == wash)
+  if (!missing(weight)) {
+    data_filtered <- filter(data_filtered, Weight == weight)
+  }
+  return(data_filtered)
+}
 
-# Analysis for the non normally distributed data
-For_Stats_Shedding_100g$Garment <- as.factor(For_Stats_Shedding_100g$Garment)
-kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_100g)#  p-value = 0.07137 NS
+# List of datasets
+datasets <- list(Shedding_Vcotton, Shedding_VcottonD, Shedding_VcottonDC, Shedding_5_Vcotton, Shedding_5_Vcotton)
 
-For_Stats_Shedding_200g$Garment <- as.factor(For_Stats_Shedding_200g$Garment)
-kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_200g)#  p-value = 0.022 *
+# Names for the datasets
+dataset_names <- c("Vcotton", "VcottonD", "VcottonDC", "5Vcotton", "12Vcotton")
 
-For_Stats_Shedding_400g$Garment <- as.factor(For_Stats_Shedding_400g$Garment)
-kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_400g)#  p-value = 0.02152 *
+# Filter datasets by wash "W000"
+filtered_datasets <- lapply(datasets, filter_data, wash = "W000")
 
-For_Stats_Shedding_800g$Garment <- as.factor(For_Stats_Shedding_800g$Garment)
-kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_800g)#  p-value = 0.1474 NS
+# Filter datasets by weight
+weights <- c("100g", "200g", "400g", "800g", "1000g", "2000g")
+filtered_by_weight <- lapply(weights, function(wt) {
+  lapply(filtered_datasets, filter_data, wash = "W000", weight = wt)
+})
 
-For_Stats_Shedding_1000g$Garment <- as.factor(For_Stats_Shedding_1000g$Garment)
-kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_1000g)#  p-value = 0.05226 NS
+# Combine filtered datasets by weight
+combined_data <- lapply(filtered_by_weight, function(weight_list) {
+  do.call(rbind, weight_list)
+})
 
-For_Stats_Shedding_2000g$Garment <- as.factor(For_Stats_Shedding_2000g$Garment)
-kruskal.test(Area.mm2 ~ Garment, data = For_Stats_Shedding_2000g)#  p-value = 0.04425 *
+# Perform Shapiro test
+shapiro_results <- lapply(combined_data, function(data) {
+  shapiro_test(data$Area.mm2)
+})
 
-For_Stats_Shedding_100g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_100g, method="bonferroni");For_Stats_Shedding_100g_Dunn
-For_Stats_Shedding_200g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_200g, method="bonferroni");For_Stats_Shedding_200g_Dunn
-For_Stats_Shedding_400g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_400g, method="bonferroni");For_Stats_Shedding_400g_Dunn
-For_Stats_Shedding_800g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_800g, method="bonferroni");For_Stats_Shedding_800g_Dunn
-For_Stats_Shedding_1000g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_1000g, method="bonferroni");For_Stats_Shedding_1000g_Dunn
-For_Stats_Shedding_2000g_Dunn <- dunnTest(Area.mm2 ~ Garment, data=For_Stats_Shedding_2000g, method="bonferroni");For_Stats_Shedding_2000g_Dunn
+# Assign names to results for clarity
+names(shapiro_results) <- paste("forstats_W000", weights, sep = "_")
 
-For_Stats_Shedding_Dunn_Table <- cbind(For_Stats_Shedding_100g_Dunn$res,For_Stats_Shedding_200g_Dunn$res,For_Stats_Shedding_400g_Dunn$res,
-                                       For_Stats_Shedding_800g_Dunn$res,For_Stats_Shedding_1000g_Dunn$res,For_Stats_Shedding_2000g_Dunn$res)
-write.table(For_Stats_Shedding_Dunn_Table, file = "Results/Statistics/Shedding_Stats_raw.csv", quote = F, sep = ",", row.names = F)
+# Display results
+shapiro_results
+forstats_W000_100$Garment <- as.factor(forstats_W000_100$Garment)
+forstats_W000_200$Garment <- as.factor(forstats_W000_200$Garment)
+forstats_W000_400$Garment <- as.factor(forstats_W000_400$Garment)
+forstats_W000_800$Garment <- as.factor(forstats_W000_800$Garment)
+forstats_W000_1000$Garment <- as.factor(forstats_W000_1000$Garment)
+forstats_W000_2000$Garment <- as.factor(forstats_W000_2000$Garment)
+
+# Kruskal-Wallis test (800g and 1000g)
+kruskal_test_result_800 <- kruskal.test(Area.mm2 ~ Garment, data = forstats_W000_800)
+print(kruskal_test_result_800) # p-value = 0.00102, differences between groups
+
+kruskal_test_result_1000 <- kruskal.test(Area.mm2 ~ Garment, data = forstats_W000_1000)
+print(kruskal_test_result_1000) # p-value = 0.008619, differences between groups
+
+# Perform Dunn's test for multiple comparisons
+dunn_test_result_800 <- dunnTest(Area.mm2 ~ Garment,data = forstats_W000_800,method = "bonferroni")
+print(dunn_test_result_800)
+
+dunn_test_result_1000 <- dunnTest(Area.mm2 ~ Garment,data = forstats_W000_1000,method = "bonferroni")
+print(dunn_test_result_1000)
+
+Table_dunn_result_800 <-dunn_test_result_800$res
+Table_dunn_result_1000 <-dunn_test_result_1000$res
+Table_dunn_results <- rbind(Table_dunn_result_800,Table_dunn_result_1000)
+write.table(Table_dunn_results, file = "Results/Statistics/Table_dunn_results_shedding differences between garments.csv", quote = F, sep = ",", row.names = F)
+
+# ANOVA
+res_aov100 <- aov(Area.mm2 ~ Garment, data = forstats_W000_100)
+summary(res_aov100) #  p-value = 0.00591 , indicating that there are statistically significant differences
+
+res_aov200 <- aov(Area.mm2 ~ Garment, data = forstats_W000_200)
+summary(res_aov200) #  p-value = 0.0114 , indicating that there are statistically significant differences
+
+res_aov400 <- aov(Area.mm2 ~ Garment, data = forstats_W000_400)
+summary(res_aov400) #  p-value = 0.000584 , indicating that there are statistically significant differences
+
+res_aov2000 <- aov(Area.mm2 ~ Garment, data = forstats_W000_2000)
+summary(res_aov2000) #  p-value = 0.00685  , indicating that there are statistically significant differences
+
+# Tukey HSD test:
+post_test100 <- glht(res_aov100, linfct = mcp(Garment = "Tukey"))
+summary_post_test100 <- summary(post_test100);summary_post_test100
+
+post_test200 <- glht(res_aov200, linfct = mcp(Garment = "Tukey"))
+summary_post_test200 <- summary(post_test200);summary_post_test200
+
+post_test400 <- glht(res_aov400, linfct = mcp(Garment = "Tukey"))
+summary_post_test400 <- summary(post_test400);summary_post_test400
+
+post_test2000 <- glht(res_aov2000, linfct = mcp(Garment = "Tukey"))
+summary_post_test2000 <- summary(post_test2000);summary_post_test2000
+
+# Save statistics tables
+dataframes <- list(
+  summary_post_test100 = summary_post_test100, 
+  summary_post_test200 = summary_post_test200,
+  summary_post_test400 = summary_post_test400, 
+  summary_post_test2000 = summary_post_test2000
+)
+
+# Create a function to compute statistics
+compute_stats <- function(df) {
+  coefficients <- df$test$coefficients
+  std_errors <- df$test$sigma
+  t_values <- df$test$tstat
+  p_values <- df$test$pvalues
+  
+  # Convert p-values to non-scientific notation
+  formatted_p_values <- formatC(p_values, format = "f", digits = 5)
+  
+  # Assign significance levels with stars
+  significance_stars <- ifelse(p_values < 0.001, "***", ifelse(p_values < 0.01, "**", ifelse(p_values < 0.05, "*", "NS")))
+  
+  datatable <- data.frame(
+    'Pairwise Comparison' = names(coefficients),
+    Estimate = coefficients,
+    'T-Value' = t_values,
+    'p-Value' = formatted_p_values,
+    'Significance' = significance_stars  # Add the new column for significance stars
+  )
+  
+  return(datatable)
+}
+
+# Compute statistics for each dataframe and add a column for the source
+combined_stats <- do.call(rbind, lapply(names(dataframes), function(name) {
+  df <- compute_stats(dataframes[[name]])
+  df$Source <- name
+  return(df)
+}))
+
+# Define the desired filename
+filename <- "Results/Statistics/Statistics_ANOVA_Shedding_difference between garments.csv"
+
+# Ensure the Results directory exists
+if (!dir.exists(dirname(filename))) {
+  dir.create(dirname(filename), recursive = TRUE)
+}
+
+# Write the combined dataframe to a CSV file
+write.table(combined_stats, file = filename, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE, fileEncoding = "UTF-8")

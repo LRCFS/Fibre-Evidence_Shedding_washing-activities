@@ -156,28 +156,3 @@ pPearson_combined
 
 # To save the graph
 ggsave("Figure 14 - Transfer VS Shedding.png", pPearson_combined, width = 8, height = 10, units = "in", dpi=600, path = "Results")
-
-# #### Final graph - Figure XXX ####
-# results_Vcotton_S$coder <- c("Shed")
-# results_Vcotton_S <-results_Vcotton_S %>% select("Wash", "Mean_Area","SD_Area", "coder")
-# names(results_Vcotton_S)<-c("Wash", "value", "sd", "coder")
-# results_Vcotton_T$coder <- c("Transferred")
-# results_Vcotton_T <-results_Vcotton_T %>% select("Transfer", "value","sd", "coder")
-# names(results_Vcotton_T)<-c("Wash", "value", "sd", "coder")
-# forplotVcotton <- rbind(results_Vcotton_S,results_Vcotton_T)
-# 
-# a = rep(c(100, 125, 150, 175, 200,225),2)
-# b = rep(c(1:6), 2)
-# plotVcotton <- ggplot(forplotVcotton, aes(x = factor(Wash, level = c('W000', 'W001', 'W003', 'W005', 'W007', 'W009', 'W011', 'W013', 'W015')),y= value, fill=coder))+
-#   geom_bar(stat="identity", position=position_dodge(),colour="black")+
-#   labs(x="\nWeight", y="Total fibre area (mm\u00b2)\n") +
-#   theme_bw(base_family = "Arial", base_size = 12) +
-#   ylim(-1,250)+
-#   scale_fill_manual(values = c(brewer.pal(9, "Greys")[c(1, 9)])) +
-#   theme(plot.title = element_text(hjust = 0.5),
-#         legend.title = element_blank(),
-#         legend.position = "bottom",
-#         axis.text.x = element_text(angle = 0, vjust = 0.95, hjust=0.5))+
-#   geom_errorbar(aes(ymin=value-sd, ymax=value+sd),width=.2,position=position_dodge(.9))
-# # ggsave("Shedding_5_Vcotton.png", pSH_5_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
-# plotVcotton
