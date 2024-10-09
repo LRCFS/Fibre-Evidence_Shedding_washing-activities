@@ -4,7 +4,7 @@
 
 # This R script is the first step to export all the data needed to generate the figure in the article.
 # This includes the data from: 
-# 1. Impact test, Repeated Contact and Hand pressure
+# 1. Manual pressure, Impact test and Repeated Contact 
 # 2. Shedding data from washed garments
 # 3. Transfer experiments 
   # 3-1. First Series - 1 v-cotton garment, no detergent, no softener

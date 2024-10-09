@@ -3,6 +3,8 @@
 #############################################################
 
 # This R script is to generate the figures related to the Transfer experiments:
+# 1. Transfer - Washing series
+# 2. Transfer - statistics
 
 # ------------------------------------------------------------------------
 # Section 1: Transfer - Washing series
@@ -65,12 +67,13 @@ compute_and_write_stats <- function(df, filename) {
   write.table(datatable, file = filename, sep = ",", fileEncoding = "UTF-8")
 }
 
+
 # Loop through the dataframes and compute/write statistics
 for (i in 1:length(dataframes)) {
   compute_and_write_stats(dataframes[[i]], paste("Results/Statistics/Transfer Descriptive statistics - Series ", c(1, 2, 3, 4, 5, 6)[i], ".csv", sep = ""))
 }
 
-#### Final graph - Figure XXX #### 
+#### Final graph - Figure 13 #### 
 # data from the series involving Washing a single donor garment
 n=15
 numS <- data.frame(setdiff(0:n, c(8,10,12,14)))
@@ -118,7 +121,7 @@ Toplot$value <- as.numeric(Toplot$value)
 Toplot$group <- as.factor(Toplot$group)
 
 # Set up a PNG device
-png("./Results/Figure 12 - Transfer 1st to 3rd series.png", width = 2400, height = 2100, res = 300)
+png("./Results/Figure 13 - Transfer 1st to 3rd series.png", width = 2400, height = 2100, res = 300)
 
 # Adjust the margins (bottom, left, top, right)
 par(mar = c(5, 4, 1, 2))  # Adjust the top margin to be smaller
@@ -160,25 +163,10 @@ lines(splineVcottonD$x, splineVcottonD$y, col = 'black', lty=lty_values[2])
 splineVcottonDC <- spline(Toplot$Transfer[Toplot$group == "Detergent and conditioner"], Toplot$value[Toplot$group == "Detergent and conditioner"], n = 200)
 lines(splineVcottonDC$x, splineVcottonDC$y, col = 'black', lty=lty_values[3])
 
-# # Error bars for "No detergent, no conditioner"
-# with(subset(Toplot, group == "No detergent, no conditioner"), {
-#   arrows(Transfer, value - sd, Transfer, value + sd, angle = 90, code = 3, length = 0.05, col = "black")
-# })
-# 
-# # Error bars for "Detergent, no conditioner"
-# with(subset(Toplot, group == "Detergent, no conditioner"), {
-#   arrows(Transfer, value - sd, Transfer, value + sd, angle = 90, code = 3, length = 0.05, col = "black")
-# })
-# 
-# # Error bars for "Detergent and conditioner"
-# with(subset(Toplot, group == "Detergent and conditioner"), {
-#   arrows(Transfer, value - sd, Transfer, value + sd, angle = 90, code = 3, length = 0.05, col = "black")
-# })
-
 # End the plot device
 dev.off()
 
-#### Final graph - Figure XXX #### 
+#### Final graph - Figure 14 #### 
 # data from the series involving Washing a single r-cotton donor garment
 n=51
 numS <- data.frame(setdiff(0:n, c()))
@@ -210,7 +198,7 @@ meanAtrRcotton <- aggregate(value ~ Wash, Transfer_Rcotton, function(x) round(me
 SDAtrRcotton <- aggregate(value ~ Wash, Transfer_Rcotton, function(x) round(sd(x), digits = 3))
 forplotTotRcotton <- data.frame(cbind(numS, value =meanAtrRcotton$value))
 names(forplotTotRcotton) <- c("Transfer", "value")
-forplotTotRcotton$group <- c("R-cotton textile")
+forplotTotRcotton$group <- c("r-cotton textile")
 
 # Combined all data
 Toplot <- rbind(forplotTot5_Vcotton, forplotTot12_Vcotton, forplotTotRcotton)
@@ -220,9 +208,8 @@ Toplot$Transfer <- as.numeric(Toplot$Transfer)
 Toplot$value <- as.numeric(Toplot$value)
 Toplot$group <- as.factor(Toplot$group)
 
-#### Final graph - Figure XXX ####
 # Set up a PNG device
-png("./Results/Figure 13 - Transfer 4th to 6th.png", width = 2400, height = 2100, res = 300)
+png("./Results/Figure 14 - Transfer 4th to 6th.png", width = 2400, height = 2100, res = 300)
 
 # Adjust the margins (bottom, left, top, right)
 par(mar = c(5, 4, 1, 2))  # Adjust the top margin to be smaller
@@ -232,7 +219,7 @@ pch_values <- c(1, 2, 3)  # Different shapes: 1 = circle, 2 = triangle, 3 = plus
 lty_values <- c(1, 2, 3)  # Different line types: 1 = solid, 2 = dashed, 3 = dotted
 
 # Initial plot with first group only, to establish plot parameters
-plot(Toplot$Transfer[Toplot$group == "R-cotton textile"], Toplot$value[Toplot$group == "R-cotton textile"],
+plot(Toplot$Transfer[Toplot$group == "r-cotton textile"], Toplot$value[Toplot$group == "r-cotton textile"],
      col="black", pch=pch_values[3],
      xlab='\nWash number',
      ylab='Average area of transferred fibres',
@@ -251,11 +238,11 @@ points(Toplot$Transfer[Toplot$group == "12 v-cotton garment"], Toplot$value[Topl
 axis(1, at=seq(0, max(Toplot$Transfer), by=1), las=1, cex.axis = 1.2)
 
 # Add legend
-legend("topright", legend=c("5 v-cotton garment", "12 v-cotton garment","R-cotton textile"),
+legend("topright", legend=c("5 v-cotton garment", "12 v-cotton garment","r-cotton textile"),
        col="black", pch=pch_values, lty=lty_values, cex=1.2)
 
 # Predict and plot smooth curves with different line types
-spline5_Vcotton <- spline(Toplot$Transfer[Toplot$group == "R-cotton textile"], Toplot$value[Toplot$group == "R-cotton textile"], n = 200)
+spline5_Vcotton <- spline(Toplot$Transfer[Toplot$group == "r-cotton textile"], Toplot$value[Toplot$group == "r-cotton textile"], n = 200)
 lines(spline5_Vcotton$x, spline5_Vcotton$y, col = 'black', lty=lty_values[3])
 
 spline12_Vcotton <- spline(Toplot$Transfer[Toplot$group == "5 v-cotton garment"], Toplot$value[Toplot$group == "5 v-cotton garment"], n = 200)
@@ -266,7 +253,6 @@ lines(splineRcotton$x, splineRcotton$y, col = 'black', lty=lty_values[2])
 
 # End the plot device
 dev.off()
-
 
 # ------------------------------------------------------------------------
 # Section 2: Transfer - statistics

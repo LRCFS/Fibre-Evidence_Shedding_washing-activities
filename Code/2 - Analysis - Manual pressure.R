@@ -1,12 +1,11 @@
 ##########################################################################
 #####                  Analysis - Shedding Part 1                    #####
 ##########################################################################
-# This R script is to generate the figures related to the primarily test
-
-# 1: Hand pressure test
-# 2: Impact test
-# 3: Repeated Contact
-# 4: save statistic tables
+# This R script is to generate the figures related to:
+# 1. Hand pressure test
+# 2. Impact test
+# 3. Repeated Contact
+# 4. save statistic tables
 
 # ------------------------------------------------------------------------
 # Section 1: Hand pressure test
@@ -16,8 +15,6 @@
 Handpressure$Area.px <- (Handpressure$Area*1)/0.000011
 # scale of the image: 1 mm = 110 pixels, 1mm2 = 12100 px
 Handpressure$Area.mm2 <- Handpressure$Area.px/12100
-
-write.table(Handpressure, file = "Results/For Pat/Handpressure.csv", quote = F, sep = ",", row.names = F)
 
 ## Create different dataframes for each participant
 Handpressure_O1 <- Handpressure %>% filter(Operator == "Operator 1")
@@ -122,7 +119,7 @@ pfirm <- pfirm + geom_text(data = overall_stats2, aes(x = 0, y = Inf, label = sp
                            hjust = -0.3, vjust = 2, size = 3.5, color = "navy", inherit.aes = FALSE)
 pfirm
 
-#### Final graph - Figure 6 #### 
+#### Final graph - Figure 7 #### 
 # Modify each pSH_GX plot to adjust legend key size and labels
 pgentle <- pgentle + theme(plot.title = element_text(hjust = 0.5))
 pfirm <- pfirm + theme(plot.title = element_text(hjust = 0.5))
@@ -143,7 +140,7 @@ pCombinedHP <- annotate_figure(pCombinedHP_pending, left = textGrob("Shed fibre 
 pCombinedHP
 
 # to save the graph
-ggsave("Figure 6 - Shedding with operators.png", pCombinedHP, width =8, height = 7, units = "in", dpi=600,path = "Results")
+ggsave("Figure 7 - Shedding with manual pressure.png", pCombinedHP, width =8, height = 7, units = "in", dpi=600,path = "Results")
 
 ### Difference between operators
 # Gentle pressure
@@ -270,7 +267,7 @@ ImpactTest_10mm <- ImpactTest %>% filter(Height == "10 mm")
 ImpactTest_15mm <- ImpactTest %>% filter(Height == "15 mm")
 ImpactTest_20mm <- ImpactTest %>% filter(Height == "20 mm")
 
-# STATS
+#### STATS ####
 ggplot(ImpactTest) +
   aes(x = Height, y = Area.mm2, color = Height) +
   geom_jitter() +
@@ -280,7 +277,7 @@ ggplot(ImpactTest) +
 ggqqplot(ImpactTest_5mm, "Area.mm2", facet.by = "Height")
 ggqqplot(ImpactTest_10mm, "Area.mm2", facet.by = "Height")
 ggqqplot(ImpactTest_15mm, "Area.mm2", facet.by = "Height")
-ggqqplot(ImpactTest_20mm, "Area.mm2", facet.by = "Height")=
+ggqqplot(ImpactTest_20mm, "Area.mm2", facet.by = "Height")
 
 # H0: the population is normally distributed, i.e if the p-value is greater than 0.05, then the null hypothesis is accepted
 # H1: the population is not normally distributed, i.e if the p-value is less than or equal to 0.05, then the null hypothesis is rejected
@@ -318,6 +315,7 @@ stats <- ImpactTest %>%
   group_by(Height) %>%
   summarise(Mean = mean(Area.mm2), SD = sd(Area.mm2));stats
 
+#### Final graph - Figure 8 ####
 #removing outliers
 iqr <- IQR(ImpactTest$Area.mm2)
 Q <- quantile(ImpactTest$Area.mm2, probs=c(.25, .75), na.rm = FALSE)
@@ -341,7 +339,7 @@ pImpactTest <- ggplot(eliminated_ImpactTest, aes(x = factor(Height, levels = c('
 pImpactTest
 
 # to save the graph
-ggsave("Figure 7 - Impact test.png", pImpactTest, width = 6, height = 5, units = "in", dpi=600, path = "Results/")
+ggsave("Figure 8 - Impact test.png", pImpactTest, width = 6, height = 5, units = "in", dpi=600, path = "Results/")
 
 # ------------------------------------------------------------------------
 # Section 3: Repeated Contact
@@ -360,7 +358,7 @@ RepeatedContact_R4 <- RepeatedContact %>% filter(Repeat == "R4")
 RepeatedContact_R5 <- RepeatedContact %>% filter(Repeat == "R5")
 RepeatedContact_R6 <- RepeatedContact %>% filter(Repeat == "R6")
 
-# STATS
+#### STATS ####
 ggplot(RepeatedContact) +
   aes(x = Repeat, y = Area.mm2, color = Repeat) +
   geom_jitter() +
@@ -412,6 +410,7 @@ stats <- RepeatedContact %>%
   group_by(Repeat) %>%
   summarise(Mean = mean(Area.mm2), SD = sd(Area.mm2));stats
 
+#### Final graph - Figure 9 ####
 # removing outliers
 iqr <- IQR(RepeatedContact$Area.mm2)
 Q <- quantile(RepeatedContact$Area.mm2, probs=c(.25, .75), na.rm = FALSE)
@@ -435,7 +434,7 @@ pRepeatedContact <- ggplot(eliminated_RepeatedContact, aes(x = factor(Repeat, le
 pRepeatedContact
 
 # to save the graph
-ggsave("Figure 8 - Repeated contact test.png", pRepeatedContact, width = 6, height = 5, units = "in", dpi=600, path = "Results/")
+ggsave("Figure 9 - Repeated contact test.png", pRepeatedContact, width = 6, height = 5, units = "in", dpi=600, path = "Results/")
 
 # ------------------------------------------------------------------------
 # Section 4: save statistic tables

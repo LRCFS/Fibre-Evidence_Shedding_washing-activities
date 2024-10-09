@@ -1,12 +1,14 @@
 ###########################################################################
 
-# Exploring the influence of washing activities on the transfer and persistence of fibres in forensic science
+# Enhancing forensic analysis: introducing a novel method for assessing the shedding capacity of garments
+# Virginie Galais(1)*, Stephanie Wilson(2), Patricia Dugard(1), Chris Gannicliffe(3), Bronagh Murphy(2), Niamh Nic Daéid(1), Hervé Ménard(1) 
+# (1) Leverhulme Research Centre for Forensic Science, Department of Science and Engineering, University of Dundee, Dundee, DD1 4HN, UK
+# (2) Centre for Forensic Science, Department of Pure and Applied Chemistry, University of Strathclyde, G1 1XW, UK
+# (3) Scottish Police Authority Forensic Services, Aberdeen Laboratory, Aberdeen, AB24 5EQ, UK
+# * Correspondence: vgalais001@dundee.ac.uk 
 
-# Virginie Galais (1*), Stephanie Wilson (3),Chris Gannicliffe (2), Patricia Dugard (1), Bronagh Murphy(3), Niamh Nic Daéid (1), Hervé Ménard (1) 
-# (1) Leverhulme Research Centre for Forensic Science, University of Dundee, Dundee, DD1 4HN, UK
-# (2) Scottish Police Authority Forensic Services, Aberdeen Laboratory, Aberdeen, AB24 5EQ, UK
-# (3) Centre for Forensic Science, University of Strathclyde, Glasgow, G1 1XW, UK
-# *Correspondence: vgalais001@dundee.ac.uk 
+# Keywords: Forensic science, Fiber, Shedding, Washing, Transfer, Automated data collection
+
 
 # Website: https://github.com/LRCFS/
 # Contact: lrc@dundee.ac.uk
@@ -52,7 +54,6 @@ library(MASS)
 library(psych)
 library(car)
 library(multcomp)
-library(plotly)
 library(patchwork)
 library(FSA)
 library(Matrix)
@@ -82,7 +83,8 @@ Results.dir <- "Results/"
 #############################################################
 # This codes can be run subsequently
 source("Code/1 - Data upload.R")
-# source("Code/2 - Analysis - Impact test.R")
-# source("Code/3 - Analysis - Shedding.R")
-# source("Code/4 - Analysis - Transfer area.R")
+source("Code/2 - Analysis - Manual pressure.R")
+source("Code/3 - Analysis - Shedding.R")
+source("Code/4 - Analysis - Transfer area.R")
+source("Code/5 - Analysis - Shedding VS Transfer.R")
 

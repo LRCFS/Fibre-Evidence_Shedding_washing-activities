@@ -2,8 +2,21 @@
 #####                    SHEDDING                   #####
 #########################################################
 
+# This R script is to generate the figures related to:
+# 1. Shedding data
+  # 1-1. First Series - 1 v-cotton garment, no detergent, no softener
+  # 1-2. Second Series - 1 v-cotton garment, detergent, no softener
+  # 1-3. Third Series - 1 v-cotton garment, detergent, softener
+  # 1-4. Fourth Series - 5 v-cotton garments, no detergent, no softener
+  # 1-5. Fifth Series - 12 garments, no detergent, no softener
+  # 1-6. Sixth Series - 1 r-cotton textile, no detergent, no softener
+# 2.Comparisons between washing conditions
+# 3. Statistics
 # ------------------------------------------------------------------------
-# Section 1: Garment 1
+# Section 1: Shedding data
+# ------------------------------------------------------------------------
+# ------------------------------------------------------------------------
+# Section 1-1: First Series - 1 v-cotton garment, no detergent, no softener
 # ------------------------------------------------------------------------
 #### Data Cleaning and Processing ####
 # Convert Area from inch2 to mm2
@@ -71,7 +84,7 @@ pSH_Vcotton <- ggplot(results_shedding_Vcotton, aes(x = factor(Weight, level = c
 # ggsave("Shedding_Vcotton.png", pSH_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 
 # ------------------------------------------------------------------------
-# Section 2: Garment 2
+# Section 1-2: Second Series - 1 v-cotton garment, detergent, no softener
 # ------------------------------------------------------------------------
 #### Data Cleaning and Processing ####
 # Convert Area from inch2 to mm2
@@ -139,7 +152,7 @@ pSH_VcottonD <- ggplot(results_Shedding_VcottonD, aes(x = factor(Weight, level =
 # ggsave("Shedding_VcottonD.png", pSH_VcottonD, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 
 # ------------------------------------------------------------------------
-# Section 3: Garment 3
+# Section 1-3: Third Series - 1 v-cotton garment, detergent, softener
 # ------------------------------------------------------------------------
 #### Data Cleaning and Processing ####
 # Convert Area from inch2 to mm2
@@ -207,7 +220,7 @@ pSH_VcottonDC <- ggplot(results_Shedding_VcottonDC, aes(x = factor(Weight, level
 # ggsave("Shedding_VcottonDC.png", pSH_VcottonDC, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 
 # ------------------------------------------------------------------------
-# Section 4: 4th series 
+# Section 1-4: Fourth Series - 5 v-cotton garments, no detergent, no softener
 # ------------------------------------------------------------------------
 #### Data Cleaning and Processing ####
 # Convert Area from inch2 to mm2
@@ -300,7 +313,7 @@ pSH_5_Vcotton <- ggplot(results_shedding_5_Vcotton, aes(x = factor(Weight, level
 #ggsave("Shedding_5_Vcotton.png", pSH_5_Vcotton, width = 10, height = 9, units = "in", dpi=300, path = "Results")
 pSH_5_Vcotton
 # ------------------------------------------------------------------------
-# Section 5: Garment 5
+# Section 1-5: Fifth Series - 12 garments, no detergent, no softener
 # ------------------------------------------------------------------------
 #### Data Cleaning and Processing ####
 # Convert Area from inch2 to mm2
@@ -397,7 +410,7 @@ pSH_12_Vcotton <- ggplot(results_shedding_12_Vcotton_bis, aes(x = factor(Weight,
 pSH_12_Vcotton
 
 # ------------------------------------------------------------------------
-# Section 6: 6th series 
+# Section 1-6: Sixth Series - 1 r-cotton textile, no detergent, no softener
 # ------------------------------------------------------------------------
 #### Data Cleaning and Processing ####
 # Convert Area from inch2 to mm2
@@ -491,8 +504,9 @@ pSH_Rcotton <- ggplot(results_shedding_Rcotton, aes(x = factor(Weight, level = c
 pSH_Rcotton
 
 # ------------------------------------------------------------------------
-# Section 5: Comparisons between washing conditions
+# Section 2: Comparisons between washing conditions
 # ------------------------------------------------------------------------
+#### Data Cleaning and Processing ####
 # Modify each pSH_GX plot to adjust legend key size and labels
 pSH_Vcotton <- pSH_Vcotton + theme(legend.text = element_text(size = 12)  # Adjust the horizontal space between legend keys
 )
@@ -502,7 +516,7 @@ pSH_VcottonDC <- pSH_VcottonDC + theme(legend.text = element_text(size = 12) # A
 )
 # pSH_5_Vcotton <- pSH_5_Vcotton + theme(legend.text = element_text(size = 12)  # Adjust the horizontal space between legend keys
 # )
-#### Final graph - Figure XXX #### 
+#### Final graph - Figure 11 #### 
 pCombinedSH_pending <- ggarrange(pSH_Vcotton+ rremove("ylab") + rremove("xlab"),
                                  pSH_VcottonD+ rremove("ylab") + rremove("xlab"),
                                  pSH_VcottonDC+ rremove("ylab") + rremove("xlab"),
@@ -519,10 +533,9 @@ pCombinedSH <- annotate_figure(pCombinedSH_pending, left = textGrob("Shed fibre 
 pCombinedSH
 
 # to save the graph
-ggsave("Figure 10 - Shedding 1st to 3rd series.png", pCombinedSH, width =8, height = 10, units = "in", dpi=600,path = "Results")
+ggsave("Figure 11 - Shedding 1st to 3rd series.png", pCombinedSH, width =8, height = 10, units = "in", dpi=600,path = "Results")
 
-
-#### Final graph - Figure XXX #### 
+#### Final graph - Figure 12 #### 
 pSH_5_Vcotton <- pSH_5_Vcotton + theme(plot.title = element_text(hjust = 0.5))
 pSH_12_Vcotton <- pSH_12_Vcotton + theme(plot.title = element_text(hjust = 0.5))
 pSH_Rcotton <- pSH_Rcotton + theme(plot.title = element_text(hjust = 0.5))
@@ -543,7 +556,7 @@ pCombinedSH2 <- annotate_figure(pCombinedSH_pendinVcottonD, left = textGrob("She
 pCombinedSH2
 
 # to save the graph
-ggsave("Figure 11 - Shedding 4th to 6th series.png", pCombinedSH2, width =7, height = 10, units = "in", dpi=600,path = "Results")
+ggsave("Figure 12 - Shedding 4th to 6th series.png", pCombinedSH2, width =7, height = 10, units = "in", dpi=600,path = "Results")
 
 #### EXPORT TABLE FOR ARTICLE ####
 # Create a list of dataframes
@@ -619,8 +632,10 @@ for (weight in weights) {
   write.table(Shedding_table, file = file_name, quote = FALSE, sep = ",", row.names = FALSE)
 }
 
-#### STATS ####
-# Create the combined dataframe for statistical analysis
+# ------------------------------------------------------------------------
+# Section 3: Statistics
+# ------------------------------------------------------------------------
+#### Create the combined dataframe for statistical analysis ####
 For_Stats <- rbind(Shedding_Vcotton, Shedding_VcottonD, Shedding_VcottonDC)
 
 # Function to create a subset of For_Stats data based on weight pattern and garment
@@ -653,7 +668,7 @@ For_Stats_Shedding_800g <- rbind(For_Stats_Shedding_800g_1Vcotton, For_Stats_She
 For_Stats_Shedding_1000g <- rbind(For_Stats_Shedding_1000g_1Vcotton, For_Stats_Shedding_1000g_1VcottonD,For_Stats_Shedding_1000g_1VcottonDC)
 For_Stats_Shedding_2000g <- rbind(For_Stats_Shedding_2000g_1Vcotton, For_Stats_Shedding_2000g_1VcottonD,For_Stats_Shedding_2000g_1VcottonDC)
 
-#### STATS ####
+#### Friedman test - Shedding 1st to 3rd series ####
 # List of weights to be processed
 weights <- c(100, 200, 400, 800, 1000, 2000)
 
@@ -699,7 +714,7 @@ names(For_Stats_Shedding_Friedman_Table) <- c("Weight", "Friedman_statistic", "p
 # Print the final Friedman test results table
 For_Stats_Shedding_Friedman_Table
 
-#### STATS ####
+#### ANOVA test and Kruskal-Wallis Test- Shedding 4th to 6th series ####
 ### Difference between garments
 # Function to filter data by wash and weight
 filter_data <- function(data, wash, weight) {
@@ -740,6 +755,20 @@ names(shapiro_results) <- paste("forstats_W000", weights, sep = "_")
 
 # Display results
 shapiro_results
+
+# New data frames
+df_names <- c("forstats_W000_100", "forstats_W000_200", "forstats_W000_400", 
+              "forstats_W000_800", "forstats_W000_1000", "forstats_W000_2000")
+
+# Iterate through filtered_by_weight, bind rows of the list elements and assign them as dataframes
+for (i in seq_along(filtered_by_weight)) {
+  # Combine the list of data frames into one data frame
+  combined_df <- do.call(rbind, filtered_by_weight[[i]])
+  
+  # Assign the combined data frame to the respective variable name
+  assign(df_names[i], combined_df)
+}
+
 forstats_W000_100$Garment <- as.factor(forstats_W000_100$Garment)
 forstats_W000_200$Garment <- as.factor(forstats_W000_200$Garment)
 forstats_W000_400$Garment <- as.factor(forstats_W000_400$Garment)

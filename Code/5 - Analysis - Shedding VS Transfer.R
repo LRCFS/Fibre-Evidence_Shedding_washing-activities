@@ -2,6 +2,10 @@
 #####             SHEDDING VS TRANSFER              #####
 #########################################################
 
+# This R script is to generate the figures related to the comparison between the Shedding and the Transfer experiments:
+# 1. Pearson correlation
+# 2. Transfer - statistics
+
 # ------------------------------------------------------------------------
 # Section 1: Pearson correlation
 # ------------------------------------------------------------------------
@@ -138,7 +142,7 @@ PearsonFW_VcottonDC <- ggscatter(PearsonVcottonDC, x = "Shed", y = "Transferred"
                           cor.coeff.args = list(method = "pearson", label.x = 20,label.y = 0.22, label.sep = "\n"))
 PearsonFW_VcottonDC                
 
-#### Final graph - Figure XXX ####
+#### Final graph - Figure 15 ####
 PearsonFW_Vcotton <- PearsonFW_Vcotton + theme(plot.margin = margin(t = 20, l = 20, r = 20, unit = "pt"))
 PearsonFW_VcottonD <- PearsonFW_VcottonD + theme(plot.margin = margin(t = 20, l = 20, r = 20, unit = "pt"))
 PearsonFW_VcottonDC <- PearsonFW_VcottonDC + theme(plot.margin = margin(t = 20, l = 20, r = 20, unit = "pt"))
@@ -155,4 +159,5 @@ pPearson_combined <- annotate_figure(pPearson_combined_pending, left = textGrob(
 pPearson_combined
 
 # To save the graph
-ggsave("Figure 14 - Transfer VS Shedding.png", pPearson_combined, width = 8, height = 10, units = "in", dpi=600, path = "Results")
+ggsave("Figure 15 - Transfer VS Shedding.png", pPearson_combined, width = 8, height = 10, units = "in", dpi=600, path = "Results")
+

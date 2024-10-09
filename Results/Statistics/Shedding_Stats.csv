@@ -1,8 +1,0 @@
-,100g,,,,200g,,,,400g,,,,800g,,,,1000g,,,,2000g,,,
-Sharpiro test ,1.03E-11,,Not normally distributed,,8.34E-11,,Not normally distributed,,5.15E-10,,Not normally distributed,,2.76E-08,,Not normally distributed,,4.44E-09,,Not normally distributed,,1.30E-07,,Not normally distributed,
-Levene’s Test,0.2216,,equal variances,,0.1686,,equal variances,,0.8188,,equal variances,,0.6499,,equal variances,,0.5355,,equal variances,,0.7381,,equal variances,
-kruskal.test,0.07137,,NS,,0.022,,*,,0.02152,,*,,0.1474,,NS,,0.05226,,NS,,0.04425,,*,
-Dunn's Test,Comparison,Z,P.unadj,P.adj,Comparison,Z,P.unadj,P.adj,Comparison,Z,P.unadj,P.adj,Comparison,Z,P.unadj,P.adj,Comparison,Z,P.unadj,P.adj,Comparison,Z,P.unadj,P.adj
-,1Vcotton - 1VcottonD,-0.221,0.825,1.000,1Vcotton - 1VcottonD,-1.021,0.307,0.921,1Vcotton - 1VcottonD,-1.793,0.073,0.219,1Vcotton - 1VcottonD,-1.372,0.170,0.510,1Vcotton - 1VcottonD,-2.258,0.024,0.072,1Vcotton - 1VcottonD,-1.719,0.086,0.257
-,1Vcotton - 1VcottonDC,-2.091,0.037,0.110,1Vcotton - 1VcottonDC,-2.734,0.006,0.019,1Vcotton - 1VcottonDC,-2.726,0.006,0.019,1Vcotton - 1VcottonDC,-1.894,0.058,0.174,1Vcotton - 1VcottonDC,-1.905,0.057,0.170,1Vcotton - 1VcottonDC,-2.428,0.015,0.046
-,1VcottonD - 1VcottonDC,-1.870,0.061,0.184,1VcottonD - 1VcottonDC,-1.713,0.087,0.260,1VcottonD - 1VcottonDC,-0.932,0.351,1.000,1VcottonD - 1VcottonDC,-0.523,0.601,1.000,1VcottonD - 1VcottonDC,0.353,0.724,1.000,1VcottonD - 1VcottonDC,-0.709,0.478,1.000
