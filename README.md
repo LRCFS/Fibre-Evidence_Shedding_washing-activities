@@ -2,7 +2,16 @@
 
 This repository contains R scripts used for analysing the data from a study investigating the shedding of fibres from garments during washing activities. The aim of the study is to understand the relationship between washing activities and the amount of fibres released into wastewater, as well as fibres transferred between garments. The repository is structured to allow for reproducible analysis and figure generation, providing insight into forensic textile analysis.
 
-Repository Contents
+0 - Global Script (Global.R)
+This is the primary script that needs to be run first. It automatically calls and executes all the other scripts in the correct sequence:
+Data upload
+Manual pressure analysis
+Shedding analysis
+Transfer area analysis
+Shedding vs transfer comparison
+Make sure to start by running the Global.R script to ensure the correct data is loaded and processed. This will handle the automatic execution of all other scripts, ensuring the analyses are performed in the proper order.
+
+
 The repository contains the following R scripts, each focusing on a different aspect of the study:
 
 1 - Data Upload.R:
