@@ -1,4 +1,5 @@
 # Enhancing forensic analysis: introducing a novel method for assessing the shedding capacity of garments
+[![DOI](https://zenodo.org/badge/639376806.svg)](https://doi.org/10.5281/zenodo.13907730)
 
 This repository contains R scripts used for analysing the data from a study investigating the shedding of fibres from garments during washing activities. The aim of the study is to understand the relationship between washing activities and the amount of fibres released into wastewater, as well as fibres transferred between garments. The repository is structured to allow for reproducible analysis and figure generation, providing insight into forensic textile analysis.
 
