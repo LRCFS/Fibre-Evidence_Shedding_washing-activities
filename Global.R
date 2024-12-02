@@ -1,6 +1,6 @@
 ###########################################################################
 
-# Enhancing forensic analysis: introducing a novel method for assessing the shedding capacity of garments
+# A novel method for assessing the shedding of fibre in forensic science: investigating the effects of washing
 # Virginie Galais(1)*, Stephanie Wilson(2), Patricia Dugard(1), Chris Gannicliffe(3), Bronagh Murphy(2), Niamh Nic Daéid(1), Hervé Ménard(1) 
 # (1) Leverhulme Research Centre for Forensic Science, Department of Science and Engineering, University of Dundee, Dundee, DD1 4HN, UK
 # (2) Centre for Forensic Science, Department of Pure and Applied Chemistry, University of Strathclyde, G1 1XW, UK
@@ -87,4 +87,3 @@ source("Code/2 - Analysis - Manual pressure.R")
 source("Code/3 - Analysis - Shedding.R")
 source("Code/4 - Analysis - Transfer area.R")
 source("Code/5 - Analysis - Shedding VS Transfer.R")
-

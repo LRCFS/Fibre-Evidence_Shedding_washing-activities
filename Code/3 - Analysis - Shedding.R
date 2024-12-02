@@ -22,7 +22,7 @@
 # Convert Area from inch2 to mm2
 # 1 pixel = 1 x10^-5 inch2, so (Area*1)/0.000011 to convert into px
 Shedding_Vcotton$Area.px <- (Shedding_Vcotton$Area*1)/0.000011
-# scale of the image: 1 mm = 110 pixels, 1mm2 = 12544 px
+# scale of the image: 1 mm = 110 pixels, 1mm2 = 12100 px
 Shedding_Vcotton$Area.mm2 <- Shedding_Vcotton$Area.px/12100
 
 # Create different dataframes for each wash
@@ -726,7 +726,7 @@ filter_data <- function(data, wash, weight) {
 }
 
 # List of datasets
-datasets <- list(Shedding_Vcotton, Shedding_VcottonD, Shedding_VcottonDC, Shedding_5_Vcotton, Shedding_5_Vcotton)
+datasets <- list(Shedding_Vcotton, Shedding_VcottonD, Shedding_VcottonDC, Shedding_5_Vcotton, Shedding_12_Vcotton)
 
 # Names for the datasets
 dataset_names <- c("Vcotton", "VcottonD", "VcottonDC", "5Vcotton", "12Vcotton")
@@ -778,10 +778,10 @@ forstats_W000_2000$Garment <- as.factor(forstats_W000_2000$Garment)
 
 # Kruskal-Wallis test (800g and 1000g)
 kruskal_test_result_800 <- kruskal.test(Area.mm2 ~ Garment, data = forstats_W000_800)
-print(kruskal_test_result_800) # p-value = 0.00102, differences between groups
+print(kruskal_test_result_800) # p-value = 0.003707, differences between groups
 
 kruskal_test_result_1000 <- kruskal.test(Area.mm2 ~ Garment, data = forstats_W000_1000)
-print(kruskal_test_result_1000) # p-value = 0.008619, differences between groups
+print(kruskal_test_result_1000) # p-value = 0.01467, differences between groups
 
 # Perform Dunn's test for multiple comparisons
 dunn_test_result_800 <- dunnTest(Area.mm2 ~ Garment,data = forstats_W000_800,method = "bonferroni")
@@ -797,16 +797,16 @@ write.table(Table_dunn_results, file = "Results/Statistics/Table_dunn_results_sh
 
 # ANOVA
 res_aov100 <- aov(Area.mm2 ~ Garment, data = forstats_W000_100)
-summary(res_aov100) #  p-value = 0.00591 , indicating that there are statistically significant differences
+summary(res_aov100) #  p-value = 0.00347 , indicating that there are statistically significant differences
 
 res_aov200 <- aov(Area.mm2 ~ Garment, data = forstats_W000_200)
-summary(res_aov200) #  p-value = 0.0114 , indicating that there are statistically significant differences
+summary(res_aov200) #  p-value = 0.00307 , indicating that there are statistically significant differences
 
 res_aov400 <- aov(Area.mm2 ~ Garment, data = forstats_W000_400)
-summary(res_aov400) #  p-value = 0.000584 , indicating that there are statistically significant differences
+summary(res_aov400) #  p-value = 0.00147 , indicating that there are statistically significant differences
 
 res_aov2000 <- aov(Area.mm2 ~ Garment, data = forstats_W000_2000)
-summary(res_aov2000) #  p-value = 0.00685  , indicating that there are statistically significant differences
+summary(res_aov2000) #  p-value = 0.0135   , indicating that there are statistically significant differences
 
 # Tukey HSD test:
 post_test100 <- glht(res_aov100, linfct = mcp(Garment = "Tukey"))
